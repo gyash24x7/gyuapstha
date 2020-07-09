@@ -4,10 +4,10 @@
 	left: 0;
 	right: 0;
 	height: 40px;
-	padding: 20px 30px;
+	padding: 30px;
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	z-index: 2;
 }
 
 .logo {
@@ -22,4 +22,65 @@
 
 .dark-mode-toggle {
 	cursor: pointer;
+}
+
+.social {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
+
+.left-nav {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	padding-left: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	width: 40px;
+	z-index: 1;
+}
+
+.right-nav {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	padding-right: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	width: 40px;
+	z-index: 1;
+	align-items: center;
+}
+
+.right-nav a {
+	writing-mode: vertical-lr;
+	text-decoration: none;
+}
+
+.left-nav::after {
+	content: "";
+	display: block;
+	width: 2px;
+	height: 120px;
+	border-radius: 2px;
+	margin: 0px 19px;
+	margin-top: 15px;
+	background-color: #fca311;
+}
+
+.right-nav::after {
+	content: "";
+	display: block;
+	width: 2px;
+	height: 240px;
+	border-radius: 2px;
+	margin: 0px 19px;
+	margin-top: 40px;
+	background-color: #fca311;
 }

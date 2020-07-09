@@ -1,9 +1,13 @@
 import React, { Fragment } from "react";
+import Facebook from "../assets/facebook.svg";
+import Github from "../assets/github.svg";
+import Instagram from "../assets/instagram.svg";
+import LinkedIn from "../assets/linkedin.svg";
 import Logo from "../assets/logo.svg";
 import Moon from "../assets/moon.svg";
 import Sun from "../assets/sun.svg";
 import "../styles/frame.css";
-import { useTheme } from "../theme";
+import { getThemeStyles, useTheme } from "../theme";
 
 export const Frame = () => {
 	return (
@@ -20,20 +24,16 @@ const TopNav = () => {
 
 	return (
 		<div className="top-nav">
-			<img src={Logo} alt="" className="logo" />
+			<Logo />
 			{theme === "dark" ? (
-				<img
-					src={Sun}
-					alt=""
-					className="icon dark-mode-toggle"
+				<Sun
 					onClick={() => setTheme("light")}
+					className="dark-mode-toggle icon"
 				/>
 			) : (
-				<img
-					src={Moon}
-					alt=""
-					className="icon dark-mode-toggle"
+				<Moon
 					onClick={() => setTheme("dark")}
+					className="dark-mode-toggle icon"
 				/>
 			)}
 		</div>
@@ -41,9 +41,50 @@ const TopNav = () => {
 };
 
 const LeftNav = () => {
-	return <div className="left-nav"></div>;
+	const [theme] = useTheme();
+	const { color: fill } = getThemeStyles(theme);
+	return (
+		<div className="left-nav">
+			<a
+				href="https://facebook.com/gyuapstha"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Facebook className="icon social" style={{ fill }} />
+			</a>
+			<a
+				href="https://www.linkedin.com/in/gyuapstha/"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<LinkedIn className="icon social" style={{ fill }} />
+			</a>
+			<a
+				href="https://instagram.com/__yash.gupta_/"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Instagram className="icon social" style={{ fill }} />
+			</a>
+			<a
+				href="https://github.com/gyash24x7"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Github className="icon social" style={{ fill }} />
+			</a>
+		</div>
+	);
 };
 
 const RightNav = () => {
-	return <div className="right-nav"></div>;
+	const [theme] = useTheme();
+	const { color } = getThemeStyles(theme);
+	return (
+		<div className="right-nav">
+			<a style={{ color }} href="mailto://yash.gupta.0519@gmail.com">
+				yash.gupta.0519@gmail.com
+			</a>
+		</div>
+	);
 };
