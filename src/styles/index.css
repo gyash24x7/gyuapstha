@@ -20,8 +20,8 @@
 .full-page > div {
 	text-align: center;
 	opacity: 1;
-	-webkit-transition: cubic-bezier(0.86, 0, 0.07, 1) 800ms;
-	transition: cubic-bezier(0.86, 0, 0.07, 1) 800ms;
+	-webkit-transition: opacity cubic-bezier(0.86, 0, 0.07, 1) 800ms;
+	transition: opacity cubic-bezier(0.86, 0, 0.07, 1) 800ms;
 }
 
 .full-page h1 {
@@ -32,25 +32,9 @@
 	font-size: 36px;
 }
 
-/** section colors */
-.red {
-	background: #f44336;
-}
-.orange {
-	background: #ff9800;
-}
-.yellow {
-	background: #ffd600;
-}
-.green {
-	background: #4caf50;
-}
-.blue {
-	background: #2196f3;
-}
-.indigo {
-	background: #3f51b5;
-}
-.violet {
-	background: #673ab7;
+body {
+	-webkit-transition: color cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	transition: color cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	-webkit-transition: background cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	transition: background cubic-bezier(0.86, 0, 0.07, 1) 500ms;
 }

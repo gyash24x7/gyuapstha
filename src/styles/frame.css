@@ -1,0 +1,25 @@
+.top-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	padding: 20px 30px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.logo {
+	height: 32px;
+	width: auto;
+}
+
+.icon {
+	height: 25px;
+	width: auto;
+}
+
+.dark-mode-toggle {
+	cursor: pointer;
+}
