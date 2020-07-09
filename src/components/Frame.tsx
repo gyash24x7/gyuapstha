@@ -6,6 +6,7 @@ import LinkedIn from "../assets/linkedin.svg";
 import Logo from "../assets/logo.svg";
 import Moon from "../assets/moon.svg";
 import Sun from "../assets/sun.svg";
+import Twitter from "../assets/twitter.svg";
 import "../styles/frame.css";
 import { getThemeStyles, useTheme } from "../theme";
 
@@ -21,17 +22,20 @@ export const Frame = () => {
 
 const TopNav = () => {
 	const [theme, setTheme] = useTheme();
+	const { color: fill } = getThemeStyles(theme);
 
 	return (
 		<div className="top-nav">
-			<Logo />
+			<Logo style={{ fill }} />
 			{theme === "dark" ? (
 				<Sun
+					style={{ fill }}
 					onClick={() => setTheme("light")}
 					className="dark-mode-toggle icon"
 				/>
 			) : (
 				<Moon
+					style={{ fill }}
 					onClick={() => setTheme("dark")}
 					className="dark-mode-toggle icon"
 				/>
@@ -45,6 +49,13 @@ const LeftNav = () => {
 	const { color: fill } = getThemeStyles(theme);
 	return (
 		<div className="left-nav">
+			<a
+				href="https://twitter.com/YashGup14686444"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<Twitter className="icon social" style={{ fill }} />
+			</a>
 			<a
 				href="https://facebook.com/gyuapstha"
 				target="_blank"
