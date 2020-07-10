@@ -3,7 +3,7 @@ import { useLocalStorage } from "react-use";
 
 export const light = "#F5F5F5";
 export const dark = "#0A111F";
-export const primary = "#FCA311";
+export const primary = "#00A9A5";
 
 export const lightThemeStyles = {
 	backgroundColor: light,
@@ -22,7 +22,7 @@ export const getThemeStyles = (theme: string) =>
 
 const defaultThemeContext: [string, (theme: string) => void] = [
 	"light",
-	(theme: string) => {}
+	(_theme: string) => {}
 ];
 
 export const ThemeContext = createContext(defaultThemeContext);
@@ -30,13 +30,13 @@ export const ThemeContext = createContext(defaultThemeContext);
 export const useTheme = () => useContext(ThemeContext);
 
 export interface ThemeProviderProps {
-	children: ReactChild[];
+	children: ReactChild[] | ReactChild;
 }
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 	const [theme, setTheme] = useLocalStorage("theme", "light");
 	return (
-		<ThemeContext.Provider value={[theme, setTheme]}>
+		<ThemeContext.Provider value={[theme || "light", setTheme]}>
 			{children}
 		</ThemeContext.Provider>
 	);

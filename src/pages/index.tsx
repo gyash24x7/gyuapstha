@@ -1,16 +1,19 @@
 import "normalize.css/normalize.css";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useWindowSize } from "react-use";
 import { About } from "../components/About";
-import { Frame } from "../components/Frame";
 import { Intro } from "../components/Intro";
+import { LeftNav } from "../components/LeftNav";
+import { RightNav } from "../components/RightNav";
 import { Toolbox } from "../components/Toolbox";
+import { TopNav } from "../components/TopNav";
 import "../styles/index.css";
 import { getThemeStyles, ThemeProvider, useTheme } from "../theme";
 
 const IndexPage = () => {
-	const wrapperRef = useRef<HTMLDivElement>();
 	const [theme] = useTheme();
 	const { color, backgroundColor } = getThemeStyles(theme);
+	const { width } = useWindowSize();
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
@@ -41,8 +44,10 @@ const IndexPage = () => {
 	});
 
 	return (
-		<div className="full-page-wrapper" ref={wrapperRef}>
-			<Frame />
+		<div className="full-page-wrapper">
+			<TopNav />
+			{width > 800 && <LeftNav />}
+			{width > 800 && <RightNav />}
 			<section className="full-page invisible">
 				<Intro />
 			</section>
