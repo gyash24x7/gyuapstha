@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import "normalize.css/normalize.css";
 import { useEffect } from "react";
 import { useWindowSize } from "react-use";
 import { GlobalStyles } from "../components/GlobalStyles";
@@ -23,7 +22,7 @@ const IndexPage = () => {
 
 		.full-page {
 			height: 100vh;
-			scroll-snap-align: center;
+			scroll-snap-align: start;
 			scroll-snap-stop: always;
 			display: flex;
 			justify-content: center;
@@ -43,7 +42,8 @@ const IndexPage = () => {
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
-			if (entry.intersectionRatio >= 0.75) {
+			let intersectionRatio = 0.75;
+			if (entry.intersectionRatio >= intersectionRatio) {
 				entry.target.classList.remove("invisible");
 			} else {
 				entry.target.classList.add("invisible");

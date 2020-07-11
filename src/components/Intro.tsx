@@ -6,7 +6,7 @@ import { getThemeStyles, useTheme } from "../theme";
 
 export const Intro = () => {
 	const [theme] = useTheme();
-	const { primary, color } = getThemeStyles(theme);
+	const { primary } = getThemeStyles(theme);
 	const { width } = useWindowSize();
 
 	const getContainerWidth = () => {
@@ -53,7 +53,7 @@ export const Intro = () => {
 		<div css={introContainer}>
 			<h4>Hi, my name is</h4>
 			<h1>Yash Gupta.</h1>
-			{true && (
+			{false && (
 				<Typical
 					steps={[
 						"I am a FrontEnd Developer.",

@@ -36,20 +36,6 @@ export const GlobalStyles = () => {
 						background-color: ${color};
 					}
 				}
-
-				.app-row {
-					display: flex;
-					flex-wrap: wrap;
-				}
-
-				.app-col {
-					display: flex;
-					flex-direction: column;
-					flex: 1;
-					min-width: 200px;
-					padding: 20px;
-					border-collapse: collapse;
-				}
 			`}
 		/>
 	);
