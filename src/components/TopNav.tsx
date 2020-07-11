@@ -37,6 +37,7 @@ export const TopNav = () => {
 		height: 32px;
 		width: auto;
 		fill: ${color};
+		margin-left: 5px;
 	`;
 
 	const darkModeToggleCss = css`

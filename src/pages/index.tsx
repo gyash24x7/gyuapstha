@@ -1,19 +1,45 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import "normalize.css/normalize.css";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useWindowSize } from "react-use";
-import { About } from "../components/About";
+import { GlobalStyles } from "../components/GlobalStyles";
 import { Intro } from "../components/Intro";
 import { LeftNav } from "../components/LeftNav";
 import { RightNav } from "../components/RightNav";
 import { Toolbox } from "../components/Toolbox";
 import { TopNav } from "../components/TopNav";
-import "../styles/index.css";
 import { getThemeStyles, ThemeProvider, useTheme } from "../theme";
 
 const IndexPage = () => {
 	const [theme] = useTheme();
 	const { color, backgroundColor } = getThemeStyles(theme);
 	const { width } = useWindowSize();
+
+	const fullPageStyles = css`
+		height: 100vh;
+		overflow-y: auto;
+		scroll-snap-type: y mandatory;
+
+		.full-page {
+			height: 100vh;
+			scroll-snap-align: center;
+			scroll-snap-stop: always;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			& > div {
+				opacity: 1;
+				-webkit-transition: opacity cubic-bezier(0.86, 0, 0.07, 1) 800ms;
+				transition: opacity cubic-bezier(0.86, 0, 0.07, 1) 800ms;
+			}
+
+			&.invisible > div {
+				opacity: 0;
+			}
+		}
+	`;
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
@@ -44,20 +70,15 @@ const IndexPage = () => {
 	});
 
 	return (
-		<div className="full-page-wrapper">
+		<div css={fullPageStyles}>
 			<TopNav />
 			{width > 800 && <LeftNav />}
 			{width > 800 && <RightNav />}
 			<section className="full-page invisible">
 				<Intro />
 			</section>
-
-			<section className="full-page">
+			<section className="full-page toolbox">
 				<Toolbox />
-			</section>
-
-			<section className="full-page">
-				<About />
 			</section>
 		</div>
 	);
@@ -65,6 +86,7 @@ const IndexPage = () => {
 
 export default () => (
 	<ThemeProvider>
+		<GlobalStyles />
 		<IndexPage />
 	</ThemeProvider>
 );

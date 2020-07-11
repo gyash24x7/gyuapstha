@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { getThemeStyles, useTheme } from "../theme";
+import { getThemeStyles, primary, useTheme } from "../theme";
 
 export const LeftNav = () => {
 	const [theme] = useTheme();
@@ -44,6 +44,11 @@ export const LeftNav = () => {
 		color: ${color};
 		transition: cubic-bezier(0.86, 0, 0.07, 1) 500ms;
 		-webkit-transition: cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+		padding-left: 5px;
+
+		&:hover {
+			color: ${primary};
+		}
 	`;
 
 	return (

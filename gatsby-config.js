@@ -1,5 +1,7 @@
 module.exports = {
 	plugins: [
+		"gatsby-plugin-emotion",
+		"gatsby-plugin-sass",
 		{
 			resolve: "gatsby-plugin-google-fonts",
 			options: {

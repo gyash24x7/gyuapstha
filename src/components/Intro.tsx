@@ -70,16 +70,10 @@ export const Intro = () => {
 				/>
 			)}
 			<div css={introText}>
-				I am a <span style={{ color: primary }}>Software Engineer</span> based
-				in Kanpur, India specializing in building remarkable websites,
-				applications and everything in between.
+				I am a graduate from IIT Madras, based in Kanpur, India specializing in
+				building remarkable websites, applications and everything in between.
 			</div>
-			<button
-				className="app-button"
-				style={{ borderColor: color, color: primary }}
-			>
-				Get In Touch
-			</button>
+			<button className="app-button">Get In Touch</button>
 		</div>
 	);
 };
