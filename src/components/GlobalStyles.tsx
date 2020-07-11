@@ -1,9 +1,12 @@
 /** @jsx jsx */
 import { css, Global, jsx } from "@emotion/core";
+import { useWindowSize } from "react-use";
 import { getThemeStyles, useTheme } from "../theme";
+import { getContainerWidth } from "../utils";
 export const GlobalStyles = () => {
 	const [theme] = useTheme();
 	const { color, primary } = getThemeStyles(theme);
+	const { width } = useWindowSize();
 
 	return (
 		<Global
@@ -31,10 +34,20 @@ export const GlobalStyles = () => {
 					color: ${primary};
 					transition: 200ms;
 					-webkit-transition: 200ms;
+					width: fit-content;
 
 					&:hover {
 						background-color: ${color};
 					}
+				}
+
+				.container {
+					width: ${getContainerWidth(width)};
+					height: calc(100% - 120px);
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					margin-top: 80px;
 				}
 			`}
 		/>

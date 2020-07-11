@@ -1,5 +1,6 @@
 /**@jsx jsx */
 import { css, jsx } from "@emotion/core";
+import { useWindowSize } from "react-use";
 import ApolloLightLogo from "../images/apollo-logo-light.png";
 import ApolloLogo from "../images/apollo-logo.png";
 import CssLogo from "../images/css-logo.png";
@@ -25,13 +26,10 @@ import { getThemeStyles, useTheme } from "../theme";
 export const Toolbox = () => {
 	const [theme] = useTheme();
 	const { primary } = getThemeStyles(theme);
+	const { width } = useWindowSize();
 
 	const toolboxWrapperCss = css`
-		width: calc(100% - 240px);
-		height: calc(100% - 170px);
-		padding: 120px;
-		padding-bottom: 50px;
-
+		justify-content: space-evenly;
 		h2 {
 			font-size: 48px;
 			font-family: "montserrat";
@@ -49,89 +47,175 @@ export const Toolbox = () => {
 		display: -webkit-flex;
 		justify-content: center;
 		flex-wrap: wrap;
-		padding: 30px;
-		margin-top: 30px;
+		overflow: hidden;
 	`;
 
-	const techCardCss = css`
-		height: 75px;
-		padding: 15px 0px;
-		margin: 20px;
+	const techLinkCss = css`
+		height: ${width > 400 && width < 800 ? "10vw" : "7vw"};
+		max-height: 75px;
+		min-height: 50px;
+		margin: ${width > 800 ? 20 : 10}px;
 
 		img {
-			margin-right: 15px;
 			height: 100%;
 		}
 	`;
 
 	return (
-		<div css={toolboxWrapperCss}>
-			<h2>My Toolbox</h2>
-			<h4>Technologies I am familiar with and use frequently.</h4>
+		<div css={toolboxWrapperCss} className="container">
+			<div>
+				<h2>My Toolbox</h2>
+				<h4>Technologies I am familiar with and use frequently.</h4>
+			</div>
 			<div css={flexContainerCss}>
-				<div css={techCardCss}>
+				<a
+					href="https://reactjs.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={ReactLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://nodejs.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={NodeLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://nestjs.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={NestLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://nextjs.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					{theme === "dark" ? (
 						<img src={NextLightLogo} alt="" />
 					) : (
 						<img src={NextLogo} alt="" />
 					)}
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://graphql.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={GraphQlLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://expo.io"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={ExpoLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://apollographql.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					{theme === "dark" ? (
 						<img src={ApolloLightLogo} alt="" />
 					) : (
 						<img src={ApolloLogo} alt="" />
 					)}
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://redux.js.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={ReduxLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://gatsbyjs.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={GatsbyLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://html5.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
+					<img src={HtmlLogo} alt="" />
+				</a>
+				<a
+					href="https://www.w3.org/Style/CSS/"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
+					<img src={CssLogo} alt="" />
+				</a>
+				<a
+					href="https://scss.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
+					<img src={ScssLogo} alt="" />
+				</a>
+				<a
+					href="https://emotion.sh"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
+					<img src={EmotionLogo} alt="" />
+				</a>
+				<a
+					href="https://webpack.js.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
+					<img src={WebpackLogo} alt="" />
+				</a>
+				<a
+					href="https://ionicframework.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					<img src={IonicLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
+				</a>
+				<a
+					href="https://postgresql.org"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
+					<img src={PostgresLogo} alt="" />
+				</a>
+				<a
+					href="https://mongodb.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					css={techLinkCss}
+				>
 					{theme === "dark" ? (
 						<img src={MongoLightLogo} alt="" />
 					) : (
 						<img src={MongoLogo} alt="" />
 					)}
-				</div>
-				<div css={techCardCss}>
-					<img src={PostgresLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
-					<img src={WebpackLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
-					<img src={HtmlLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
-					<img src={CssLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
-					<img src={ScssLogo} alt="" />
-				</div>
-				<div css={techCardCss}>
-					<img src={EmotionLogo} alt="" />
-				</div>
+				</a>
 			</div>
 		</div>
 	);

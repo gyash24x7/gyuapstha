@@ -23,8 +23,8 @@ export const TopNav = () => {
 
 		&::before {
 			position: absolute;
-			width: calc(100vw - 180px);
-			margin-left: 65px;
+			width: calc(100vw - 170px);
+			margin-left: 55px;
 			content: "";
 			display: block;
 			height: 2px;

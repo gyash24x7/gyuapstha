@@ -26,7 +26,6 @@ const IndexPage = () => {
 			scroll-snap-stop: always;
 			display: flex;
 			justify-content: center;
-			align-items: center;
 
 			& > div {
 				opacity: 1;

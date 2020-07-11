@@ -37,7 +37,7 @@ export const RightNav = () => {
 		}
 
 		&::before {
-			height: calc(100vh - 530px);
+			height: calc(100vh - 520px);
 			margin-top: 0px;
 			margin-bottom: 15px;
 		}

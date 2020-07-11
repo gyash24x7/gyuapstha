@@ -9,21 +9,7 @@ export const Intro = () => {
 	const { primary } = getThemeStyles(theme);
 	const { width } = useWindowSize();
 
-	const getContainerWidth = () => {
-		if (width > 1000) {
-			return "calc(100% - 400px)";
-		} else if (width > 800) {
-			return "calc(100% - 300px)";
-		} else if (width > 600) {
-			return "calc(100% - 100px)";
-		} else {
-			return "calc(100% - 60px)";
-		}
-	};
-
 	const introContainer = css`
-		width: ${getContainerWidth()};
-		padding-top: 110px;
 		text-align: left;
 		h1 {
 			font-size: 72px;
@@ -50,10 +36,10 @@ export const Intro = () => {
 	`;
 
 	return (
-		<div css={introContainer}>
+		<div css={introContainer} className="container">
 			<h4>Hi, my name is</h4>
 			<h1>Yash Gupta.</h1>
-			{false && (
+			{true && (
 				<Typical
 					steps={[
 						"I am a FrontEnd Developer.",
