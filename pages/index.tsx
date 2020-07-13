@@ -48,7 +48,13 @@ export default () => {
 		});
 
 		const theme = localStorage.getItem("theme");
-		if (theme === "dark") setTheme({ colors: darkThemeColors, isDark: true });
+		if (theme) {
+			if (theme === "dark") setTheme({ colors: darkThemeColors, isDark: true });
+		} else {
+			if (matchMedia("(prefers-color-scheme:dark)").matches) {
+				setTheme({ colors: darkThemeColors, isDark: true });
+			}
+		}
 	}, []);
 
 	return (

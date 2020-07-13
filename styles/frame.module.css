@@ -33,6 +33,10 @@
 	width: 30px;
 }
 
+.darkModeToggle:hover {
+	fill: #00a9a5 !important;
+}
+
 .social {
 	margin-top: 15px;
 	margin-bottom: 15px;

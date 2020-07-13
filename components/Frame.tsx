@@ -103,7 +103,7 @@ const RightNav = () => {
 		<div className={styles.rightNav}>
 			<a
 				style={{ color: colors.fgColor }}
-				href="mailto://yash.gupta.0519@gmail.com"
+				href="mailto:yash.gupta.0519@gmail.com"
 			>
 				yash.gupta.0519@gmail.com
 			</a>
