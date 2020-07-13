@@ -1,9 +1,11 @@
 import cx from "classnames";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Typed from "typed.js";
 import styles from "../styles/intro.module.css";
+import { ThemeContext } from "../utils";
 
 export const Intro = () => {
+	const { colors } = useContext(ThemeContext);
 	useEffect(() => {
 		new Typed("#typed", {
 			loop: true,
@@ -27,9 +29,19 @@ export const Intro = () => {
 					<span id="typed"></span>
 				</div>
 				<h4 className={styles.intro}>
-					I am a Software Engineer based in Kanpur, India specializing in
-					building remarkable websites, applications and everything in between.
+					I am a graduate from IIT Madras, based in Kanpur, India specializing
+					in building remarkable websites, applications and everything in
+					between.
 				</h4>
+				<button
+					className="app-button"
+					style={{ color: colors.fgColor }}
+					onClick={() => {
+						window.open("mailto:contact@gyuapstha.me", "_blank");
+					}}
+				>
+					Get In Touch
+				</button>
 			</div>
 		</div>
 	);

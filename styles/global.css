@@ -41,3 +41,19 @@ body {
 		font-size: 48px;
 	}
 }
+
+.app-button {
+	padding: 20px 40px;
+	font-family: "Montserrat";
+	text-transform: uppercase;
+	background: none;
+	border: 2px solid #00a9a5;
+	border-radius: 10px;
+	margin-top: 20px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.app-button:hover {
+	background-color: #00a9a5;
+}

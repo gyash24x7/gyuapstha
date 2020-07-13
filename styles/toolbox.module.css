@@ -34,6 +34,9 @@
 	height: 5vw;
 	min-height: 50px;
 	margin: 15px;
+	opacity: 0;
+	transition: ease-in-out 300ms;
+	-webkit-transition: ease-in-out 300ms;
 }
 
 @media only screen and (min-width: 800px) {
