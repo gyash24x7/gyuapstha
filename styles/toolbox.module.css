@@ -1,0 +1,64 @@
+.container {
+	align-items: center;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.container h1 {
+	width: 100%;
+	font-size: 40px;
+	font-family: "montserrat";
+	margin: 10px 0px;
+	color: #00a9a5;
+}
+
+.container h4 {
+	width: 100%;
+	margin: 5px 0px;
+	font-size: 20px;
+}
+
+.headingBox {
+	width: 100%;
+}
+
+.toolbox {
+	display: flex;
+	flex-wrap: wrap;
+	width: calc(100% + 30px);
+	justify-content: center;
+	margin-top: 50px;
+}
+
+.toolbox img {
+	height: 5vw;
+	min-height: 50px;
+	margin: 15px;
+}
+
+@media only screen and (min-width: 800px) {
+	.container h1 {
+		font-size: 48px;
+	}
+
+	.container h4 {
+		font-size: 24px;
+	}
+
+	.container {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+	.headingBox {
+		width: calc(100% - 300px);
+	}
+
+	.toolbox {
+		width: calc(100% - 300px);
+	}
+
+	.toolbox img {
+		margin: 15px;
+	}
+}

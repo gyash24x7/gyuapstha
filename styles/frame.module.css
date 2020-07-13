@@ -1,0 +1,129 @@
+.topNav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	padding: 30px 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 2;
+}
+
+.topNav::before {
+	position: absolute;
+	width: calc(100% - 150px);
+	margin: 0px 55px;
+	content: "";
+	display: block;
+	height: 2px;
+	border-radius: 2px;
+	background-color: #00a9a5;
+}
+
+.logo {
+	margin-left: 5px;
+}
+
+.darkModeToggle {
+	cursor: pointer;
+	margin-right: 5px;
+	height: 30px;
+	width: 30px;
+}
+
+.social {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
+
+.social:hover {
+	fill: #00a9a5 !important;
+}
+
+.leftNav,
+.rightNav {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
+	width: 40px;
+	z-index: 1;
+	display: none;
+}
+
+.leftNav {
+	left: 0;
+	padding-left: 20px;
+}
+
+.rightNav {
+	right: 0;
+	padding-right: 20px;
+}
+
+.leftNav::before,
+.leftNav::after,
+.rightNav::before,
+.rightNav::after {
+	content: "";
+	display: block;
+	width: 2px;
+	background-color: #00a9a5;
+}
+
+.rightNav::before,
+.leftNav::before {
+	height: calc(100vh - 535px);
+	margin-top: 0px;
+	margin-bottom: 15px;
+}
+
+.leftNav::after {
+	height: 135px;
+	margin-top: 15px;
+}
+
+.rightNav::after {
+	margin-top: 15px;
+	height: calc(100% - 585px);
+}
+
+.rightNav a,
+.leftNav a {
+	text-decoration: none;
+}
+
+.rightNav a {
+	writing-mode: vertical-lr;
+	margin: 15px 5px;
+	margin-right: 0px;
+}
+
+.rightNav a:hover {
+	color: #00a9a5 !important;
+}
+
+@media only screen and (min-width: 800px) {
+	.topNav {
+		padding: 30px;
+	}
+
+	.topNav::before {
+		width: calc(100% - 170px);
+	}
+
+	.leftNav {
+		display: flex;
+		padding-left: 30px;
+	}
+
+	.rightNav {
+		display: flex;
+		padding-right: 30px;
+	}
+}

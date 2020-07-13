@@ -10,10 +10,11 @@
 		"forceConsistentCasingInFileNames": true,
 		"module": "esnext",
 		"moduleResolution": "node",
+
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react",
+		"jsx": "preserve",
 		"noImplicitAny": true,
 		"outDir": "./dist/",
 		"preserveConstEnums": true,
@@ -33,6 +34,6 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true
 	},
-	"include": ["src"],
-	"exclude": ["/node_modules/"]
+	"exclude": ["/node_modules/"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }
