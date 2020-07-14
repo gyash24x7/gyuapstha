@@ -27,7 +27,7 @@ export default class MyApp extends App {
 					<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 					<meta
 						name="viewport"
-						content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+						content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10"
 					/>
 					<meta
 						name="description"
@@ -64,6 +64,7 @@ export default class MyApp extends App {
 
 					<meta name="msapplication-tap-highlight" content="no" />
 					<link rel="manifest" href="/manifest.json" />
+					<link rel="apple-touch-icon" href="/images/icons/icon-192x192.png" />
 				</Head>
 				<Component {...pageProps} />
 			</Fragment>
