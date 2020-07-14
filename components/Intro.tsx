@@ -29,9 +29,8 @@ export const Intro = () => {
 					<span id="typed"></span>
 				</div>
 				<h4 className={styles.intro}>
-					I am a graduate from IIT Madras, based in Kanpur, India specializing
-					in building remarkable websites, applications and everything in
-					between.
+					An IIT Madras graduate, based in Kanpur, India specializing in
+					building remarkable websites, applications and everything in between.
 				</h4>
 				<a href="mailto:contact@gyuapstha.me" target="_blank">
 					<button className="app-button" style={{ color: colors.fgColor }}>
