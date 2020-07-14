@@ -26,24 +26,15 @@ body {
 
 .container {
 	width: 100vw;
-	height: 100vh;
+	height: calc(100vh - 50px);
+	margin-top: 50px;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-}
-
-@media only screen and (min-width: 800px) {
-	#typed {
-		font-size: 48px;
-	}
-
-	.typed-cursor {
-		font-size: 48px;
-	}
+	justify-content: space-evenly;
 }
 
 .app-button {
-	padding: 20px 40px;
+	padding: 15px 30px;
 	font-family: "Montserrat";
 	text-transform: uppercase;
 	background: none;
@@ -51,9 +42,29 @@ body {
 	border-radius: 10px;
 	margin-top: 20px;
 	cursor: pointer;
+	font-size: 12px;
 	text-decoration: none;
 }
 
 .app-button:hover {
 	background-color: #00a9a5;
+}
+
+@media only screen and (max-width: 400px) {
+	#typed,
+	.typed-cursor {
+		font-size: 24px;
+	}
+}
+
+@media only screen and (min-width: 900px) {
+	#typed,
+	.typed-cursor {
+		font-size: 48px;
+	}
+
+	.app-button {
+		padding: 20px 40px;
+		font-size: 16px;
+	}
 }

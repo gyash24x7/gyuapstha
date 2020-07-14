@@ -31,83 +31,83 @@ export const Footer = () => {
 					</button>
 				</a>
 			</div>
-			{width < 800 && (
-				<div className={styles.socialWrapper}>
-					<div className={styles.sideLine}>
-						<div />
+			{width < 900 && (
+				<div>
+					<div className={styles.socialWrapper}>
+						<div className={styles.sideLine}>
+							<div />
+						</div>
+						<div className={styles.socialLinks}>
+							<a
+								href="https://facebook.com/gyuapstha"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Facebook
+									className={styles.social}
+									style={{ fill: colors.fgColor }}
+								/>
+							</a>
+							<a
+								href="https://twitter.com/YashGup14686444"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Twitter
+									className={styles.social}
+									style={{ fill: colors.fgColor }}
+								/>
+							</a>
+							<a
+								href="https://www.linkedin.com/in/gyuapstha/"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<LinkedIn
+									className={styles.social}
+									style={{ fill: colors.fgColor }}
+								/>
+							</a>
+							<a
+								href="https://instagram.com/__yash.gupta_/"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Instagram
+									className={styles.social}
+									style={{ fill: colors.fgColor }}
+								/>
+							</a>
+							<a
+								href="https://github.com/gyash24x7"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<Github
+									className={styles.social}
+									style={{ fill: colors.fgColor }}
+								/>
+							</a>
+						</div>
+						<div className={styles.sideLine}>
+							<div />
+						</div>
 					</div>
-					<div className={styles.socialLinks}>
-						<a
-							href="https://facebook.com/gyuapstha"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<Facebook
-								className={styles.social}
-								style={{ fill: colors.fgColor }}
-							/>
-						</a>
-						<a
-							href="https://twitter.com/YashGup14686444"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<Twitter
-								className={styles.social}
-								style={{ fill: colors.fgColor }}
-							/>
-						</a>
-						<a
-							href="https://www.linkedin.com/in/gyuapstha/"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<LinkedIn
-								className={styles.social}
-								style={{ fill: colors.fgColor }}
-							/>
-						</a>
-						<a
-							href="https://instagram.com/__yash.gupta_/"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<Instagram
-								className={styles.social}
-								style={{ fill: colors.fgColor }}
-							/>
-						</a>
-						<a
-							href="https://github.com/gyash24x7"
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<Github
-								className={styles.social}
-								style={{ fill: colors.fgColor }}
-							/>
-						</a>
-					</div>
-					<div className={styles.sideLine}>
-						<div />
-					</div>
-				</div>
-			)}
-			{width < 800 && (
-				<div className={styles.socialWrapper}>
-					<div className={styles.sideLine}>
-						<div />
-					</div>
-					<div className={styles.emailLink}>
-						<a
-							style={{ color: colors.fgColor }}
-							href="mailto:yash.gupta.0519@gmail.com"
-						>
-							yash.gupta.0519@gmail.com
-						</a>
-					</div>
-					<div className={styles.sideLine}>
-						<div />
+					<div className={styles.socialWrapper}>
+						<div className={styles.sideLine}>
+							<div />
+						</div>
+						<div className={styles.emailLink}>
+							<a
+								style={{ color: colors.fgColor }}
+								href="mailto:yash.gupta.0519@gmail.com"
+							>
+								yash.gupta.0519@gmail.com
+							</a>
+						</div>
+						<div className={styles.sideLine}>
+							<div />
+						</div>
 					</div>
 				</div>
 			)}
