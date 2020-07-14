@@ -25,12 +25,10 @@ export const Footer = () => {
 					offers across the globe.
 				</h4>
 				<h4>If you think I'll be a good fit. Drop me a message.</h4>
-				<a
-					className="app-button"
-					style={{ color: colors.fgColor }}
-					href="mailto:contact@gyuapstha.me"
-				>
-					Say Hello!
+				<a href="mailto:contact@gyuapstha.me" target="_blank">
+					<button className="app-button" style={{ color: colors.fgColor }}>
+						Say Hello!
+					</button>
 				</a>
 			</div>
 			{width < 800 && (

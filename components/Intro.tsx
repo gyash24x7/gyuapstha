@@ -10,7 +10,7 @@ export const Intro = () => {
 		new Typed("#typed", {
 			loop: true,
 			strings: [
-				"I am Frontend Developer.",
+				"I am a Frontend Developer.",
 				"I work on the Backend too.",
 				"I build things for the web.",
 				"And for Mobile as well."
@@ -33,15 +33,11 @@ export const Intro = () => {
 					in building remarkable websites, applications and everything in
 					between.
 				</h4>
-				<button
-					className="app-button"
-					style={{ color: colors.fgColor }}
-					onClick={() => {
-						window.open("mailto:contact@gyuapstha.me", "_blank");
-					}}
-				>
-					Get In Touch
-				</button>
+				<a href="mailto:contact@gyuapstha.me" target="_blank">
+					<button className="app-button" style={{ color: colors.fgColor }}>
+						Get In Touch
+					</button>
+				</a>
 			</div>
 		</div>
 	);

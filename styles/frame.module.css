@@ -94,7 +94,7 @@
 
 .rightNav::after {
 	margin-top: 15px;
-	height: calc(100% - 585px);
+	height: calc(100% - 605px);
 }
 
 .rightNav a,
