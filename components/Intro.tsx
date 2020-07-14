@@ -6,6 +6,7 @@ import { ThemeContext } from "../utils";
 
 export const Intro = () => {
 	const { colors } = useContext(ThemeContext);
+
 	useEffect(() => {
 		new Typed("#typed", {
 			loop: true,

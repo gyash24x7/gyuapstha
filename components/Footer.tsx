@@ -37,6 +37,22 @@ export const Footer = () => {
 						<div className={styles.sideLine}>
 							<div />
 						</div>
+						<div className={styles.emailLink}>
+							<a
+								style={{ color: colors.fgColor }}
+								href="mailto:yash.gupta.0519@gmail.com"
+							>
+								yash.gupta.0519@gmail.com
+							</a>
+						</div>
+						<div className={styles.sideLine}>
+							<div />
+						</div>
+					</div>
+					<div className={styles.socialWrapper}>
+						<div className={styles.sideLine}>
+							<div />
+						</div>
 						<div className={styles.socialLinks}>
 							<a
 								href="https://facebook.com/gyuapstha"
@@ -87,22 +103,6 @@ export const Footer = () => {
 									className={styles.social}
 									style={{ fill: colors.fgColor }}
 								/>
-							</a>
-						</div>
-						<div className={styles.sideLine}>
-							<div />
-						</div>
-					</div>
-					<div className={styles.socialWrapper}>
-						<div className={styles.sideLine}>
-							<div />
-						</div>
-						<div className={styles.emailLink}>
-							<a
-								style={{ color: colors.fgColor }}
-								href="mailto:yash.gupta.0519@gmail.com"
-							>
-								yash.gupta.0519@gmail.com
 							</a>
 						</div>
 						<div className={styles.sideLine}>

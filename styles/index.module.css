@@ -1,11 +1,11 @@
 .fullPageWrapper {
-	height: 100vh;
+	height: calc(100vh - 56px);
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
 }
 
 .fullPage {
-	height: 100vh;
+	height: calc(100vh - 56px);
 	scroll-snap-align: start;
 	scroll-snap-stop: always;
 	display: flex;

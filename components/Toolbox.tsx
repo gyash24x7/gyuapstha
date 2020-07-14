@@ -29,7 +29,7 @@ export const Toolbox = () => {
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
-			if (entry.intersectionRatio >= 0.95) setOpacity(1);
+			if (entry.intersectionRatio >= 0.85) setOpacity(1);
 			else setOpacity(0);
 		});
 	};
@@ -39,7 +39,7 @@ export const Toolbox = () => {
 		new IntersectionObserver(intersectionCallback, {
 			root: null,
 			rootMargin: "0px",
-			threshold: 0.95
+			threshold: 0.85
 		});
 
 	useEffect(() => {
