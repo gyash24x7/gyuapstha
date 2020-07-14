@@ -6,20 +6,19 @@
 	height: 40px;
 	padding: 30px 20px;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	z-index: 2;
 }
 
-.topNav::before {
-	position: absolute;
-	width: calc(100% - 150px);
-	margin: 0px 55px;
-	content: "";
-	display: block;
-	height: 2px;
-	border-radius: 2px;
+.midLine {
+	flex: 1;
+	height: 100%;
+}
+
+.midLine > div {
 	background-color: #00a9a5;
+	height: 2px;
+	margin: 19px 25px;
 }
 
 .logo {
@@ -47,6 +46,30 @@
 	fill: #00a9a5 !important;
 }
 
+.bottomSideLine,
+.topSideLine {
+	flex: 1;
+	margin: 0px 19px;
+}
+
+.topSideLine,
+.bottomSideLine > div {
+	background-color: #00a9a5;
+	width: 2px;
+	height: 100%;
+}
+
+.topSideLine {
+	margin-top: 90px;
+	margin-bottom: 15px;
+}
+
+.bottomSideLine {
+	margin-top: 15px;
+	flex: unset;
+	height: 135px;
+}
+
 .leftNav,
 .rightNav {
 	position: fixed;
@@ -70,38 +93,6 @@
 	padding-right: 20px;
 }
 
-.leftNav::before,
-.leftNav::after,
-.rightNav::before,
-.rightNav::after {
-	content: "";
-	display: block;
-	width: 2px;
-	background-color: #00a9a5;
-}
-
-.leftNav::before {
-	height: calc(100vh - 535px);
-	margin-top: 0px;
-	margin-bottom: 15px;
-}
-
-.leftNav::after {
-	height: 135px;
-	margin-top: 15px;
-}
-
-.rightNav::before {
-	margin-top: 0px;
-	margin-bottom: 15px;
-	height: calc(100vh - 560px);
-}
-
-.rightNav::after {
-	margin-top: 15px;
-	height: 255px;
-}
-
 .rightNav a,
 .leftNav a {
 	text-decoration: none;
@@ -120,10 +111,6 @@
 @media only screen and (min-width: 900px) {
 	.topNav {
 		padding: 30px;
-	}
-
-	.topNav::before {
-		width: calc(100% - 170px);
 	}
 
 	.leftNav {

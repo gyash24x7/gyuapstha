@@ -1,5 +1,4 @@
 import cx from "classnames";
-import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { Frame } from "../components/Frame";
@@ -61,13 +60,6 @@ export default () => {
 	return (
 		<ThemeProvider value={{ ...theme, setTheme }}>
 			<div className={styles.fullPageWrapper}>
-				<Head>
-					<title>Yash Gupta</title>
-					<link
-						href="https://fonts.googleapis.com/css?family=Oswald:300|Montserrat:600&amp;display=swap"
-						rel="stylesheet"
-					/>
-				</Head>
 				<Frame />
 				<section className={cx(styles.fullPage, "invisible", "full-page")}>
 					<Intro />

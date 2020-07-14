@@ -66,7 +66,7 @@ export const Toolbox = () => {
 						transitionDelay="100ms"
 					/>
 					<ToolLink
-						src="/images/nodejs-logo.png"
+						src={`/images/${isDark ? "nodejs-logo-light" : "nodejs-logo"}.png`}
 						alt="NodeJS"
 						title="NodeJS"
 						href="https://nodejs.org"

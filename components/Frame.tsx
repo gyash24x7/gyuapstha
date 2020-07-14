@@ -36,6 +36,9 @@ const TopNav = () => {
 	return (
 		<div className={styles.topNav}>
 			<Logo style={{ fill: colors.fgColor }} className={styles.logo} />
+			<div className={styles.midLine}>
+				<div />
+			</div>
 			{isDark ? (
 				<Sun
 					style={{ fill: colors.fgColor }}
@@ -58,6 +61,9 @@ const LeftNav = () => {
 
 	return (
 		<div className={styles.leftNav}>
+			<div className={styles.topSideLine}>
+				<div />
+			</div>
 			<a
 				href="https://facebook.com/gyuapstha"
 				target="_blank"
@@ -93,6 +99,9 @@ const LeftNav = () => {
 			>
 				<Github className={styles.social} style={{ fill: colors.fgColor }} />
 			</a>
+			<div className={styles.bottomSideLine}>
+				<div />
+			</div>
 		</div>
 	);
 };
@@ -101,12 +110,18 @@ const RightNav = () => {
 	const { colors } = useContext(ThemeContext);
 	return (
 		<div className={styles.rightNav}>
+			<div className={styles.topSideLine}>
+				<div />
+			</div>
 			<a
 				style={{ color: colors.fgColor }}
 				href="mailto:yash.gupta.0519@gmail.com"
 			>
 				yash.gupta.0519@gmail.com
 			</a>
+			<div className={styles.bottomSideLine}>
+				<div />
+			</div>
 		</div>
 	);
 };
