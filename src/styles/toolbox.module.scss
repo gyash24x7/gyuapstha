@@ -1,0 +1,90 @@
+@import "./constants";
+
+.container {
+	align-items: center;
+	padding-left: 30px;
+	padding-right: 30px;
+
+	h1 {
+		width: 100%;
+		font-size: 40px;
+		font-family: $title-font;
+		margin: 10px 0px;
+		color: $primary;
+
+		@media #{$phone-info} {
+			font-size: 32px;
+		}
+
+		@media #{$desktop-info} {
+			font-size: 48px;
+		}
+	}
+
+	h4 {
+		width: 100%;
+		margin: 5px 0px;
+		font-size: 20px;
+
+		@media #{$phone-info} {
+			font-size: 16px;
+		}
+
+		@media #{$desktop-info} {
+			font-size: 24px;
+		}
+	}
+
+	& > div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	@media #{$desktop-info} {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+.heading-box {
+	width: 100%;
+
+	@media #{$desktop-info} {
+		width: calc(100% - 300px);
+	}
+}
+
+.toolbox {
+	display: flex;
+	flex-wrap: wrap;
+	width: calc(100% + 30px);
+	justify-content: center;
+	margin-top: 50px;
+
+	img {
+		height: 5vw;
+		min-height: 40px;
+		margin: 15px;
+		opacity: 0;
+		transition: ease-in-out 300ms;
+		-webkit-transition: ease-in-out 300ms;
+
+		@media #{$phone-info} {
+			margin: 10px;
+		}
+
+		@media #{$desktop-info} {
+			margin: 2vw;
+		}
+	}
+
+	@media #{$phone-info} {
+		margin-top: 35px;
+		width: calc(100% + 20px);
+	}
+
+	@media #{$desktop-info} {
+		width: calc(100% - 300px);
+	}
+}

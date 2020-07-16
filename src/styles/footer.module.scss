@@ -1,0 +1,101 @@
+@import "./constants";
+
+.social-wrapper {
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+}
+
+.side-line {
+	flex: 1;
+	margin: 23px 20px;
+
+	& > div {
+		background-color: $primary;
+		height: 2px;
+		width: 100%;
+		border-radius: 2px;
+	}
+}
+
+.social-links,
+.email-link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	a {
+		text-decoration: none;
+		margin-bottom: 5px;
+
+		&:hover {
+			color: $primary !important;
+		}
+	}
+
+	.social {
+		margin: 11px;
+
+		@media #{$phone-info} {
+			margin: 7px;
+		}
+
+		@media #{$desktop-info} {
+			margin: 15px;
+		}
+
+		&:hover {
+			fill: $primary !important;
+		}
+	}
+}
+
+.get-in-touch {
+	width: calc(100% - 60px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px;
+	text-align: center;
+
+	h2 {
+		font-size: 40px;
+		font-family: $title-font;
+		color: $primary;
+
+		@media #{$phone-info} {
+			font-size: 32px;
+		}
+
+		@media #{$desktop-info} {
+			font-size: 48px;
+		}
+	}
+
+	h4 {
+		font-size: 20px;
+		line-height: 32px;
+		margin: 10px 0px;
+
+		@media #{$phone-info} {
+			font-size: 16px;
+			line-height: 25px;
+		}
+
+		@media #{$desktop-info} {
+			margin: 10px 20vw;
+			font-size: 24px;
+			line-height: 40px;
+		}
+	}
+
+	@media #{$phone-info} {
+		width: calc(100% - 40px);
+		padding: 20px;
+	}
+
+	@media #{$desktop-info} {
+		width: calc(100% - 80px);
+		padding: 40px;
+	}
+}

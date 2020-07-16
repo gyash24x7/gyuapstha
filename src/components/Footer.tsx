@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useWindowSize } from "react-use";
-import Facebook from "../assets/facebook.svg";
-import Github from "../assets/github.svg";
-import Instagram from "../assets/instagram.svg";
-import LinkedIn from "../assets/linkedin.svg";
-import Twitter from "../assets/twitter.svg";
-import styles from "../styles/footer.module.css";
+import Facebook from "../assets/icons/facebook.svg";
+import Github from "../assets/icons/github.svg";
+import Instagram from "../assets/icons/instagram.svg";
+import LinkedIn from "../assets/icons/linkedin.svg";
+import Twitter from "../assets/icons/twitter.svg";
+import styles from "../styles/footer.module.scss";
 import { ThemeContext } from "../utils";
 
 export const Footer = () => {

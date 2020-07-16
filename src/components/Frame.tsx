@@ -1,13 +1,13 @@
 import React, { Fragment, useContext } from "react";
-import Facebook from "../assets/facebook.svg";
-import Github from "../assets/github.svg";
-import Instagram from "../assets/instagram.svg";
-import LinkedIn from "../assets/linkedin.svg";
-import Logo from "../assets/logo.svg";
-import Moon from "../assets/moon.svg";
-import Sun from "../assets/sun.svg";
-import Twitter from "../assets/twitter.svg";
-import styles from "../styles/frame.module.css";
+import Facebook from "../assets/icons/facebook.svg";
+import Github from "../assets/icons/github.svg";
+import Instagram from "../assets/icons/instagram.svg";
+import LinkedIn from "../assets/icons/linkedin.svg";
+import Logo from "../assets/icons/logo.svg";
+import Moon from "../assets/icons/moon.svg";
+import Sun from "../assets/icons/sun.svg";
+import Twitter from "../assets/icons/twitter.svg";
+import styles from "../styles/frame.module.scss";
 import { darkThemeColors, lightThemeColors, ThemeContext } from "../utils";
 
 export const Frame = () => {

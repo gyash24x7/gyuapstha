@@ -1,6 +1,6 @@
 import cx from "classnames";
-import { useContext, useEffect, useState } from "react";
-import styles from "../styles/toolbox.module.css";
+import React, { useContext, useEffect, useState } from "react";
+import styles from "../styles/toolbox.module.scss";
 import { ThemeContext } from "../utils";
 
 interface ToolLinkProps {
@@ -58,7 +58,7 @@ export const Toolbox = () => {
 				</div>
 				<div className={styles.toolbox}>
 					<ToolLink
-						src="/images/react-logo.png"
+						src="../assets/images/react-logo.png"
 						alt="ReactJS"
 						title="ReactJS"
 						href="https://reactjs.org"
@@ -66,7 +66,9 @@ export const Toolbox = () => {
 						transitionDelay="100ms"
 					/>
 					<ToolLink
-						src={`/images/${isDark ? "nodejs-logo-light" : "nodejs-logo"}.png`}
+						src={`../assets/images/${
+							isDark ? "nodejs-logo-light" : "nodejs-logo"
+						}.png`}
 						alt="NodeJS"
 						title="NodeJS"
 						href="https://nodejs.org"
@@ -74,7 +76,7 @@ export const Toolbox = () => {
 						transitionDelay="200ms"
 					/>
 					<ToolLink
-						src="/images/nestjs-logo.png"
+						src="../assets/images/nestjs-logo.png"
 						alt="NestJS"
 						title="NestJS"
 						href="https://nestjs.com"
@@ -82,7 +84,9 @@ export const Toolbox = () => {
 						transitionDelay="300ms"
 					/>
 					<ToolLink
-						src={`/images/${isDark ? "apollo-logo-light" : "apollo-logo"}.png`}
+						src={`../assets/images/${
+							isDark ? "apollo-logo-light" : "apollo-logo"
+						}.png`}
 						alt="Apollo"
 						title="Apollo"
 						href="https://apollographql.com"
@@ -90,7 +94,7 @@ export const Toolbox = () => {
 						transitionDelay="400ms"
 					/>
 					<ToolLink
-						src="/images/graphql-logo.png"
+						src="../assets/images/graphql-logo.png"
 						alt="GraphQL"
 						title="GraphQL"
 						href="https://graphql.org"
@@ -98,7 +102,9 @@ export const Toolbox = () => {
 						transitionDelay="500ms"
 					/>
 					<ToolLink
-						src={`/images/${isDark ? "nextjs-logo-light" : "nextjs-logo"}.png`}
+						src={`../assets/images/${
+							isDark ? "nextjs-logo-light" : "nextjs-logo"
+						}.png`}
 						alt="NextJS"
 						title="NextJS"
 						href="https://nextjs.org"
@@ -106,7 +112,7 @@ export const Toolbox = () => {
 						transitionDelay="600ms"
 					/>
 					<ToolLink
-						src="/images/expo-logo.png"
+						src="../assets/images/expo-logo.png"
 						alt="Expo"
 						title="Expo"
 						href="https://expo.io"
@@ -114,7 +120,7 @@ export const Toolbox = () => {
 						transitionDelay="700ms"
 					/>
 					<ToolLink
-						src="/images/gatsby-logo.png"
+						src="../assets/images/gatsby-logo.png"
 						alt="Gatsby"
 						title="Gatsby"
 						href="https://gatsbyjs.org"
@@ -122,7 +128,7 @@ export const Toolbox = () => {
 						transitionDelay="800ms"
 					/>
 					<ToolLink
-						src="/images/html-logo.png"
+						src="../assets/images/html-logo.png"
 						alt="HTML5"
 						title="HTML5"
 						href="https://html5.org"
@@ -130,7 +136,7 @@ export const Toolbox = () => {
 						transitionDelay="900ms"
 					/>
 					<ToolLink
-						src="/images/css-logo.png"
+						src="../assets/images/css-logo.png"
 						alt="CSS3"
 						title="CSS3"
 						href="https://www.w3.org/Style/CSS/"
@@ -138,7 +144,7 @@ export const Toolbox = () => {
 						transitionDelay="800ms"
 					/>
 					<ToolLink
-						src="/images/scss-logo.png"
+						src="../assets/images/scss-logo.png"
 						alt="SCSS"
 						title="SCSS"
 						href="https://sass-lang.com"
@@ -146,7 +152,7 @@ export const Toolbox = () => {
 						transitionDelay="700ms"
 					/>
 					<ToolLink
-						src="/images/redux-logo.png"
+						src="../assets/images/redux-logo.png"
 						opacity={opacity}
 						transitionDelay="600ms"
 						alt="Redux"
@@ -154,7 +160,7 @@ export const Toolbox = () => {
 						href="https://redux.js.org"
 					/>
 					<ToolLink
-						src="/images/webpack-logo.png"
+						src="../assets/images/webpack-logo.png"
 						alt="Webpack"
 						title="Webpack"
 						href="https://webpack.js.org"
@@ -162,7 +168,7 @@ export const Toolbox = () => {
 						transitionDelay="500ms"
 					/>
 					<ToolLink
-						src="/images/ionic-logo.png"
+						src="../assets/images/ionic-logo.png"
 						alt="Ionic"
 						title="Ionic"
 						href="https://ionicframework.com"
@@ -170,7 +176,7 @@ export const Toolbox = () => {
 						transitionDelay="400ms"
 					/>
 					<ToolLink
-						src="/images/emotion-logo.png"
+						src="../assets/images/emotion-logo.png"
 						alt="Emotion"
 						title="Emotion"
 						href="https://emotion.sh"
@@ -178,7 +184,9 @@ export const Toolbox = () => {
 						transitionDelay="300ms"
 					/>
 					<ToolLink
-						src={`/images/${isDark ? "mongo-logo-light" : "mongo-logo"}.png`}
+						src={`../assets/images/${
+							isDark ? "mongo-logo-light" : "mongo-logo"
+						}.png`}
 						alt="MongoDB"
 						title="MongoDB"
 						href="https://mongodb.com"
@@ -186,7 +194,7 @@ export const Toolbox = () => {
 						transitionDelay="200ms"
 					/>
 					<ToolLink
-						src="/images/postgres-logo.png"
+						src="../assets/images/postgres-logo.png"
 						alt="Postgres"
 						title="Postgres"
 						href="https://postgresql.org"

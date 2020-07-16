@@ -1,7 +1,7 @@
 import cx from "classnames";
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Typed from "typed.js";
-import styles from "../styles/intro.module.css";
+import styles from "../styles/intro.module.scss";
 import { ThemeContext } from "../utils";
 
 export const Intro = () => {
@@ -22,7 +22,7 @@ export const Intro = () => {
 	}, []);
 
 	return (
-		<div className={cx(styles.introContainer, "container")}>
+		<div className={cx(styles.container, "container")}>
 			<div>
 				<h4>Hi, my name is</h4>
 				<h1>Yash Gupta.</h1>

@@ -1,10 +1,12 @@
 import cx from "classnames";
-import React, { useEffect, useState } from "react";
+import "normalize.scss/normalize.scss";
+import { default as React, useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { Frame } from "../components/Frame";
 import { Intro } from "../components/Intro";
 import { Toolbox } from "../components/Toolbox";
-import styles from "../styles/index.module.css";
+import "../styles/global.scss";
+import styles from "../styles/index.module.scss";
 import {
 	darkThemeColors,
 	lightThemeColors,
@@ -69,7 +71,7 @@ export default () => {
 					<Toolbox />
 				</section>
 
-				<section className={cx(styles.fullPage, "full-page", styles.footer)}>
+				<section className={cx(styles.fullPage, "full-page")}>
 					<Footer />
 				</section>
 			</div>

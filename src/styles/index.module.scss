@@ -1,18 +1,19 @@
-.fullPageWrapper {
+@import "./constants";
+
+.full-page-wrapper {
 	height: calc(100vh - 56px);
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
 }
 
-.fullPage {
+.full-page {
 	height: calc(100vh - 56px);
 	scroll-snap-align: start;
 	scroll-snap-stop: always;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.fullPage > div {
-	opacity: 1;
+	& > div {
+		opacity: 1;
+	}
 }
