@@ -1,14 +1,32 @@
+import { graphql, useStaticQuery } from "gatsby";
 import React, { Fragment, useContext } from "react";
-import Facebook from "../assets/icons/facebook.svg";
-import Github from "../assets/icons/github.svg";
-import Instagram from "../assets/icons/instagram.svg";
-import LinkedIn from "../assets/icons/linkedin.svg";
 import Logo from "../assets/icons/logo.svg";
 import Moon from "../assets/icons/moon.svg";
 import Sun from "../assets/icons/sun.svg";
-import Twitter from "../assets/icons/twitter.svg";
 import styles from "../styles/frame.module.scss";
-import { darkThemeColors, lightThemeColors, ThemeContext } from "../utils";
+import {
+	darkThemeColors,
+	getHandleDetails,
+	lightThemeColors,
+	ThemeContext
+} from "../utils";
+
+const FrameQuery = graphql`
+	query Frame {
+		site {
+			siteMetadata {
+				social {
+					facebook
+					twitter
+					linkedin
+					github
+					instagram
+				}
+				email
+			}
+		}
+	}
+`;
 
 export const Frame = () => {
 	return (
@@ -58,47 +76,29 @@ const TopNav = () => {
 
 const LeftNav = () => {
 	const { colors } = useContext(ThemeContext);
+	const { site } = useStaticQuery(FrameQuery);
 
 	return (
 		<div className={styles.leftNav}>
 			<div className={styles.topSideLine}>
 				<div />
 			</div>
-			<a
-				href="https://facebook.com/gyuapstha"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<Facebook className={styles.social} style={{ fill: colors.fgColor }} />
-			</a>
-			<a
-				href="https://twitter.com/YashGup14686444"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<Twitter className={styles.social} style={{ fill: colors.fgColor }} />
-			</a>
-			<a
-				href="https://www.linkedin.com/in/gyuapstha/"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<LinkedIn className={styles.social} style={{ fill: colors.fgColor }} />
-			</a>
-			<a
-				href="https://instagram.com/__yash.gupta_/"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<Instagram className={styles.social} style={{ fill: colors.fgColor }} />
-			</a>
-			<a
-				href="https://github.com/gyash24x7"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<Github className={styles.social} style={{ fill: colors.fgColor }} />
-			</a>
+			{Object.keys(site!.siteMetadata!.social!).map((handle) => {
+				const { link, Component } = getHandleDetails(handle, site);
+				return (
+					<a
+						href={link}
+						target="_blank"
+						rel="noopener noreferrer nofollow"
+						key={link}
+					>
+						<Component
+							className={styles.social}
+							style={{ fill: colors.fgColor }}
+						/>
+					</a>
+				);
+			})}
 			<div className={styles.bottomSideLine}>
 				<div />
 			</div>
@@ -108,6 +108,8 @@ const LeftNav = () => {
 
 const RightNav = () => {
 	const { colors } = useContext(ThemeContext);
+	const { site } = useStaticQuery(FrameQuery);
+
 	return (
 		<div className={styles.rightNav}>
 			<div className={styles.topSideLine}>
@@ -115,9 +117,9 @@ const RightNav = () => {
 			</div>
 			<a
 				style={{ color: colors.fgColor }}
-				href="mailto:yash.gupta.0519@gmail.com"
+				href={`mailto:${site?.siteMetadata?.email}`}
 			>
-				yash.gupta.0519@gmail.com
+				{site?.siteMetadata?.email}
 			</a>
 			<div className={styles.bottomSideLine}>
 				<div />

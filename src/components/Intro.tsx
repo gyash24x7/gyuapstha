@@ -1,21 +1,32 @@
 import cx from "classnames";
+import { graphql, useStaticQuery } from "gatsby";
 import React, { useContext, useEffect } from "react";
 import Typed from "typed.js";
 import styles from "../styles/intro.module.scss";
 import { ThemeContext } from "../utils";
 
+export const IntroQuery = graphql`
+	query Intro {
+		site {
+			siteMetadata {
+				typed
+				me
+				intro
+				emailAlt
+			}
+		}
+	}
+`;
+
 export const Intro = () => {
 	const { colors } = useContext(ThemeContext);
+
+	const { site } = useStaticQuery(IntroQuery);
 
 	useEffect(() => {
 		new Typed("#typed", {
 			loop: true,
-			strings: [
-				"I am a Frontend Developer.",
-				"I work on the Backend too.",
-				"I build things for the web.",
-				"And for Mobile as well."
-			],
+			strings: site?.siteMetadata?.typed as string[],
 			typeSpeed: 50,
 			backSpeed: 60
 		});
@@ -25,15 +36,12 @@ export const Intro = () => {
 		<div className={cx(styles.container, "container")}>
 			<div>
 				<h4>Hi, my name is</h4>
-				<h1>Yash Gupta.</h1>
+				<h1>{site?.siteMetadata?.me}.</h1>
 				<div>
 					<span id="typed"></span>
 				</div>
-				<h4 className={styles.intro}>
-					An IIT Madras graduate, based in Kanpur, India specializing in
-					building remarkable websites, applications and everything in between.
-				</h4>
-				<a href="mailto:contact@gyuapstha.me" target="_blank">
+				<h4 className={styles.intro}>{site?.siteMetadata?.intro}</h4>
+				<a href={`mailto:${site?.siteMetadata?.emailAlt}`} target="_blank">
 					<button className="app-button" style={{ color: colors.fgColor }}>
 						Get In Touch
 					</button>

@@ -12,14 +12,9 @@ interface ToolLinkProps {
 	transitionDelay: string;
 }
 
-export const ToolLink = (props: ToolLinkProps) => (
-	<a href={props.href} rel="noopener noreferrer" target="_blank">
-		<img
-			src={props.src}
-			alt={props.alt}
-			title={props.title}
-			style={{ transitionDelay: props.transitionDelay, opacity: props.opacity }}
-		/>
+export const ToolLink = ({ href, src, title, ...rest }: ToolLinkProps) => (
+	<a href={href} rel="noopener noreferrer" target="_blank">
+		<img src={src} alt={rest.alt} title={title} style={{ ...rest }} />
 	</a>
 );
 
