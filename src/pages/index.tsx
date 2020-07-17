@@ -3,6 +3,7 @@ import "normalize.scss/normalize.scss";
 import { default as React, useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { Frame } from "../components/Frame";
+import { Head } from "../components/Head";
 import { Intro } from "../components/Intro";
 import { Toolbox } from "../components/Toolbox";
 import "../styles/global.scss";
@@ -61,6 +62,7 @@ export default () => {
 
 	return (
 		<ThemeProvider value={{ ...theme, setTheme }}>
+			<Head />
 			<div className={styles.fullPageWrapper}>
 				<Frame />
 				<section className={cx(styles.fullPage, "invisible", "full-page")}>
