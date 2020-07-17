@@ -32,7 +32,7 @@
 	"license": "0BSD",
 	"scripts": {
 		"build": "gatsby build",
-		"dev": "env-cmd gatsby develop",
+		"dev": "gatsby clean && env-cmd gatsby develop",
 		"serve": "gatsby serve",
 		"clean": "gatsby clean"
 	},

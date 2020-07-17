@@ -1,26 +1,42 @@
 import cx from "classnames";
+import { graphql, useStaticQuery } from "gatsby";
 import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/toolbox.module.scss";
-import { ThemeContext } from "../utils";
+import { compareToolPriority, getToolData, ThemeContext } from "../utils";
 
-interface ToolLinkProps {
-	href: string;
-	alt: string;
-	src: string;
-	title: string;
-	opacity: number;
-	transitionDelay: string;
-}
-
-export const ToolLink = ({ href, src, title, ...rest }: ToolLinkProps) => (
-	<a href={href} rel="noopener noreferrer" target="_blank">
-		<img src={src} alt={rest.alt} title={title} style={{ ...rest }} />
-	</a>
-);
+const ToolImageQuery = graphql`
+	query ToolImages {
+		allFile(
+			filter: { extension: { eq: "png" }, dir: { regex: "/assets/images/" } }
+		) {
+			edges {
+				node {
+					id
+					name
+					sharp: childImageSharp {
+						fluid {
+							src
+						}
+					}
+				}
+			}
+		}
+	}
+`;
 
 export const Toolbox = () => {
 	const { isDark } = useContext(ThemeContext);
 	const [opacity, setOpacity] = useState(0);
+	const data = useStaticQuery(ToolImageQuery);
+	const excludedImages = isDark
+		? ["apollo-logo", "mongo-logo", "nextjs-logo", "nodejs-logo"]
+		: [
+				"apollo-logo-light",
+				"mongo-logo-light",
+				"nextjs-logo-light",
+				"nodejs-logo-light"
+		  ];
+	const images: any[] = data.allFile.edges;
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
@@ -52,150 +68,24 @@ export const Toolbox = () => {
 					<h4>Technologies I am familiar with and use frequently</h4>
 				</div>
 				<div className={styles.toolbox}>
-					<ToolLink
-						src="../assets/images/react-logo.png"
-						alt="ReactJS"
-						title="ReactJS"
-						href="https://reactjs.org"
-						opacity={opacity}
-						transitionDelay="100ms"
-					/>
-					<ToolLink
-						src={`../assets/images/${
-							isDark ? "nodejs-logo-light" : "nodejs-logo"
-						}.png`}
-						alt="NodeJS"
-						title="NodeJS"
-						href="https://nodejs.org"
-						opacity={opacity}
-						transitionDelay="200ms"
-					/>
-					<ToolLink
-						src="../assets/images/nestjs-logo.png"
-						alt="NestJS"
-						title="NestJS"
-						href="https://nestjs.com"
-						opacity={opacity}
-						transitionDelay="300ms"
-					/>
-					<ToolLink
-						src={`../assets/images/${
-							isDark ? "apollo-logo-light" : "apollo-logo"
-						}.png`}
-						alt="Apollo"
-						title="Apollo"
-						href="https://apollographql.com"
-						opacity={opacity}
-						transitionDelay="400ms"
-					/>
-					<ToolLink
-						src="../assets/images/graphql-logo.png"
-						alt="GraphQL"
-						title="GraphQL"
-						href="https://graphql.org"
-						opacity={opacity}
-						transitionDelay="500ms"
-					/>
-					<ToolLink
-						src={`../assets/images/${
-							isDark ? "nextjs-logo-light" : "nextjs-logo"
-						}.png`}
-						alt="NextJS"
-						title="NextJS"
-						href="https://nextjs.org"
-						opacity={opacity}
-						transitionDelay="600ms"
-					/>
-					<ToolLink
-						src="../assets/images/expo-logo.png"
-						alt="Expo"
-						title="Expo"
-						href="https://expo.io"
-						opacity={opacity}
-						transitionDelay="700ms"
-					/>
-					<ToolLink
-						src="../assets/images/gatsby-logo.png"
-						alt="Gatsby"
-						title="Gatsby"
-						href="https://gatsbyjs.org"
-						opacity={opacity}
-						transitionDelay="800ms"
-					/>
-					<ToolLink
-						src="../assets/images/html-logo.png"
-						alt="HTML5"
-						title="HTML5"
-						href="https://html5.org"
-						opacity={opacity}
-						transitionDelay="900ms"
-					/>
-					<ToolLink
-						src="../assets/images/css-logo.png"
-						alt="CSS3"
-						title="CSS3"
-						href="https://www.w3.org/Style/CSS/"
-						opacity={opacity}
-						transitionDelay="800ms"
-					/>
-					<ToolLink
-						src="../assets/images/scss-logo.png"
-						alt="SCSS"
-						title="SCSS"
-						href="https://sass-lang.com"
-						opacity={opacity}
-						transitionDelay="700ms"
-					/>
-					<ToolLink
-						src="../assets/images/redux-logo.png"
-						opacity={opacity}
-						transitionDelay="600ms"
-						alt="Redux"
-						title="Redux"
-						href="https://redux.js.org"
-					/>
-					<ToolLink
-						src="../assets/images/webpack-logo.png"
-						alt="Webpack"
-						title="Webpack"
-						href="https://webpack.js.org"
-						opacity={opacity}
-						transitionDelay="500ms"
-					/>
-					<ToolLink
-						src="../assets/images/ionic-logo.png"
-						alt="Ionic"
-						title="Ionic"
-						href="https://ionicframework.com"
-						opacity={opacity}
-						transitionDelay="400ms"
-					/>
-					<ToolLink
-						src="../assets/images/emotion-logo.png"
-						alt="Emotion"
-						title="Emotion"
-						href="https://emotion.sh"
-						opacity={opacity}
-						transitionDelay="300ms"
-					/>
-					<ToolLink
-						src={`../assets/images/${
-							isDark ? "mongo-logo-light" : "mongo-logo"
-						}.png`}
-						alt="MongoDB"
-						title="MongoDB"
-						href="https://mongodb.com"
-						opacity={opacity}
-						transitionDelay="200ms"
-					/>
-					<ToolLink
-						src="../assets/images/postgres-logo.png"
-						alt="Postgres"
-						title="Postgres"
-						href="https://postgresql.org"
-						opacity={opacity}
-						transitionDelay="100ms"
-					/>
+					{images
+						.filter((image) => !excludedImages.includes(image.node.name))
+						.sort(compareToolPriority)
+						.map(({ node: { name, id, sharp } }, i) => (
+							<a
+								href={getToolData(name).href}
+								rel="noopener noreferrer nofollow"
+								target="_blank"
+								key={id}
+							>
+								<img
+									src={sharp.fluid.src}
+									alt={getToolData(name).title}
+									title={getToolData(name).title}
+									style={{ opacity, transitionDelay: `${Math.abs(i - 8)}00ms` }}
+								/>
+							</a>
+						))}
 				</div>
 			</div>
 		</div>

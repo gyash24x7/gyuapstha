@@ -1,10 +1,21 @@
+const { join } = require("path");
+
 module.exports = {
 	plugins: [
 		{
 			resolve: "gatsby-plugin-react-svg",
 			options: { rule: { include: /icons/ } }
 		},
-		"gatsby-plugin-sass"
+		{
+			resolve: "gatsby-source-filesystem",
+			options: {
+				name: "images",
+				path: join(__dirname, "src", "assets", "images")
+			}
+		},
+		"gatsby-plugin-sass",
+		"gatsby-transformer-sharp",
+		"gatsby-plugin-sharp"
 	],
 	siteMetadata: {
 		me: "Yash Gupta",

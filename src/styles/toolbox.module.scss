@@ -67,8 +67,8 @@
 		min-height: 40px;
 		margin: 15px;
 		opacity: 0;
-		transition: ease-in-out 300ms;
-		-webkit-transition: ease-in-out 300ms;
+		transition: opacity ease-in-out 300ms;
+		-webkit-transition: opacity ease-in-out 300ms;
 
 		@media #{$phone-info} {
 			margin: 10px;
