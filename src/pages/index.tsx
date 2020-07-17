@@ -1,11 +1,13 @@
 import cx from "classnames";
 import "normalize.scss/normalize.scss";
 import { default as React, useEffect, useState } from "react";
-import { Footer } from "../components/Footer";
-import { Frame } from "../components/Frame";
-import { Head } from "../components/Head";
-import { Intro } from "../components/Intro";
-import { Toolbox } from "../components/Toolbox";
+import Footer from "../components/Footer";
+import Head from "../components/Head";
+import Intro from "../components/Intro";
+import LeftNav from "../components/LeftNav";
+import RightNav from "../components/RightNav";
+import Toolbox from "../components/Toolbox";
+import TopNav from "../components/TopNav";
 import "../styles/global.scss";
 import styles from "../styles/index.module.scss";
 import {
@@ -64,7 +66,9 @@ export default () => {
 		<ThemeProvider value={{ ...theme, setTheme }}>
 			<Head />
 			<div className={styles.fullPageWrapper}>
-				<Frame />
+				<TopNav />
+				<LeftNav />
+				<RightNav />
 				<section className={cx(styles.fullPage, "invisible", "full-page")}>
 					<Intro />
 				</section>

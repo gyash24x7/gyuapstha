@@ -5,8 +5,8 @@ import Typed from "typed.js";
 import styles from "../styles/intro.module.scss";
 import { ThemeContext } from "../utils";
 
-export const IntroQuery = graphql`
-	query Intro {
+const query = graphql`
+	{
 		site {
 			siteMetadata {
 				typed
@@ -18,10 +18,9 @@ export const IntroQuery = graphql`
 	}
 `;
 
-export const Intro = () => {
+export default () => {
 	const { colors } = useContext(ThemeContext);
-
-	const { site } = useStaticQuery(IntroQuery);
+	const { site } = useStaticQuery(query);
 
 	useEffect(() => {
 		new Typed("#typed", {

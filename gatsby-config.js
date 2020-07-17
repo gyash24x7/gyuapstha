@@ -29,7 +29,7 @@ module.exports = {
 				icon: "src/assets/logo.png",
 				cache_busting_mode: "none"
 			}
-		}
+		},
 		{
 			resolve: "gatsby-plugin-offline",
 			options: {

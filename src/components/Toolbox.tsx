@@ -4,8 +4,8 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "../styles/toolbox.module.scss";
 import { compareToolPriority, getToolData, ThemeContext } from "../utils";
 
-const ToolImageQuery = graphql`
-	query ToolImages {
+const query = graphql`
+	{
 		allFile(
 			filter: { extension: { eq: "png" }, dir: { regex: "/assets/images/" } }
 		) {
@@ -24,10 +24,12 @@ const ToolImageQuery = graphql`
 	}
 `;
 
-export const Toolbox = () => {
+export default () => {
 	const { isDark } = useContext(ThemeContext);
 	const [opacity, setOpacity] = useState(0);
-	const data = useStaticQuery(ToolImageQuery);
+	const data = useStaticQuery(query);
+	const images: any[] = data.allFile.edges;
+
 	const excludedImages = isDark
 		? ["apollo-logo", "mongo-logo", "nextjs-logo", "nodejs-logo"]
 		: [
@@ -36,7 +38,6 @@ export const Toolbox = () => {
 				"nextjs-logo-light",
 				"nodejs-logo-light"
 		  ];
-	const images: any[] = data.allFile.edges;
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {

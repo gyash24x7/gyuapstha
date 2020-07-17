@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const HeadQuery = graphql`
+const query = graphql`
 	{
 		site {
 			buildTime(formatString: "YYYY-MM-DD")
@@ -33,7 +33,7 @@ const HeadQuery = graphql`
 	}
 `;
 
-export const Head = () => {
+export default () => {
 	const {
 		site: { siteMetadata, buildTime },
 		file: {
@@ -41,7 +41,7 @@ export const Head = () => {
 				resize: { src: image }
 			}
 		}
-	} = useStaticQuery(HeadQuery);
+	} = useStaticQuery(query);
 
 	const schemaOrgWebPage = {
 		"@context": "http://schema.org",

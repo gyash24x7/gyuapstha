@@ -4,8 +4,8 @@ import { useWindowSize } from "react-use";
 import styles from "../styles/footer.module.scss";
 import { getHandleDetails, ThemeContext } from "../utils";
 
-const FooterQuery = graphql`
-	query Footer {
+const query = graphql`
+	{
 		site {
 			siteMetadata {
 				social {
@@ -23,10 +23,10 @@ const FooterQuery = graphql`
 	}
 `;
 
-export const Footer = () => {
+export default () => {
 	const { colors } = useContext(ThemeContext);
 	const { width } = useWindowSize();
-	const { site } = useStaticQuery(FooterQuery);
+	const { site } = useStaticQuery(query);
 
 	return (
 		<div className="container">
