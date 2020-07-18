@@ -34,12 +34,14 @@ export default () => {
 	return (
 		<div className={cx(styles.container, "container")}>
 			<div>
-				<h4>Hi, my name is</h4>
-				<h1>{site?.siteMetadata?.me}.</h1>
+				<div className={styles.subHeading}>Hi, my name is</div>
+				<div className={styles.heading}>{site?.siteMetadata?.me}.</div>
 				<div>
 					<span id="typed"></span>
 				</div>
-				<h4 className={styles.intro}>{site?.siteMetadata?.intro}</h4>
+				<h4 className={cx(styles.intro, styles.subHeading)}>
+					{site?.siteMetadata?.intro}
+				</h4>
 				<a href={`mailto:${site?.siteMetadata?.emailAlt}`} target="_blank">
 					<button className="app-button" style={{ color: colors.fgColor }}>
 						Get In Touch

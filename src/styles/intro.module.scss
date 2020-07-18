@@ -5,50 +5,50 @@
 	padding-left: 30px;
 	padding-right: 30px;
 
-	h1 {
-		font-size: 56px;
-		font-family: $title-font;
-		margin: 10px 0px;
-		color: $primary;
-
-		@media #{$phone-info} {
-			font-size: 48px;
-		}
-
-		@media #{$desktop-info} {
-			font-size: 72px;
-		}
+	@media #{$desktop-info} {
+		padding-left: 150px;
 	}
+}
 
-	h4 {
-		margin: 5px 0px;
-		font-size: 20px;
+.sub-heading {
+	margin: 5px 0px;
+	font-size: 20px;
 
-		@media #{$phone-info} {
-			font-size: 16px;
-		}
-
-		@media #{$desktop-info} {
-			font-size: 24px;
-		}
-	}
-
-	.intro {
-		margin-top: 70px;
-		line-height: 30px;
-
-		@media #{$phone-info} {
-			margin-top: 40px;
-		}
-
-		@media #{$desktop-info} {
-			line-height: 40px;
-			margin-top: 100px;
-			margin-right: 25vw;
-		}
+	@media #{$phone-info} {
+		font-size: 16px;
 	}
 
 	@media #{$desktop-info} {
-		padding-left: 150px;
+		font-size: 24px;
+	}
+}
+
+.intro {
+	margin-top: 70px;
+	line-height: 30px;
+
+	@media #{$phone-info} {
+		margin-top: 40px;
+	}
+
+	@media #{$desktop-info} {
+		line-height: 40px;
+		margin-top: 100px;
+		margin-right: 25vw;
+	}
+}
+
+.heading {
+	font-size: 56px;
+	font-family: $title-font;
+	margin: 10px 0px;
+	color: $primary;
+
+	@media #{$phone-info} {
+		font-size: 48px;
+	}
+
+	@media #{$desktop-info} {
+		font-size: 72px;
 	}
 }

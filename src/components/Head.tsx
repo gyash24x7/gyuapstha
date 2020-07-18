@@ -85,6 +85,7 @@ export default () => {
 			<meta charSet="utf-8" />
 			<link rel="canonical" href={siteMetadata.siteUrl} />
 			<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+
 			<meta name="image" content={image} />
 			<meta
 				name="viewport"

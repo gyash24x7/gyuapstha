@@ -65,8 +65,10 @@ export default () => {
 		<div className={cx("container", styles.container)} id="toolbox">
 			<div>
 				<div className={styles.headingBox}>
-					<h1>My Toolbox</h1>
-					<h4>Technologies I am familiar with and use frequently</h4>
+					<div className={styles.heading}>My Toolbox</div>
+					<div className={styles.subHeading}>
+						Technologies I am familiar with and use frequently
+					</div>
 				</div>
 				<div className={styles.toolbox}>
 					{images

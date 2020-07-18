@@ -31,9 +31,11 @@ export default () => {
 	return (
 		<div className="container">
 			<div className={styles.getInTouch}>
-				<h2>Get in Touch</h2>
-				<h4>{site.siteMetadata.partingNote}</h4>
-				<h4>If you think I'll be a good fit. Drop me a message.</h4>
+				<div className={styles.heading}>Get in Touch</div>
+				<div className={styles.subHeading}>{site.siteMetadata.partingNote}</div>
+				<div className={styles.subHeading}>
+					If you think I'll be a good fit. Drop me a message.
+				</div>
 				<a
 					href={`mailto:${site.siteMetadata.emailAlt}`}
 					target="_blank"

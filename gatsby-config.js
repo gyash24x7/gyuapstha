@@ -27,7 +27,21 @@ module.exports = {
 				display: "standalone",
 				start_url: "/",
 				icon: "src/assets/logo.png",
-				cache_busting_mode: "none"
+				cache_busting_mode: "none",
+				icons: [
+					{
+						src: "src/assets/maskable_icon.png",
+						sizes: "196x196",
+						type: "image/png",
+						purpose: "any maskable"
+					}
+				]
+			}
+		},
+		{
+			resolve: "gatsby-plugin-brotli",
+			options: {
+				extensions: ["css", "html", "js", "svg"]
 			}
 		},
 		{

@@ -7,13 +7,7 @@ export const query = graphql`
 	{
 		site {
 			siteMetadata {
-				social {
-					facebook
-					twitter
-					linkedin
-					github
-					instagram
-				}
+				email
 			}
 		}
 	}
