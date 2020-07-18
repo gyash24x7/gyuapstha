@@ -32,7 +32,7 @@ module.exports = {
 			}
 		},
 		{
-			resolve: "gatsby-plugin-brotli",
+			resolve: "gatsby-plugin-iltorb",
 			options: {
 				extensions: ["css", "html", "js", "svg"]
 			}
