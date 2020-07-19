@@ -30,22 +30,26 @@ export default () => {
 	const { site } = useStaticQuery(query);
 
 	return (
-		<div className={cx(styles.container, "container")}>
-			<div className={styles.headingBox}>
-				<div className={styles.heading}>Get in Touch</div>
-				<div className={styles.subHeading}>{site.siteMetadata.partingNote}</div>
-				<div className={styles.subHeading}>
-					If you think I'll be a good fit. Drop me a message.
+		<div className={cx("container", styles.container)}>
+			<div>
+				<div className={styles.headingBox}>
+					<div className={styles.heading}>Get in Touch</div>
+					<div className={styles.subHeading}>
+						{site.siteMetadata.partingNote}
+					</div>
+					<div className={styles.subHeading}>
+						If you think I'll be a good fit. Drop me a message.
+					</div>
+					<a
+						href={`mailto:${site.siteMetadata.emailAlt}`}
+						target="_blank"
+						rel="noopener noreferrer nofollow"
+					>
+						<button className="app-button" style={{ color: colors.fgColor }}>
+							Say Hello!
+						</button>
+					</a>
 				</div>
-				<a
-					href={`mailto:${site.siteMetadata.emailAlt}`}
-					target="_blank"
-					rel="noopener noreferrer nofollow"
-				>
-					<button className="app-button" style={{ color: colors.fgColor }}>
-						Say Hello!
-					</button>
-				</a>
 			</div>
 			{width < 900 && (
 				<div>
