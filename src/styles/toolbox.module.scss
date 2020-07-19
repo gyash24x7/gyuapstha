@@ -1,7 +1,6 @@
 @import "./constants";
 
 .container {
-	align-items: center;
 	padding-left: 30px;
 	padding-right: 30px;
 
@@ -11,7 +10,7 @@
 		align-items: flex-start;
 
 		@media #{$desktop-info} {
-			padding: 30px 150px;
+			margin: 30px 150px;
 		}
 	}
 
@@ -19,6 +18,10 @@
 		padding-left: 0px;
 		padding-right: 0px;
 	}
+}
+
+.heading-box {
+	width: 100%;
 }
 
 .heading {
@@ -52,30 +55,32 @@
 }
 
 .toolbox {
-	display: flex;
-	flex-wrap: wrap;
 	width: 100%;
-	justify-content: center;
-	margin-top: 50px;
+	max-width: 900px;
+	height: 350px;
+	margin-top: 25px;
+	margin-left: -10px;
+	margin-right: -10px;
 
 	img {
-		height: 5vw;
+		height: 5vh;
 		min-height: 35px;
-		margin: 15px;
+		max-height: 70px;
+		margin: 10px;
 		opacity: 0;
 		transition: opacity ease-in-out 300ms;
 		-webkit-transition: opacity ease-in-out 300ms;
 
-		@media #{$phone-info} {
-			margin: 10px;
-		}
-
 		@media #{$desktop-info} {
-			margin: 2vw;
+			margin: 15px;
+			height: 7vh;
 		}
 	}
 
-	@media #{$phone-info} {
-		margin-top: 35px;
+	@media #{$desktop-info} {
+		margin-top: 40px;
+		margin-left: -15px;
+		margin-right: -15px;
+		height: 50vh;
 	}
 }
