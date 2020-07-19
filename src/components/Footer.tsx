@@ -1,3 +1,4 @@
+import cx from "classnames";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import { useWindowSize } from "react-use";
@@ -29,8 +30,8 @@ export default () => {
 	const { site } = useStaticQuery(query);
 
 	return (
-		<div className="container">
-			<div className={styles.getInTouch}>
+		<div className={cx(styles.container, "container")}>
+			<div className={styles.headingBox}>
 				<div className={styles.heading}>Get in Touch</div>
 				<div className={styles.subHeading}>{site.siteMetadata.partingNote}</div>
 				<div className={styles.subHeading}>

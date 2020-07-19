@@ -50,28 +50,34 @@
 	}
 }
 
-.get-in-touch {
-	width: calc(100% - 60px);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding: 30px;
-	text-align: center;
+.container {
+	padding-left: 30px;
+	padding-right: 30px;
 
-	@media #{$phone-info} {
-		width: calc(100% - 40px);
-		padding: 20px;
+	& > .heading-box {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		width: calc(100% - 60px);
+		max-width: 900px;
+
+		@media #{$desktop-info} {
+			margin: 30px 150px;
+			width: calc(100% - 300px);
+		}
 	}
 
 	@media #{$desktop-info} {
-		width: calc(100% - 80px);
-		padding: 40px;
+		padding-left: 0px;
+		padding-right: 0px;
 	}
 }
 
 .heading {
+	width: 100%;
 	font-size: 40px;
 	font-family: $title-font;
+	margin: 10px 0px;
 	color: $primary;
 
 	@media #{$phone-info} {
@@ -84,18 +90,14 @@
 }
 
 .sub-heading {
+	margin: 5px 0px;
 	font-size: 20px;
-	line-height: 32px;
-	margin: 10px 0px;
 
 	@media #{$phone-info} {
 		font-size: 16px;
-		line-height: 25px;
 	}
 
 	@media #{$desktop-info} {
-		margin: 10px 20vw;
 		font-size: 24px;
-		line-height: 40px;
 	}
 }
