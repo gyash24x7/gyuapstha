@@ -8,10 +8,7 @@ module.exports = {
 		},
 		{
 			resolve: "gatsby-source-filesystem",
-			options: {
-				name: "images",
-				path: join(__dirname, "src", "assets")
-			}
+			options: { name: "images", path: join(__dirname, "src", "assets") }
 		},
 		"gatsby-plugin-sass",
 		"gatsby-transformer-sharp",
@@ -22,8 +19,8 @@ module.exports = {
 			options: {
 				name: "Yash Gupta",
 				short_name: "yash-gupta",
-				theme_color: "#00a9a5",
-				background_color: "#0a111f",
+				theme_color: "#fca311",
+				background_color: "#141414",
 				display: "standalone",
 				start_url: "/",
 				icon: "src/assets/logo.png",
@@ -33,17 +30,13 @@ module.exports = {
 		},
 		{
 			resolve: "gatsby-plugin-iltorb",
-			options: {
-				extensions: ["css", "html", "js", "svg"]
-			}
+			options: { extensions: ["css", "html", "js", "svg"] }
 		},
 		{
 			resolve: "gatsby-plugin-offline",
 			options: {
 				precachePages: ["/pages/"],
-				workboxConfig: {
-					globPatterns: ["**/*"]
-				}
+				workboxConfig: { globPatterns: ["**/*"] }
 			}
 		}
 	],
@@ -78,6 +71,43 @@ module.exports = {
 		ogLanguage: "en_US",
 		headline: "I'm Yash. React and NodeJS Full Stack Developer.",
 		fbUsername: "gyuapstha",
-		twitterUsername: "YashGup14686444"
+		twitterUsername: "YashGup14686444",
+		experience: [
+			{
+				name: "Hakimo",
+				url: "https://hakimo.ai",
+				intro:
+					"Hakimo is an early stage startup based in US, focusing on security surveillance",
+				position: "Software Developer",
+				duration: "March 2020 - April 2020",
+				points: [
+					"Co-Headed the development of the primary cloud based application for viewing ​live camera feed and playback​ from security cameras using ​RTSP​ and ​AWS Kinesis Video Streams​ in React & Node.",
+					"Orchestrated deployment of new Producer SDK Container for each customer using ​Docker​ and ​AWS."
+				]
+			},
+			{
+				name: "LeanAgri",
+				url: "https://leanagri.com",
+				intro: "AgriTech Startup based in Pune",
+				position: "Software Development Intern",
+				duration: "May 2019 - July 2019",
+				points: [
+					"Integral part of 5 member team working on Customer Relationship Management Software, driving ​33% increase​ in onboarded customers & ​generating leads",
+					"Developed a ​cloud based​, Content Management System for creating and linking ​multilingual blogs",
+					"Redesigned the User Interface for ​LeanAgri Enterprise​, B2B software for tracking farmer activities"
+				]
+			},
+			{
+				name: "W3Villa",
+				url: "https://w3villa.com",
+				intro: "Software Development Company based in Noida",
+				position: "Web Development Intern",
+				duration: "June 2018 - July 2018",
+				points: [
+					"Programmed a ​Realtime Notification System based on WebSockets and event-based APIs in ​NodeJs and implemented it in a Chat App used by over ​70 people​ within the company",
+					"Collaborated with ​6 people​ to revamp e-commerce platform ‘APFusion’, written in AngularJS and Electron, visited by ​3000+​ ​users​ daily"
+				]
+			}
+		]
 	}
 };

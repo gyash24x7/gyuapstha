@@ -6,7 +6,6 @@ import LinkedIn from "../assets/icons/linkedin.svg";
 import Twitter from "../assets/icons/twitter.svg";
 
 export interface ThemeColors {
-	primary: string;
 	bgColor: string;
 	fgColor: string;
 }
@@ -17,14 +16,12 @@ export interface Theme {
 }
 
 export const lightThemeColors: ThemeColors = {
-	primary: "#00a9a5",
-	fgColor: "#0a111f",
+	fgColor: "#141414",
 	bgColor: "#f5f5f5"
 };
 
 export const darkThemeColors: ThemeColors = {
-	primary: "#00a9a5",
-	bgColor: "#0a111f",
+	bgColor: "#141414",
 	fgColor: "#f5f5f5"
 };
 
@@ -169,9 +166,9 @@ const priorityToolsArray = [
 	"redux-logo",
 	"webpack-logo",
 	"ionic-logo",
+	"postgres-logo",
 	"mongo-logo-light",
-	"mongo-logo",
-	"postgres-logo"
+	"mongo-logo"
 ];
 
 export const compareToolPriority = (a: any, b: any) => {

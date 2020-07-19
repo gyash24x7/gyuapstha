@@ -1,6 +1,7 @@
 import cx from "classnames";
 import "normalize.scss/normalize.scss";
 import { default as React, useEffect, useState } from "react";
+import { Experience } from "../components/Experience";
 import Footer from "../components/Footer";
 import Head from "../components/Head";
 import Intro from "../components/Intro";
@@ -75,6 +76,10 @@ export default () => {
 
 				<section className={cx(styles.fullPage, "full-page")}>
 					<Toolbox />
+				</section>
+
+				<section className={cx(styles.fullPage, "full-page")}>
+					<Experience />
 				</section>
 
 				<section className={cx(styles.fullPage, "full-page")}>

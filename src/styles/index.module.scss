@@ -1,13 +1,13 @@
 @import "./constants";
 
 .full-page-wrapper {
-	height: calc(100vh - 56px);
+	height: 100vh;
 	overflow-y: auto;
 	scroll-snap-type: y mandatory;
 }
 
 .full-page {
-	height: calc(100vh - 56px);
+	height: 100vh;
 	scroll-snap-align: start;
 	scroll-snap-stop: always;
 	display: flex;
