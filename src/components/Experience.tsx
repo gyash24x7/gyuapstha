@@ -55,7 +55,7 @@ export const Experience = () => {
 							<div className={styles.position}>
 								{companyData.position}&nbsp;&nbsp;
 								<a
-									href="https://hakimo.ai"
+									href={companyData.url}
 									target="_blank"
 									rel="noopener noreferrer nofollow"
 								>

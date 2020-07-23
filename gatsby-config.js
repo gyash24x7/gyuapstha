@@ -51,7 +51,7 @@ module.exports = {
 			instagram: "https://instagram.com/__yash.gupta_"
 		},
 		email: "yash.gupta.0519@gmail.com",
-		emailAlt: "contact@gyuapstha.me",
+		emailAlt: "contact@yashgupta.dev",
 		intro:
 			"An IIT Madras graduate, based in Kanpur, India specializing in building remarkable websites, applications and everything in between.",
 		typed: [
@@ -66,7 +66,7 @@ module.exports = {
 			"Hi, I am a developer. I work on both frontend and backend. I am skilled in NodeJS, React and related frameworks and libraries. I am actively looking for a full-time job across the globe.",
 		keywords:
 			"Developer Frontend Backend Software Engineer React NodeJS NestJS NextJS HTML CSS Sass Emotion MongoDB Postgres Redux Hire Available App Application React Native Android iOS Javascript Typescript Angular Express Hapi Fastify UI UX Gatsby Expo cross-platform Web Development Node Jobs Full-stack fullstack Stack MERNStack MEAN MERN GraphQL graph database",
-		siteUrl: "https://gyuapstha.me",
+		siteUrl: "https://yashgupta.dev",
 		siteLanguage: "en",
 		ogLanguage: "en_US",
 		headline: "I'm Yash. React and NodeJS Full Stack Developer.",
