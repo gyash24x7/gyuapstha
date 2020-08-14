@@ -25,6 +25,12 @@ body {
 	}
 }
 
+.full-page-wrapper {
+	&.scroll-snap {
+		scroll-snap-type: y mandatory;
+	}
+}
+
 .full-page {
 	& > div {
 		-webkit-transition: opacity cubic-bezier(0.86, 0, 0.07, 1) 800ms;
@@ -33,6 +39,11 @@ body {
 
 	&.invisible > div {
 		opacity: 0;
+	}
+
+	&.scroll-snap {
+		scroll-snap-align: start;
+		scroll-snap-stop: always;
 	}
 }
 

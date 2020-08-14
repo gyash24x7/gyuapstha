@@ -19,7 +19,7 @@ export default () => {
 	};
 
 	return (
-		<div className={styles.topNav}>
+		<div className={styles.topNav} style={{ backgroundColor: colors.bgColor }}>
 			<Logo style={{ fill: colors.fgColor }} className={styles.logo} />
 			<div className={styles.midLine}>
 				<div />

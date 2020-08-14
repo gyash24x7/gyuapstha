@@ -10,6 +10,10 @@
 	display: flex;
 	align-items: center;
 	z-index: 2;
+	-webkit-transition: color cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	transition: color cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	-webkit-transition: background cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	transition: background cubic-bezier(0.86, 0, 0.07, 1) 500ms;
 
 	@media #{$desktop-info} {
 		padding: 30px;
@@ -84,7 +88,6 @@
 	justify-content: flex-end;
 	align-items: center;
 	width: 40px;
-	z-index: 1;
 	display: none;
 
 	a {

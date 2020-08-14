@@ -1,6 +1,7 @@
 import cx from "classnames";
 import "normalize.scss/normalize.scss";
 import { default as React, useEffect, useState } from "react";
+import { useWindowSize } from "react-use";
 import { Experience } from "../components/Experience";
 import Footer from "../components/Footer";
 import Head from "../components/Head";
@@ -23,6 +24,7 @@ export default () => {
 		colors: lightThemeColors,
 		isDark: false
 	});
+	const { width } = useWindowSize();
 
 	const intersectionCallback: IntersectionObserverCallback = (entries) => {
 		entries.forEach((entry) => {
@@ -48,10 +50,12 @@ export default () => {
 	}, [theme]);
 
 	useEffect(() => {
-		const targets = document.querySelectorAll(".full-page");
-		targets.forEach((target) => {
-			observer.observe(target);
-		});
+		if (width > 900) {
+			const targets = document.querySelectorAll(".full-page");
+			targets.forEach((target) => {
+				observer.observe(target);
+			});
+		}
 
 		const theme = localStorage.getItem("theme");
 		if (theme) {
@@ -61,28 +65,51 @@ export default () => {
 				setTheme({ colors: darkThemeColors, isDark: true });
 			}
 		}
-	}, []);
+	}, [width]);
 
 	return (
 		<ThemeProvider value={{ ...theme, setTheme }}>
 			<Head />
-			<div className={styles.fullPageWrapper}>
+			<div
+				className={cx(styles.fullPageWrapper, "full-page-wrapper", {
+					"scroll-snap": width > 900
+				})}
+			>
 				<TopNav />
 				<LeftNav />
 				<RightNav />
-				<section className={cx(styles.fullPage, "invisible", "full-page")}>
+				<section
+					className={cx(
+						styles.fullPage,
+						"full-page",
+						{ invisible: width > 900 },
+						{ "scroll-snap": width > 900 }
+					)}
+				>
 					<Intro />
 				</section>
 
-				<section className={cx(styles.fullPage, "full-page")}>
+				<section
+					className={cx(styles.fullPage, "full-page", {
+						"scroll-snap": width > 900
+					})}
+				>
 					<Toolbox />
 				</section>
 
-				<section className={cx(styles.fullPage, "full-page")}>
+				<section
+					className={cx(styles.fullPage, "full-page", {
+						"scroll-snap": width > 900
+					})}
+				>
 					<Experience />
 				</section>
 
-				<section className={cx(styles.fullPage, "full-page")}>
+				<section
+					className={cx(styles.fullPage, "full-page", {
+						"scroll-snap": width > 900
+					})}
+				>
 					<Footer />
 				</section>
 			</div>
