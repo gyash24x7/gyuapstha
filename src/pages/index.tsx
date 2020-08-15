@@ -79,12 +79,9 @@ export default () => {
 				<LeftNav />
 				<RightNav />
 				<section
-					className={cx(
-						styles.fullPage,
-						"full-page",
-						{ invisible: width > 900 },
-						{ "scroll-snap": width > 900 }
-					)}
+					className={cx(styles.fullPage, "full-page", {
+						"scroll-snap": width > 900
+					})}
 				>
 					<Intro />
 				</section>
