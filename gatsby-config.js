@@ -7,7 +7,6 @@ module.exports = {
 			options: {
 				trackingId: "UA-175821612-1",
 				head: true,
-				optimizeId: "OPT-WK6Q6CT",
 				anonymize: false,
 				respectDNT: false
 			}
