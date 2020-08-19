@@ -13,17 +13,6 @@ module.exports = {
 			}
 		},
 		{
-			resolve: "gatsby-plugin-google-tagmanager",
-			options: {
-				id: "GTM-MPT2ZR9",
-				includeInDevelopment: false,
-				defaultDataLayer: { platform: "gatsby" },
-				routeChangeEventName: "PORTFOLIO_ROUTE_CHANGE_EVENT",
-				gtmAuth: "Yt4vWsVNj3Mez5pK18ptHQ",
-				gtmPreview: "env-3"
-			}
-		},
-		{
 			resolve: "gatsby-plugin-react-svg",
 			options: { rule: { include: /icons/ } }
 		},
