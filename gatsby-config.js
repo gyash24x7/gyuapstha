@@ -3,6 +3,27 @@ const { join } = require("path");
 module.exports = {
 	plugins: [
 		{
+			resolve: "gatsby-plugin-google-analytics",
+			options: {
+				trackingId: "UA-175821612-1",
+				head: true,
+				optimizeId: "OPT-WK6Q6CT",
+				anonymize: false,
+				respectDNT: false
+			}
+		},
+		{
+			resolve: "gatsby-plugin-google-tagmanager",
+			options: {
+				id: "GTM-MPT2ZR9",
+				includeInDevelopment: false,
+				defaultDataLayer: { platform: "gatsby" },
+				routeChangeEventName: "PORTFOLIO_ROUTE_CHANGE_EVENT",
+				gtmAuth: "Yt4vWsVNj3Mez5pK18ptHQ",
+				gtmPreview: "env-3"
+			}
+		},
+		{
 			resolve: "gatsby-plugin-react-svg",
 			options: { rule: { include: /icons/ } }
 		},
