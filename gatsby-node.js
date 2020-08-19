@@ -4,23 +4,27 @@ const zlib = require("zlib");
 const iltorb = require("iltorb");
 const glob = require("glob");
 
+console.log(process.env);
+
 exports.onPostBuild = () =>
 	new Promise((resolve, reject) => {
-		try {
-			const publicPath = path.join(__dirname, "public");
-			const gzippable = glob.sync(
-				`${publicPath}/**/?(*.html|*.js|*.css|*.svg)`
-			);
-			gzippable.forEach((file) => {
-				const content = fs.readFileSync(file);
-				const zipped = zlib.gzipSync(content);
-				fs.writeFileSync(`${file}.gz`, zipped);
+		if (process.env.NODE_ENV === "production") {
+			try {
+				const publicPath = path.join(__dirname, "public");
+				const gzippable = glob.sync(
+					`${publicPath}/**/?(*.html|*.js|*.css|*.svg)`
+				);
+				gzippable.forEach((file) => {
+					const content = fs.readFileSync(file);
+					const zipped = zlib.gzipSync(content);
+					fs.writeFileSync(`${file}.gz`, zipped);
 
-				const brotlied = iltorb.compressSync(content);
-				fs.writeFileSync(`${file}.br`, brotlied);
-			});
-		} catch (e) {
-			reject(new Error("onPostBuild: Could not compress the files"));
+					const brotlied = iltorb.compressSync(content);
+					fs.writeFileSync(`${file}.br`, brotlied);
+				});
+			} catch (e) {
+				reject(new Error("onPostBuild: Could not compress the files"));
+			}
 		}
 
 		resolve();

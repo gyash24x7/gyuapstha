@@ -1,7 +1,8 @@
 import cx from "classnames";
+import firebase from "gatsby-plugin-firebase";
 import "normalize.scss/normalize.scss";
 import { default as React, useEffect, useState } from "react";
-import { useWindowSize } from "react-use";
+import { useMount, useWindowSize } from "react-use";
 import { Experience } from "../components/Experience";
 import Footer from "../components/Footer";
 import Head from "../components/Head";
@@ -66,6 +67,8 @@ export default () => {
 			}
 		}
 	}, [width]);
+
+	useMount(() => firebase.analytics());
 
 	return (
 		<ThemeProvider value={{ ...theme, setTheme }}>

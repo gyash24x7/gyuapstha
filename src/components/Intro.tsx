@@ -1,5 +1,6 @@
 import cx from "classnames";
 import { graphql, useStaticQuery } from "gatsby";
+import firebase from "gatsby-plugin-firebase";
 import React, { useContext, useEffect } from "react";
 import Typed from "typed.js";
 import styles from "../styles/intro.module.scss";
@@ -43,7 +44,13 @@ export default () => {
 					{site?.siteMetadata?.intro}
 				</h4>
 				<a href={`mailto:${site?.siteMetadata?.emailAlt}`} target="_blank">
-					<button className="app-button" style={{ color: colors.fgColor }}>
+					<button
+						className="app-button"
+						style={{ color: colors.fgColor }}
+						onClick={() =>
+							firebase.analytics().logEvent("get_in_touch_btn_pressed")
+						}
+					>
 						Get In Touch
 					</button>
 				</a>
