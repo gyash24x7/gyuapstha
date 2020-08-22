@@ -1,10 +1,11 @@
-import cx from "classnames";
 import { graphql, useStaticQuery } from "gatsby";
-import firebase from "gatsby-plugin-firebase";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import { useMount } from "react-use";
 import Typed from "typed.js";
-import styles from "../styles/intro.module.scss";
 import { ThemeContext } from "../utils";
+import { AppButton } from "./Buttons";
+import { Container } from "./FullPage";
+import { BodyText, Intro, Name } from "./Typography";
 
 const query = graphql`
 	{
@@ -23,38 +24,28 @@ export default () => {
 	const { colors } = useContext(ThemeContext);
 	const { site } = useStaticQuery(query);
 
-	useEffect(() => {
+	useMount(() => {
 		new Typed("#typed", {
 			loop: true,
 			strings: site?.siteMetadata?.typed as string[],
 			typeSpeed: 50,
 			backSpeed: 60
 		});
-	}, []);
+	});
 
 	return (
-		<div className={cx(styles.container, "container")}>
+		<Container>
 			<div>
-				<div className={styles.subHeading}>Hi, my name is</div>
-				<div className={styles.heading}>{site?.siteMetadata?.me}.</div>
+				<BodyText>Hi, my name is</BodyText>
+				<Name>{site?.siteMetadata?.me}.</Name>
 				<div>
 					<span id="typed"></span>
 				</div>
-				<h4 className={cx(styles.intro, styles.subHeading)}>
-					{site?.siteMetadata?.intro}
-				</h4>
+				<Intro>{site?.siteMetadata?.intro}</Intro>
 				<a href={`mailto:${site?.siteMetadata?.emailAlt}`} target="_blank">
-					<button
-						className="app-button"
-						style={{ color: colors.fgColor }}
-						onClick={() =>
-							firebase.analytics().logEvent("get_in_touch_btn_pressed")
-						}
-					>
-						Get In Touch
-					</button>
+					<AppButton style={{ color: colors.fgColor }}>Get In Touch</AppButton>
 				</a>
 			</div>
-		</div>
+		</Container>
 	);
 };

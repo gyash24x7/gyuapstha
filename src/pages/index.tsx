@@ -1,49 +1,25 @@
-import cx from "classnames";
-import firebase from "gatsby-plugin-firebase";
-import "normalize.scss/normalize.scss";
 import { default as React, useEffect, useState } from "react";
-import { useMount, useWindowSize } from "react-use";
 import { Experience } from "../components/Experience";
 import Footer from "../components/Footer";
+import { FullPage, FullPageWrapper } from "../components/FullPage";
 import Head from "../components/Head";
 import Intro from "../components/Intro";
-import LeftNav from "../components/LeftNav";
-import RightNav from "../components/RightNav";
+import { LeftNav, RightNav } from "../components/SideNavs";
 import Toolbox from "../components/Toolbox";
 import TopNav from "../components/TopNav";
-import "../styles/global.scss";
-import styles from "../styles/index.module.scss";
 import {
 	darkThemeColors,
 	lightThemeColors,
 	Theme,
 	ThemeProvider
 } from "../utils";
+import { GlobalStyles } from "../utils/globalStyles";
 
 export default () => {
 	const [theme, setTheme] = useState<Theme>({
 		colors: lightThemeColors,
 		isDark: false
 	});
-	const { width } = useWindowSize();
-
-	const intersectionCallback: IntersectionObserverCallback = (entries) => {
-		entries.forEach((entry) => {
-			if (entry.intersectionRatio >= 0.75) {
-				entry.target.classList.remove("invisible");
-			} else {
-				entry.target.classList.add("invisible");
-			}
-		});
-	};
-
-	let observer: any =
-		typeof window !== "undefined" &&
-		new IntersectionObserver(intersectionCallback, {
-			root: null,
-			rootMargin: "0px",
-			threshold: 0.75
-		});
 
 	useEffect(() => {
 		document.body.style.backgroundColor = theme.colors.bgColor;
@@ -51,13 +27,6 @@ export default () => {
 	}, [theme]);
 
 	useEffect(() => {
-		if (width > 900) {
-			const targets = document.querySelectorAll(".full-page");
-			targets.forEach((target) => {
-				observer.observe(target);
-			});
-		}
-
 		const theme = localStorage.getItem("theme");
 		if (theme) {
 			if (theme === "dark") setTheme({ colors: darkThemeColors, isDark: true });
@@ -66,53 +35,32 @@ export default () => {
 				setTheme({ colors: darkThemeColors, isDark: true });
 			}
 		}
-	}, [width]);
-
-	useMount(() => firebase.analytics());
+	}, []);
 
 	return (
 		<ThemeProvider value={{ ...theme, setTheme }}>
+			<GlobalStyles />
 			<Head />
-			<div
-				className={cx(styles.fullPageWrapper, "full-page-wrapper", {
-					"scroll-snap": width > 900
-				})}
-			>
+			<FullPageWrapper>
 				<TopNav />
 				<LeftNav />
 				<RightNav />
-				<section
-					className={cx(styles.fullPage, "full-page", {
-						"scroll-snap": width > 900
-					})}
-				>
+				<FullPage>
 					<Intro />
-				</section>
-
-				<section
-					className={cx(styles.fullPage, "full-page", {
-						"scroll-snap": width > 900
-					})}
-				>
+				</FullPage>
+				<FullPage>
 					<Toolbox />
-				</section>
-
-				<section
-					className={cx(styles.fullPage, "full-page", {
-						"scroll-snap": width > 900
-					})}
-				>
+				</FullPage>
+				{/* <FullPage>
+					<Projects />
+				</FullPage> */}
+				<FullPage>
 					<Experience />
-				</section>
-
-				<section
-					className={cx(styles.fullPage, "full-page", {
-						"scroll-snap": width > 900
-					})}
-				>
+				</FullPage>
+				<FullPage>
 					<Footer />
-				</section>
-			</div>
+				</FullPage>
+			</FullPageWrapper>
 		</ThemeProvider>
 	);
 };

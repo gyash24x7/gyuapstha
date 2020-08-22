@@ -4,8 +4,6 @@ const zlib = require("zlib");
 const iltorb = require("iltorb");
 const glob = require("glob");
 
-console.log(process.env);
-
 exports.onPostBuild = () =>
 	new Promise((resolve, reject) => {
 		if (process.env.NODE_ENV === "production") {

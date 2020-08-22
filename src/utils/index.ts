@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import styled from "styled-components";
 import Facebook from "../assets/icons/facebook.svg";
 import Github from "../assets/icons/github.svg";
 import Instagram from "../assets/icons/instagram.svg";
@@ -39,32 +40,112 @@ export const ThemeContext = createContext<IThemeContext>({
 
 export const ThemeProvider = ThemeContext.Provider;
 
+const FacebookIcon = styled(Facebook)`
+	margin: 11px;
+
+	@media only screen and (max-width: 400px) {
+		margin: 7px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		margin: 15px;
+	}
+
+	&:hover {
+		fill: #fca311 !important;
+	}
+`;
+
+const LinkedInIcon = styled(LinkedIn)`
+	margin: 11px;
+
+	@media only screen and (max-width: 400px) {
+		margin: 7px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		margin: 15px;
+	}
+
+	&:hover {
+		fill: #fca311 !important;
+	}
+`;
+
+const GithubIcon = styled(Github)`
+	margin: 11px;
+
+	@media only screen and (max-width: 400px) {
+		margin: 7px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		margin: 15px;
+	}
+
+	&:hover {
+		fill: #fca311 !important;
+	}
+`;
+
+const TwitterIcon = styled(Twitter)`
+	margin: 11px;
+
+	@media only screen and (max-width: 400px) {
+		margin: 7px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		margin: 15px;
+	}
+
+	&:hover {
+		fill: #fca311 !important;
+	}
+`;
+
+const InstagramIcon = styled(Instagram)`
+	margin: 11px;
+
+	@media only screen and (max-width: 400px) {
+		margin: 7px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		margin: 15px;
+	}
+
+	&:hover {
+		fill: #fca311 !important;
+	}
+`;
+
 export const getHandleDetails = (handle: string, metaData: any) => {
 	switch (handle) {
 		case "facebook":
 			return {
 				link: metaData?.siteMetadata?.social?.facebook,
-				Component: Facebook
+				Component: FacebookIcon
 			};
 		case "twitter":
 			return {
 				link: metaData?.siteMetadata?.social?.twitter,
-				Component: Twitter
+				Component: TwitterIcon
 			};
 		case "linkedin":
 			return {
 				link: metaData?.siteMetadata?.social?.linkedin,
-				Component: LinkedIn
+				Component: LinkedInIcon
 			};
 		case "instagram":
 			return {
 				link: metaData?.siteMetadata?.social?.instagram,
-				Component: Instagram
+				Component: InstagramIcon
 			};
 		default:
 			return {
 				link: metaData?.siteMetadata?.social?.github,
-				Component: Github
+				Component: GithubIcon
 			};
 	}
 };

@@ -1,9 +1,11 @@
-import cx from "classnames";
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import { useWindowSize } from "react-use";
-import styles from "../styles/footer.module.scss";
+import styled from "styled-components";
 import { getHandleDetails, ThemeContext } from "../utils";
+import { AppButton } from "./Buttons";
+import { Container } from "./FullPage";
+import { Heading, SubHeading } from "./Typography";
 
 const query = graphql`
 	{
@@ -24,40 +26,70 @@ const query = graphql`
 	}
 `;
 
+const SideLine = styled.div`
+	flex: 1;
+	margin: 23px 20px;
+
+	& > div {
+		background-color: #fca311;
+		height: 2px;
+		width: 100%;
+		border-radius: 2px;
+	}
+`;
+
+const SocialWrapper = styled.div`
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	margin: 0px -30px;
+`;
+
+const SocialLinks = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	a {
+		text-decoration: none;
+		margin-bottom: 5px;
+
+		&:hover {
+			color: $primary !important;
+		}
+	}
+`;
+
 export default () => {
 	const { colors } = useContext(ThemeContext);
 	const { width } = useWindowSize();
 	const { site } = useStaticQuery(query);
 
 	return (
-		<div className={cx("container", styles.container)}>
+		<Container>
 			<div>
-				<div className={styles.headingBox}>
-					<div className={styles.heading}>Get in Touch</div>
-					<div className={styles.subHeading}>
-						{site.siteMetadata.partingNote}
-					</div>
-					<div className={styles.subHeading}>
-						If you think I'll be a good fit. Drop me a message.
-					</div>
-					<a
-						href={`mailto:${site.siteMetadata.emailAlt}`}
-						target="_blank"
-						rel="noopener noreferrer nofollow"
-					>
-						<button className="app-button" style={{ color: colors.fgColor }}>
-							Say Hello!
-						</button>
-					</a>
-				</div>
+				<Heading>Get in Touch</Heading>
+				<SubHeading style={{ maxWidth: 900 }}>
+					{site.siteMetadata.partingNote}
+				</SubHeading>
+				<SubHeading>
+					If you think I'll be a good fit. Drop me a message.
+				</SubHeading>
+				<a
+					href={`mailto:${site.siteMetadata.emailAlt}`}
+					target="_blank"
+					rel="noopener noreferrer nofollow"
+				>
+					<AppButton style={{ color: colors.fgColor }}>Say Hello!</AppButton>
+				</a>
 			</div>
 			{width < 900 && (
 				<div>
-					<div className={styles.socialWrapper}>
-						<div className={styles.sideLine}>
+					<SocialWrapper>
+						<SideLine>
 							<div />
-						</div>
-						<div className={styles.emailLink}>
+						</SideLine>
+						<SocialLinks>
 							<a
 								style={{ color: colors.fgColor }}
 								href={`mailto:${site.siteMetadata.email}`}
@@ -65,16 +97,16 @@ export default () => {
 							>
 								{site.siteMetadata.email}
 							</a>
-						</div>
-						<div className={styles.sideLine}>
+						</SocialLinks>
+						<SideLine>
 							<div />
-						</div>
-					</div>
-					<div className={styles.socialWrapper}>
-						<div className={styles.sideLine}>
+						</SideLine>
+					</SocialWrapper>
+					<SocialWrapper>
+						<SideLine>
 							<div />
-						</div>
-						<div className={styles.socialLinks}>
+						</SideLine>
+						<SocialLinks>
 							{Object.keys(site!.siteMetadata!.social!).map((handle) => {
 								const { link, Component } = getHandleDetails(handle, site);
 								return (
@@ -84,20 +116,17 @@ export default () => {
 										rel="noopener noreferrer nofollow"
 										key={link}
 									>
-										<Component
-											className={styles.social}
-											style={{ fill: colors.fgColor }}
-										/>
+										<Component style={{ fill: colors.fgColor }} />
 									</a>
 								);
 							})}
-						</div>
-						<div className={styles.sideLine}>
+						</SocialLinks>
+						<SideLine>
 							<div />
-						</div>
-					</div>
+						</SideLine>
+					</SocialWrapper>
 				</div>
 			)}
-		</div>
+		</Container>
 	);
 };
