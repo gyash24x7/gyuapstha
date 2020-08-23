@@ -1,7 +1,7 @@
 import { graphql, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { getHandleDetails, ThemeContext } from "../utils";
+import { ThemeContext } from "../utils";
 
 export const query = graphql`
 	{
@@ -17,29 +17,6 @@ export const query = graphql`
 				}
 			}
 		}
-	}
-`;
-
-const LeftNavContainer = styled.div`
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: center;
-	width: 40px;
-	display: none;
-
-	a {
-		text-decoration: none;
-	}
-
-	left: 0;
-	padding-left: 20px;
-
-	@media only screen and (min-width: 900px) {
-		display: flex;
-		padding-left: 30px;
 	}
 `;
 
@@ -100,35 +77,6 @@ const RightNavContainer = styled.div`
 		padding-right: 30px;
 	}
 `;
-
-export const LeftNav = () => {
-	const { colors } = useContext(ThemeContext);
-	const { site } = useStaticQuery(query);
-
-	return (
-		<LeftNavContainer>
-			<TopSideLine>
-				<div />
-			</TopSideLine>
-			{Object.keys(site.siteMetadata.social).map((handle) => {
-				const { link, Component } = getHandleDetails(handle, site);
-				return (
-					<a
-						href={link}
-						target="_blank"
-						rel="noopener noreferrer nofollow"
-						key={link}
-					>
-						<Component style={{ fill: colors.fgColor }} />
-					</a>
-				);
-			})}
-			<BottomSideLine>
-				<div />
-			</BottomSideLine>
-		</LeftNavContainer>
-	);
-};
 
 export const RightNav = () => {
 	const { colors } = useContext(ThemeContext);

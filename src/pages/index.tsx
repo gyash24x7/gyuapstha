@@ -4,8 +4,9 @@ import Footer from "../components/Footer";
 import { FullPage, FullPageWrapper } from "../components/FullPage";
 import Head from "../components/Head";
 import Intro from "../components/Intro";
+import { LeftNav } from "../components/LeftNav";
 import { Projects } from "../components/Projects";
-import { LeftNav, RightNav } from "../components/SideNavs";
+import { RightNav } from "../components/RightNav";
 import Toolbox from "../components/Toolbox";
 import TopNav from "../components/TopNav";
 import {
