@@ -21,3 +21,21 @@ export const AppButton = styled.button`
 		font-size: 16px;
 	}
 `;
+
+export const SmallLinkButton = styled(AppButton)`
+	padding: 5px 10px;
+	margin: 5px;
+	color: #fca311;
+	border-color: transparent;
+	font-family: "Montserrat", sans-serif;
+	font-size: 8px;
+
+	&:hover {
+		background-color: transparent;
+		border-color: #fca311;
+	}
+
+	@media only screen and (min-width: 900px) {
+		padding: 8px 15px;
+	}
+`;

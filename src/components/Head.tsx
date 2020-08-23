@@ -84,7 +84,7 @@ export default () => {
 		>
 			<meta charSet="utf-8" />
 			<link
-				href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Montserrat:wght@300&display=swap"
+				href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Montserrat:wght@300;700&display=swap"
 				rel="stylesheet"
 			/>
 			<link rel="canonical" href={siteMetadata.siteUrl} />

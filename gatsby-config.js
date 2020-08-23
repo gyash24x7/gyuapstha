@@ -102,6 +102,30 @@ module.exports = {
 					"Collaborated with ​6 people​ to revamp e-commerce platform ‘APFusion’, written in AngularJS and Electron, visited by ​3000+​ ​users​ daily"
 				]
 			}
+		],
+		projects: [
+			{
+				title: "Hacknotes",
+				description:
+					"Hacknotes is a intuitive, light-weight application to jot down youtr ideas and tasks. Just write it down. It's cross platform app and syncs across various platforms. Available on Android, iOS and Web.",
+				github: "https://github.com/gyash24x7/hacknotes",
+				apkLink:
+					"https://github.com/gyash24x7/hacknotes/releases/download/v1.0/hacknotes.apk",
+				webLink: "https://hacknotes.yashgupta.dev",
+				logo: "hacknotes",
+				tech: ["React Native", "React", "NestJS"]
+			},
+			{
+				title: "Literature",
+				description:
+					"Literature or Canadian Fish is a 6 player card game played in	teams of 3. Each team aims to score as many half-sets as possible. The team which scores more half sets wins. Available on Android, iOS and Web.",
+				github: "https://github.com/gyash24x7/littplay",
+				apkLink:
+					"https://github.com/gyash24x7/littplay/releases/download/v1.0/literature-v1.0.apk",
+				webLink: "https://literature.yashgupta.dev",
+				logo: "literature",
+				tech: ["Ionic", "React", "GraphQL", "NestJS"]
+			}
 		]
 	}
 };

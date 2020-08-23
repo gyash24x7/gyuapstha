@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { FullPage, FullPageWrapper } from "../components/FullPage";
 import Head from "../components/Head";
 import Intro from "../components/Intro";
+import { Projects } from "../components/Projects";
 import { LeftNav, RightNav } from "../components/SideNavs";
 import Toolbox from "../components/Toolbox";
 import TopNav from "../components/TopNav";
@@ -51,9 +52,9 @@ export default () => {
 				<FullPage>
 					<Toolbox />
 				</FullPage>
-				{/* <FullPage>
+				<FullPage>
 					<Projects />
-				</FullPage> */}
+				</FullPage>
 				<FullPage>
 					<Experience />
 				</FullPage>
