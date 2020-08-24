@@ -3,6 +3,23 @@ const { join } = require("path");
 module.exports = {
 	plugins: [
 		{
+			resolve: "gatsby-plugin-google-analytics",
+			options: {
+				trackingId: process.env.GA_TRACKING_ID,
+				head: true,
+				anonymize: true
+			}
+		},
+		{
+			resolve: "gatsby-plugin-prefetch-google-fonts",
+			options: {
+				fonts: [
+					{ family: "Montserrat", variants: ["300", "700"] },
+					{ family: "Fjalla One" }
+				]
+			}
+		},
+		{
 			resolve: "gatsby-plugin-react-svg",
 			options: { rule: { include: /icons/ } }
 		},

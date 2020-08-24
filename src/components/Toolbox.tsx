@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
 import React, { Fragment, useContext, useState } from "react";
 import { useHover, useMount } from "react-use";
 import styled from "styled-components";
@@ -132,14 +133,14 @@ export default () => {
 						.filter((image) => !excludedImages.includes(image.node.name))
 						.sort(compareToolPriority)
 						.map(({ node }, i) => (
-							<a
+							<OutboundLink
 								href={getToolData(node.name).href}
 								rel="noopener noreferrer nofollow"
 								target="_blank"
 								key={node.id}
 							>
 								<Tool node={node} index={i} opacity={opacity} />
-							</a>
+							</OutboundLink>
 						))}
 				</ToolBox>
 			</div>

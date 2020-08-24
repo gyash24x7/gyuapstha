@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../utils";
@@ -8,13 +9,6 @@ export const query = graphql`
 		site {
 			siteMetadata {
 				email
-				social {
-					facebook
-					twitter
-					linkedin
-					github
-					instagram
-				}
 			}
 		}
 	}
@@ -87,12 +81,12 @@ export const RightNav = () => {
 			<TopSideLine>
 				<div />
 			</TopSideLine>
-			<a
+			<OutboundLink
 				style={{ color: colors.fgColor }}
 				href={`mailto:${site?.siteMetadata?.email}`}
 			>
 				{site?.siteMetadata?.email}
-			</a>
+			</OutboundLink>
 			<BottomSideLine>
 				<div />
 			</BottomSideLine>

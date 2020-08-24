@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
 import React from "react";
 import { useHover } from "react-use";
 import styled from "styled-components";
@@ -150,7 +151,6 @@ const ProjectLogo = ({ node }: ProjectLogoProps) => {
 
 export const Projects = () => {
 	const { site, ...logos } = useStaticQuery(ProjectsQuery);
-	console.log(logos["hacknotes"]);
 
 	return (
 		<Container>
@@ -172,7 +172,7 @@ export const Projects = () => {
 							</ProjectHeader>
 
 							<ProjectFooter>
-								<a
+								<OutboundLink
 									href={project.github}
 									target="_blank"
 									rel="nooopener noreferrer nofollow"
@@ -180,8 +180,8 @@ export const Projects = () => {
 									<SmallLinkButton>
 										<Github style={{ fill: "#fca311" }} />
 									</SmallLinkButton>
-								</a>
-								<a
+								</OutboundLink>
+								<OutboundLink
 									href={project.apkLink}
 									target="_blank"
 									rel="nooopener noreferrer nofollow"
@@ -189,8 +189,8 @@ export const Projects = () => {
 									<SmallLinkButton>
 										<Download />
 									</SmallLinkButton>
-								</a>
-								<a
+								</OutboundLink>
+								<OutboundLink
 									href={project.webLink}
 									target="_blank"
 									rel="nooopener noreferrer nofollow"
@@ -198,7 +198,7 @@ export const Projects = () => {
 									<SmallLinkButton>
 										<Open />
 									</SmallLinkButton>
-								</a>
+								</OutboundLink>
 							</ProjectFooter>
 						</Project>
 					))}

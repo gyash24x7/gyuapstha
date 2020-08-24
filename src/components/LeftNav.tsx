@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { getHandleDetails, ThemeContext } from "../utils";
@@ -84,14 +85,14 @@ export const LeftNav = () => {
 			{Object.keys(site.siteMetadata.social).map((handle) => {
 				const { link, Component } = getHandleDetails(handle, site);
 				return (
-					<a
+					<OutboundLink
 						href={link}
 						target="_blank"
 						rel="noopener noreferrer nofollow"
 						key={link}
 					>
 						<Component style={{ fill: colors.fgColor }} />
-					</a>
+					</OutboundLink>
 				);
 			})}
 			<BottomSideLine>

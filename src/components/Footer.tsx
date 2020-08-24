@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
 import React, { useContext } from "react";
 import { useWindowSize } from "react-use";
 import styled from "styled-components";
@@ -75,13 +76,13 @@ export default () => {
 				<SubHeading>
 					If you think I'll be a good fit. Drop me a message.
 				</SubHeading>
-				<a
+				<OutboundLink
 					href={`mailto:${site.siteMetadata.emailAlt}`}
 					target="_blank"
 					rel="noopener noreferrer nofollow"
 				>
 					<AppButton style={{ color: colors.fgColor }}>Say Hello!</AppButton>
-				</a>
+				</OutboundLink>
 			</div>
 			{width < 900 && (
 				<div>
@@ -90,13 +91,13 @@ export default () => {
 							<div />
 						</SideLine>
 						<SocialLinks>
-							<a
+							<OutboundLink
 								style={{ color: colors.fgColor }}
 								href={`mailto:${site.siteMetadata.email}`}
 								rel="noopener noreferrer nofollow"
 							>
 								{site.siteMetadata.email}
-							</a>
+							</OutboundLink>
 						</SocialLinks>
 						<SideLine>
 							<div />
@@ -110,14 +111,14 @@ export default () => {
 							{Object.keys(site!.siteMetadata!.social!).map((handle) => {
 								const { link, Component } = getHandleDetails(handle, site);
 								return (
-									<a
+									<OutboundLink
 										href={link}
 										target="_blank"
 										rel="noopener noreferrer nofollow"
 										key={link}
 									>
 										<Component style={{ fill: colors.fgColor }} />
-									</a>
+									</OutboundLink>
 								);
 							})}
 						</SocialLinks>

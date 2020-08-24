@@ -1,4 +1,5 @@
 import { default as React, useEffect, useState } from "react";
+import { useMount } from "react-use";
 import { Experience } from "../components/Experience";
 import Footer from "../components/Footer";
 import { FullPage, FullPageWrapper } from "../components/FullPage";
@@ -28,7 +29,7 @@ export default () => {
 		document.body.style.color = theme.colors.fgColor;
 	}, [theme]);
 
-	useEffect(() => {
+	useMount(() => {
 		const theme = localStorage.getItem("theme");
 		if (theme) {
 			if (theme === "dark") setTheme({ colors: darkThemeColors, isDark: true });
@@ -37,7 +38,7 @@ export default () => {
 				setTheme({ colors: darkThemeColors, isDark: true });
 			}
 		}
-	}, []);
+	});
 
 	return (
 		<ThemeProvider value={{ ...theme, setTheme }}>

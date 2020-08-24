@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery } from "gatsby";
+import { OutboundLink } from "gatsby-plugin-google-analytics";
 import React, { useContext } from "react";
 import { useMount } from "react-use";
 import Typed from "typed.js";
@@ -42,9 +43,12 @@ export default () => {
 					<span id="typed"></span>
 				</div>
 				<Intro>{site?.siteMetadata?.intro}</Intro>
-				<a href={`mailto:${site?.siteMetadata?.emailAlt}`} target="_blank">
+				<OutboundLink
+					href={`mailto:${site?.siteMetadata?.emailAlt}`}
+					target="_blank"
+				>
 					<AppButton style={{ color: colors.fgColor }}>Get In Touch</AppButton>
-				</a>
+				</OutboundLink>
 			</div>
 		</Container>
 	);
