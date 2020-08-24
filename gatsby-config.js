@@ -45,10 +45,6 @@ module.exports = {
 				icon_options: { purpose: "any maskable" }
 			}
 		},
-		{
-			resolve: "gatsby-plugin-iltorb",
-			options: { extensions: ["css", "html", "js", "svg"] }
-		},
 		"gatsby-plugin-offline"
 	],
 	siteMetadata: {
