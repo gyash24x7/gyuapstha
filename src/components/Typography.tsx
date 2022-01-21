@@ -28,7 +28,7 @@ export const BodyText = styled.div`
 	}
 `;
 
-export const Intro = styled(BodyText)`
+export const Intro = styled( BodyText )`
 	margin-top: 70px;
 	line-height: 30px;
 	max-width: 900px;

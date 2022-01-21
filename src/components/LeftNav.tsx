@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { getHandleDetails, ThemeContext } from "../utils";
@@ -74,29 +73,29 @@ const BottomSideLine = styled.div`
 `;
 
 export const LeftNav = () => {
-	const { colors } = useContext(ThemeContext);
-	const { site } = useStaticQuery(query);
+	const { colors } = useContext( ThemeContext );
+	const { site } = useStaticQuery( query );
 
 	return (
 		<LeftNavContainer>
 			<TopSideLine>
-				<div />
+				<div/>
 			</TopSideLine>
-			{Object.keys(site.siteMetadata.social).map((handle) => {
-				const { link, Component } = getHandleDetails(handle, site);
+			{ Object.keys( site.siteMetadata.social ).map( ( handle ) => {
+				const { link, Component } = getHandleDetails( handle, site );
 				return (
-					<OutboundLink
-						href={link}
+					<Link
+						to={ link }
 						target="_blank"
 						rel="noopener noreferrer nofollow"
-						key={link}
+						key={ link }
 					>
-						<Component style={{ fill: colors.fgColor }} />
-					</OutboundLink>
+						<Component style={ { fill: colors.fgColor } }/>
+					</Link>
 				);
-			})}
+			} ) }
 			<BottomSideLine>
-				<div />
+				<div/>
 			</BottomSideLine>
 		</LeftNavContainer>
 	);

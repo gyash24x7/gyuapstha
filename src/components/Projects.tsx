@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React from "react";
 import { useHover } from "react-use";
 import styled from "styled-components";
@@ -137,20 +136,20 @@ interface ProjectLogoProps {
 	node: any;
 }
 
-const ProjectLogo = ({ node }: ProjectLogoProps) => {
-	const Logo = (hovered: boolean) => (
+const ProjectLogo = ( { node }: ProjectLogoProps ) => {
+	const Logo = ( hovered: boolean ) => (
 		<img
-			src={node[hovered ? "color" : "grayscale"].fluid.src}
-			alt={`${node.name}-logo`}
+			src={ node[ hovered ? "color" : "grayscale" ].fluid.src }
+			alt={ `${ node.name }-logo` }
 		/>
 	);
-	const [LogoWithHover] = useHover(Logo);
+	const [ LogoWithHover ] = useHover( Logo );
 
 	return LogoWithHover;
 };
 
 export const Projects = () => {
-	const { site, ...logos } = useStaticQuery(ProjectsQuery);
+	const { site, ...logos } = useStaticQuery( ProjectsQuery );
 
 	return (
 		<Container>
@@ -158,50 +157,50 @@ export const Projects = () => {
 				<Heading>Projects</Heading>
 				<SubHeading>Few of my notable works</SubHeading>
 				<ProjectContainer>
-					{site.siteMetadata.projects.map((project: any) => (
-						<Project key={project.title}>
+					{ site.siteMetadata.projects.map( ( project: any ) => (
+						<Project key={ project.title }>
 							<ProjectHeader>
-								<ProjectLogo node={logos[project.logo]} />
-								<ProjectTitle>{project.title}</ProjectTitle>
-								<ProjectDescription>{project.description}</ProjectDescription>
+								<ProjectLogo node={ logos[ project.logo ] }/>
+								<ProjectTitle>{ project.title }</ProjectTitle>
+								<ProjectDescription>{ project.description }</ProjectDescription>
 								<TechTagWrapper>
-									{project.tech.map((tech: string) => (
-										<TechTag key={tech}>{tech}</TechTag>
-									))}
+									{ project.tech.map( ( tech: string ) => (
+										<TechTag key={ tech }>{ tech }</TechTag>
+									) ) }
 								</TechTagWrapper>
 							</ProjectHeader>
 
 							<ProjectFooter>
-								<OutboundLink
-									href={project.github}
+								<Link
+									to={ project.github }
 									target="_blank"
 									rel="nooopener noreferrer nofollow"
 								>
 									<SmallLinkButton>
-										<Github style={{ fill: "#fca311" }} />
+										<Github style={ { fill: "#fca311" } }/>
 									</SmallLinkButton>
-								</OutboundLink>
-								<OutboundLink
-									href={project.apkLink}
+								</Link>
+								<Link
+									to={ project.apkLink }
 									target="_blank"
 									rel="nooopener noreferrer nofollow"
 								>
 									<SmallLinkButton>
-										<Download />
+										<Download/>
 									</SmallLinkButton>
-								</OutboundLink>
-								<OutboundLink
-									href={project.webLink}
+								</Link>
+								<Link
+									to={ project.webLink }
 									target="_blank"
 									rel="nooopener noreferrer nofollow"
 								>
 									<SmallLinkButton>
-										<Open />
+										<Open/>
 									</SmallLinkButton>
-								</OutboundLink>
+								</Link>
 							</ProjectFooter>
 						</Project>
-					))}
+					) ) }
 				</ProjectContainer>
 			</div>
 		</Container>

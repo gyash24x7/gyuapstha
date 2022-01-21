@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { ThemeContext } from "../utils";
@@ -73,22 +72,22 @@ const RightNavContainer = styled.div`
 `;
 
 export const RightNav = () => {
-	const { colors } = useContext(ThemeContext);
-	const { site } = useStaticQuery(query);
+	const { colors } = useContext( ThemeContext );
+	const { site } = useStaticQuery( query );
 
 	return (
 		<RightNavContainer>
 			<TopSideLine>
-				<div />
+				<div/>
 			</TopSideLine>
-			<OutboundLink
-				style={{ color: colors.fgColor }}
-				href={`mailto:${site?.siteMetadata?.email}`}
+			<Link
+				style={ { color: colors.fgColor } }
+				to={ `mailto:${ site?.siteMetadata?.email }` }
 			>
-				{site?.siteMetadata?.email}
-			</OutboundLink>
+				{ site?.siteMetadata?.email }
+			</Link>
 			<BottomSideLine>
-				<div />
+				<div/>
 			</BottomSideLine>
 		</RightNavContainer>
 	);

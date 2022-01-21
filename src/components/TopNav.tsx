@@ -36,7 +36,7 @@ const MidLine = styled.div`
 	}
 `;
 
-const SunIcon = styled(Sun)`
+const SunIcon = styled( Sun )`
 	cursor: pointer;
 	margin-right: 5px;
 	height: 30px;
@@ -47,7 +47,7 @@ const SunIcon = styled(Sun)`
 	}
 `;
 
-const MoonIcon = styled(Moon)`
+const MoonIcon = styled( Moon )`
 	cursor: pointer;
 	margin-right: 5px;
 	height: 30px;
@@ -59,29 +59,29 @@ const MoonIcon = styled(Moon)`
 `;
 
 export default () => {
-	const { colors, setTheme, isDark } = useContext(ThemeContext);
+	const { colors, setTheme, isDark } = useContext( ThemeContext );
 
 	const toggleTheme = () => {
-		if (isDark) {
-			localStorage.setItem("theme", "light");
-			setTheme({ colors: lightThemeColors, isDark: false });
+		if ( isDark ) {
+			localStorage.setItem( "theme", "light" );
+			setTheme( { colors: lightThemeColors, isDark: false } );
 		} else {
-			localStorage.setItem("theme", "dark");
-			setTheme({ colors: darkThemeColors, isDark: true });
+			localStorage.setItem( "theme", "dark" );
+			setTheme( { colors: darkThemeColors, isDark: true } );
 		}
 	};
 
 	return (
-		<TopNav style={{ backgroundColor: colors.bgColor }}>
-			<Logo style={{ fill: colors.fgColor, marginLeft: 5 }} />
+		<TopNav style={ { backgroundColor: colors.bgColor } }>
+			<Logo style={ { fill: colors.fgColor, marginLeft: 5 } }/>
 			<MidLine>
-				<div />
+				<div/>
 			</MidLine>
-			{isDark ? (
-				<SunIcon style={{ fill: colors.fgColor }} onClick={toggleTheme} />
+			{ isDark ? (
+				<SunIcon style={ { fill: colors.fgColor } } onClick={ toggleTheme }/>
 			) : (
-				<MoonIcon style={{ fill: colors.fgColor }} onClick={toggleTheme} />
-			)}
+				<MoonIcon style={ { fill: colors.fgColor } } onClick={ toggleTheme }/>
+			) }
 		</TopNav>
 	);
 };

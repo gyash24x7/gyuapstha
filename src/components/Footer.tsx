@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import { useWindowSize } from "react-use";
 import styled from "styled-components";
@@ -62,72 +61,72 @@ const SocialLinks = styled.div`
 `;
 
 export default () => {
-	const { colors } = useContext(ThemeContext);
+	const { colors } = useContext( ThemeContext );
 	const { width } = useWindowSize();
-	const { site } = useStaticQuery(query);
+	const { site } = useStaticQuery( query );
 
 	return (
 		<Container>
 			<div>
 				<Heading>Get in Touch</Heading>
-				<SubHeading style={{ maxWidth: 900 }}>
-					{site.siteMetadata.partingNote}
+				<SubHeading style={ { maxWidth: 900 } }>
+					{ site.siteMetadata.partingNote }
 				</SubHeading>
 				<SubHeading>
 					If you think I'll be a good fit. Drop me a message.
 				</SubHeading>
-				<OutboundLink
-					href={`mailto:${site.siteMetadata.emailAlt}`}
+				<Link
+					to={ `mailto:${ site.siteMetadata.emailAlt }` }
 					target="_blank"
 					rel="noopener noreferrer nofollow"
 				>
-					<AppButton style={{ color: colors.fgColor }}>Say Hello!</AppButton>
-				</OutboundLink>
+					<AppButton style={ { color: colors.fgColor } }>Say Hello!</AppButton>
+				</Link>
 			</div>
-			{width < 900 && (
+			{ width < 900 && (
 				<div>
 					<SocialWrapper>
 						<SideLine>
-							<div />
+							<div/>
 						</SideLine>
 						<SocialLinks>
-							<OutboundLink
-								style={{ color: colors.fgColor }}
-								href={`mailto:${site.siteMetadata.email}`}
+							<Link
+								style={ { color: colors.fgColor } }
+								to={ `mailto:${ site.siteMetadata.email }` }
 								rel="noopener noreferrer nofollow"
 							>
-								{site.siteMetadata.email}
-							</OutboundLink>
+								{ site.siteMetadata.email }
+							</Link>
 						</SocialLinks>
 						<SideLine>
-							<div />
+							<div/>
 						</SideLine>
 					</SocialWrapper>
 					<SocialWrapper>
 						<SideLine>
-							<div />
+							<div/>
 						</SideLine>
 						<SocialLinks>
-							{Object.keys(site!.siteMetadata!.social!).map((handle) => {
-								const { link, Component } = getHandleDetails(handle, site);
+							{ Object.keys( site!.siteMetadata!.social! ).map( ( handle ) => {
+								const { link, Component } = getHandleDetails( handle, site );
 								return (
-									<OutboundLink
-										href={link}
+									<Link
+										to={ link }
 										target="_blank"
 										rel="noopener noreferrer nofollow"
-										key={link}
+										key={ link }
 									>
-										<Component style={{ fill: colors.fgColor }} />
-									</OutboundLink>
+										<Component style={ { fill: colors.fgColor } }/>
+									</Link>
 								);
-							})}
+							} ) }
 						</SocialLinks>
 						<SideLine>
-							<div />
+							<div/>
 						</SideLine>
 					</SocialWrapper>
 				</div>
-			)}
+			) }
 		</Container>
 	);
 };

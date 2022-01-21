@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React, { useContext } from "react";
 import { useMount } from "react-use";
 import Typed from "typed.js";
@@ -22,33 +21,33 @@ const query = graphql`
 `;
 
 export default () => {
-	const { colors } = useContext(ThemeContext);
-	const { site } = useStaticQuery(query);
+	const { colors } = useContext( ThemeContext );
+	const { site } = useStaticQuery( query );
 
-	useMount(() => {
-		new Typed("#typed", {
+	useMount( () => {
+		new Typed( "#typed", {
 			loop: true,
 			strings: site?.siteMetadata?.typed as string[],
 			typeSpeed: 50,
 			backSpeed: 60
-		});
-	});
+		} );
+	} );
 
 	return (
 		<Container>
 			<div>
 				<BodyText>Hi, my name is</BodyText>
-				<Name>{site?.siteMetadata?.me}.</Name>
+				<Name>{ site?.siteMetadata?.me }.</Name>
 				<div>
-					<span id="typed"></span>
+					<span id="typed"/>
 				</div>
-				<Intro>{site?.siteMetadata?.intro}</Intro>
-				<OutboundLink
-					href={`mailto:${site?.siteMetadata?.emailAlt}`}
+				<Intro>{ site?.siteMetadata?.intro }</Intro>
+				<Link
+					to={ `mailto:${ site?.siteMetadata?.emailAlt }` }
 					target="_blank"
 				>
-					<AppButton style={{ color: colors.fgColor }}>Get In Touch</AppButton>
-				</OutboundLink>
+					<AppButton style={ { color: colors.fgColor } }>Get In Touch</AppButton>
+				</Link>
 			</div>
 		</Container>
 	);

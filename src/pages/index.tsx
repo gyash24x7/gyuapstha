@@ -10,58 +10,57 @@ import { Projects } from "../components/Projects";
 import { RightNav } from "../components/RightNav";
 import Toolbox from "../components/Toolbox";
 import TopNav from "../components/TopNav";
-import {
-	darkThemeColors,
-	lightThemeColors,
-	Theme,
-	ThemeProvider
-} from "../utils";
+import { darkThemeColors, lightThemeColors, Theme, ThemeProvider } from "../utils";
 import { GlobalStyles } from "../utils/globalStyles";
+import "@fontsource/montserrat";
+import "@fontsource/fjalla-one";
 
 export default () => {
-	const [theme, setTheme] = useState<Theme>({
+	const [ theme, setTheme ] = useState<Theme>( {
 		colors: lightThemeColors,
 		isDark: false
-	});
+	} );
 
-	useEffect(() => {
+	useEffect( () => {
 		document.body.style.backgroundColor = theme.colors.bgColor;
 		document.body.style.color = theme.colors.fgColor;
-	}, [theme]);
+	}, [ theme ] );
 
-	useMount(() => {
-		const theme = localStorage.getItem("theme");
-		if (theme) {
-			if (theme === "dark") setTheme({ colors: darkThemeColors, isDark: true });
+	useMount( () => {
+		const theme = localStorage.getItem( "theme" );
+		if ( theme ) {
+			if ( theme === "dark" ) {
+				setTheme( { colors: darkThemeColors, isDark: true } );
+			}
 		} else {
-			if (matchMedia("(prefers-color-scheme:dark)").matches) {
-				setTheme({ colors: darkThemeColors, isDark: true });
+			if ( matchMedia( "(prefers-color-scheme:dark)" ).matches ) {
+				setTheme( { colors: darkThemeColors, isDark: true } );
 			}
 		}
-	});
+	} );
 
 	return (
-		<ThemeProvider value={{ ...theme, setTheme }}>
-			<GlobalStyles />
-			<Head />
+		<ThemeProvider value={ { ...theme, setTheme } }>
+			<GlobalStyles/>
+			<Head/>
 			<FullPageWrapper>
-				<TopNav />
-				<LeftNav />
-				<RightNav />
+				<TopNav/>
+				<LeftNav/>
+				<RightNav/>
 				<FullPage>
-					<Intro />
+					<Intro/>
 				</FullPage>
 				<FullPage>
-					<Toolbox />
+					<Toolbox/>
 				</FullPage>
 				<FullPage>
-					<Projects />
+					<Projects/>
 				</FullPage>
 				<FullPage>
-					<Experience />
+					<Experience/>
 				</FullPage>
 				<FullPage>
-					<Footer />
+					<Footer/>
 				</FullPage>
 			</FullPageWrapper>
 		</ThemeProvider>

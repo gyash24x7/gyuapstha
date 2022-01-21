@@ -22,7 +22,7 @@ export const AppButton = styled.button`
 	}
 `;
 
-export const SmallLinkButton = styled(AppButton)`
+export const SmallLinkButton = styled( AppButton )`
 	padding: 5px 10px;
 	margin: 5px;
 	color: #fca311;

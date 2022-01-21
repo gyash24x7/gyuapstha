@@ -131,19 +131,19 @@ const CompanyDescription = styled.div`
 `;
 
 export const Experience = () => {
-	const { site } = useStaticQuery(ExperienceQuery);
-	const [companyData, setCompanyData] = useState(
-		site.siteMetadata.experience[0]
+	const { site } = useStaticQuery( ExperienceQuery );
+	const [ companyData, setCompanyData ] = useState(
+		site.siteMetadata.experience[ 0 ]
 	);
-	const handleCompanySelect = (i: number) => () => {
-		setCompanyData(site.siteMetadata.experience[i]);
+	const handleCompanySelect = ( i: number ) => () => {
+		setCompanyData( site.siteMetadata.experience[ i ] );
 	};
 
-	useEffect(() => {
-		const companyListItem = document.getElementById(companyData.name);
-		companyListItem?.classList.add("active");
-		return () => companyListItem?.classList.remove("active");
-	}, [companyData]);
+	useEffect( () => {
+		const companyListItem = document.getElementById( companyData.name );
+		companyListItem?.classList.add( "active" );
+		return () => companyListItem?.classList.remove( "active" );
+	}, [ companyData ] );
 
 	return (
 		<Container>
@@ -153,39 +153,39 @@ export const Experience = () => {
 				</div>
 				<ExperienceGrid>
 					<CompanyList>
-						{site.siteMetadata.experience.map(({ name }: any, i: number) => (
+						{ site.siteMetadata.experience.map( ( { name }: any, i: number ) => (
 							<CompanyListItem
-								onClick={handleCompanySelect(i)}
-								key={name}
-								id={name}
+								onClick={ handleCompanySelect( i ) }
+								key={ name }
+								id={ name }
 							>
-								{name}
+								{ name }
 							</CompanyListItem>
-						))}
+						) ) }
 					</CompanyList>
 					<CompanyDescription>
 						<PositionBlock>
 							<Position>
-								{companyData.position}&nbsp;&nbsp;
+								{ companyData.position }&nbsp;&nbsp;
 								<a
-									href={companyData.url}
+									href={ companyData.url }
 									target="_blank"
 									rel="noopener noreferrer nofollow"
 								>
-									@{companyData.name}
+									@{ companyData.name }
 								</a>
 							</Position>
-							<Duration>({companyData.duration})</Duration>
+							<Duration>({ companyData.duration })</Duration>
 						</PositionBlock>
-						<CompanyIntro>{companyData.intro}</CompanyIntro>
-						{companyData.points.map((point: string) => (
-							<Point key={point}>
+						<CompanyIntro>{ companyData.intro }</CompanyIntro>
+						{ companyData.points.map( ( point: string ) => (
+							<Point key={ point }>
 								<Bullet>
-									<Caret />
+									<Caret/>
 								</Bullet>
-								<span>{point}</span>
+								<span>{ point }</span>
 							</Point>
-						))}
+						) ) }
 					</CompanyDescription>
 				</ExperienceGrid>
 			</div>

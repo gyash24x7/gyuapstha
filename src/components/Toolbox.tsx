@@ -1,5 +1,4 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { OutboundLink } from "gatsby-plugin-google-analytics";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import React, { Fragment, useContext, useState } from "react";
 import { useHover, useMount } from "react-use";
 import styled from "styled-components";
@@ -13,18 +12,18 @@ interface ToolProps {
 	opacity: number;
 }
 
-export const Tool = ({ node, index, opacity }: ToolProps) => {
-	const ToolImage = (hovered: boolean) => (
+export const Tool = ( { node, index, opacity }: ToolProps ) => {
+	const ToolImage = ( hovered: boolean ) => (
 		<img
-			src={node[hovered ? "sharp" : "grayscale"].fluid.src}
-			alt={getToolData(node.name).title}
-			title={getToolData(node.name).title}
-			style={{ opacity, transitionDelay: `${Math.abs(index - 8)}00ms` }}
+			src={ node[ hovered ? "sharp" : "grayscale" ].fluid.src }
+			alt={ getToolData( node.name ).title }
+			title={ getToolData( node.name ).title }
+			style={ { opacity, transitionDelay: `${ Math.abs( index - 8 ) }00ms` } }
 		/>
 	);
-	const [HoveredToolImage] = useHover(ToolImage);
+	const [ HoveredToolImage ] = useHover( ToolImage );
 
-	return <Fragment>{HoveredToolImage}</Fragment>;
+	return <Fragment>{ HoveredToolImage }</Fragment>;
 };
 
 const query = graphql`
@@ -52,7 +51,7 @@ const query = graphql`
 	}
 `;
 
-const darkLogos = ["apollo-logo", "mongo-logo", "nextjs-logo", "nodejs-logo"];
+const darkLogos = [ "apollo-logo", "mongo-logo", "nextjs-logo", "nodejs-logo" ];
 const lightLogos = [
 	"apollo-logo-light",
 	"mongo-logo-light",
@@ -92,31 +91,34 @@ const ToolBox = styled.div`
 `;
 
 export default () => {
-	const { isDark } = useContext(ThemeContext);
-	const [opacity, setOpacity] = useState(0);
-	const data = useStaticQuery(query);
+	const { isDark } = useContext( ThemeContext );
+	const [ opacity, setOpacity ] = useState( 0 );
+	const data = useStaticQuery( query );
 	const images: any[] = data.allFile.edges;
 	const excludedImages = isDark ? darkLogos : lightLogos;
 
-	const intersectionCallback: IntersectionObserverCallback = (entries) => {
-		entries.forEach((entry) => {
-			if (entry.intersectionRatio >= 0.85) setOpacity(1);
-			else setOpacity(0);
-		});
+	const intersectionCallback: IntersectionObserverCallback = ( entries ) => {
+		entries.forEach( ( entry ) => {
+			if ( entry.intersectionRatio >= 0.85 ) {
+				setOpacity( 1 );
+			} else {
+				setOpacity( 0 );
+			}
+		} );
 	};
 
 	let observer: any =
 		typeof window !== "undefined" &&
-		new IntersectionObserver(intersectionCallback, {
+		new IntersectionObserver( intersectionCallback, {
 			root: null,
 			rootMargin: "0px",
 			threshold: 0.85
-		});
+		} );
 
-	useMount(() =>
-		document.querySelectorAll("#toolbox").forEach((target) => {
-			observer.observe(target);
-		})
+	useMount( () =>
+		document.querySelectorAll( "#toolbox" ).forEach( ( target ) => {
+			observer.observe( target );
+		} )
 	);
 
 	return (
@@ -129,19 +131,19 @@ export default () => {
 					</SubHeading>
 				</div>
 				<ToolBox>
-					{images
-						.filter((image) => !excludedImages.includes(image.node.name))
-						.sort(compareToolPriority)
-						.map(({ node }, i) => (
-							<OutboundLink
-								href={getToolData(node.name).href}
+					{ images
+						.filter( ( image ) => !excludedImages.includes( image.node.name ) )
+						.sort( compareToolPriority )
+						.map( ( { node }, i ) => (
+							<Link
+								to={ getToolData( node.name ).href }
 								rel="noopener noreferrer nofollow"
 								target="_blank"
-								key={node.id}
+								key={ node.id }
 							>
-								<Tool node={node} index={i} opacity={opacity} />
-							</OutboundLink>
-						))}
+								<Tool node={ node } index={ i } opacity={ opacity }/>
+							</Link>
+						) ) }
 				</ToolBox>
 			</div>
 		</Container>

@@ -29,18 +29,18 @@ export const darkThemeColors: ThemeColors = {
 export interface IThemeContext {
 	isDark: boolean;
 	colors: ThemeColors;
-	setTheme: (theme: Theme) => void;
+	setTheme: ( theme: Theme ) => void;
 }
 
-export const ThemeContext = createContext<IThemeContext>({
+export const ThemeContext = createContext<IThemeContext>( {
 	colors: lightThemeColors,
 	setTheme: () => {},
 	isDark: false
-});
+} );
 
 export const ThemeProvider = ThemeContext.Provider;
 
-const FacebookIcon = styled(Facebook)`
+const FacebookIcon = styled( Facebook )`
 	margin: 11px;
 
 	@media only screen and (max-width: 400px) {
@@ -56,7 +56,7 @@ const FacebookIcon = styled(Facebook)`
 	}
 `;
 
-const LinkedInIcon = styled(LinkedIn)`
+const LinkedInIcon = styled( LinkedIn )`
 	margin: 11px;
 
 	@media only screen and (max-width: 400px) {
@@ -72,7 +72,7 @@ const LinkedInIcon = styled(LinkedIn)`
 	}
 `;
 
-const GithubIcon = styled(Github)`
+const GithubIcon = styled( Github )`
 	margin: 11px;
 
 	@media only screen and (max-width: 400px) {
@@ -88,7 +88,7 @@ const GithubIcon = styled(Github)`
 	}
 `;
 
-const TwitterIcon = styled(Twitter)`
+const TwitterIcon = styled( Twitter )`
 	margin: 11px;
 
 	@media only screen and (max-width: 400px) {
@@ -104,7 +104,7 @@ const TwitterIcon = styled(Twitter)`
 	}
 `;
 
-const InstagramIcon = styled(Instagram)`
+const InstagramIcon = styled( Instagram )`
 	margin: 11px;
 
 	@media only screen and (max-width: 400px) {
@@ -120,8 +120,8 @@ const InstagramIcon = styled(Instagram)`
 	}
 `;
 
-export const getHandleDetails = (handle: string, metaData: any) => {
-	switch (handle) {
+export const getHandleDetails = ( handle: string, metaData: any ) => {
+	switch ( handle ) {
 		case "facebook":
 			return {
 				link: metaData?.siteMetadata?.social?.facebook,
@@ -150,11 +150,11 @@ export const getHandleDetails = (handle: string, metaData: any) => {
 	}
 };
 
-export const getToolData = (filename: string) => {
+export const getToolData = ( filename: string ) => {
 	let title = "SCSS";
 	let href = "https://sass-lang.com";
 
-	switch (filename) {
+	switch ( filename ) {
 		case "apollo-logo-light":
 		case "apollo-logo":
 			title = "Apollo";
@@ -252,9 +252,9 @@ const priorityToolsArray = [
 	"mongo-logo"
 ];
 
-export const compareToolPriority = (a: any, b: any) => {
+export const compareToolPriority = ( a: any, b: any ) => {
 	return (
-		priorityToolsArray.indexOf(a.node.name) -
-		priorityToolsArray.indexOf(b.node.name)
+		priorityToolsArray.indexOf( a.node.name ) -
+		priorityToolsArray.indexOf( b.node.name )
 	);
 };
