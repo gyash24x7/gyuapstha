@@ -3,14 +3,6 @@ const { join } = require("path");
 module.exports = {
 	plugins: [
 		{
-			resolve: "gatsby-plugin-google-analytics",
-			options: {
-				trackingId: process.env.GA_TRACKING_ID,
-				head: true,
-				anonymize: true
-			}
-		},
-		{
 			resolve: "gatsby-plugin-prefetch-google-fonts",
 			options: {
 				fonts: [
@@ -80,6 +72,19 @@ module.exports = {
 		fbUsername: "gyuapstha",
 		twitterUsername: "YashGup14686444",
 		experience: [
+			{
+				name: "Honeywell",
+				url:"https://honeywell.com",
+				intro:"Honeywell is a MNC headquartered in Charlotte, North Carolina",
+				position: "Software Engineer II",
+				duration: "August 2020 - Present",
+				points: [
+					"Integral part of Intelligrated Software Team developing Warehouse Execution System for giants like BigLots, DMWH, Target",
+					"Developed Microservices in Java with Spring Boot, RabbitMQ, Postgres, Kafka",
+					"Orchestrated Deployment of Microservice Architecture in multiple environments using Kubernetes",
+					"Maintained CI/CD pipeline for the project with rigorous and multi-level testing stages"
+				]
+			},
 			{
 				name: "Hakimo",
 				url: "https://hakimo.ai",
