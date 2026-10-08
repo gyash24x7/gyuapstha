@@ -1,0 +1,397 @@
+---
+/**
+ * Interactive SVG portrait for the landing hero.
+ * The head and face turn toward the pointer (layered parallax), the eyes blink,
+ * scrolling makes him look down at the page, and clicking or tapping makes him grin and push up his glasses.
+ * Under prefers-reduced-motion it renders still and only the speech bubble responds.
+ */
+---
+
+<div class="portrait" data-portrait>
+	<p class="bubble" data-bubble aria-live="polite" hidden></p>
+	<button class="stage" type="button" data-stage aria-label="Say hi to Yash">
+		<svg viewBox="0 0 400 420" role="img" aria-labelledby="portrait-title">
+			<title id="portrait-title">Illustration of Yash: swept dark hair, glasses, a short beard and a jacket over a white turtleneck</title>
+			<defs>
+				<clipPath id="portrait-bust">
+					<circle cx="200" cy="210" r="180"/>
+					<rect x="0" y="0" width="400" height="210"/>
+				</clipPath>
+			</defs>
+
+			<!-- Backdrop -->
+			<circle class="disc-shadow" cx="208" cy="218" r="180"/>
+			<circle class="disc" cx="200" cy="210" r="180"/>
+
+			<!-- Floating bits, drift against the pointer -->
+			<g data-layer="float">
+				<rect class="card" x="40" y="72" width="46" height="64" rx="7" transform="rotate(-14 62 104)"/>
+				<rect class="card" x="322" y="230" width="44" height="62" rx="7" transform="rotate(12 344 262)"/>
+				<g transform="rotate(8 324 76)">
+					<rect class="card" x="296" y="60" width="58" height="30" rx="15"/>
+					<text class="code" x="325" y="80" text-anchor="middle">&lt;/&gt;</text>
+				</g>
+			</g>
+
+			<g clip-path="url(#portrait-bust)">
+				<!-- Body -->
+				<g data-layer="body">
+					<path class="jacket" d="M40 420 L48 372 C56 338 92 320 140 308 L170 300 L230 300 L260 308 C308 320 344 338 352 372 L360 420Z"/>
+					<path class="skin" d="M178 250 L178 292 C190 298 210 298 222 292 L222 250Z"/>
+					<path class="sweater" d="M170 300 C170 290 182 284 200 284 C218 284 230 290 230 300 L244 420 L156 420Z"/>
+					<path class="line" d="M174 314 C190 320 210 320 226 314"/>
+					<path class="jacket" d="M148 306 C152 290 164 279 176 279 L181 318 C166 320 154 316 148 306Z"/>
+					<path class="jacket" d="M252 306 C248 290 236 279 224 279 L219 318 C234 320 246 316 252 306Z"/>
+				</g>
+
+				<!-- Head -->
+				<g data-layer="head">
+					<g data-layer="back">
+						<path class="ink" d="M118 205 C108 140 145 92 205 90 C265 90 296 135 284 205Z"/>
+						<ellipse class="skin" cx="130" cy="215" rx="13" ry="19"/>
+						<ellipse class="skin" cx="270" cy="215" rx="13" ry="19"/>
+					</g>
+
+					<path class="skin" d="M200 128 C252 128 272 168 272 214 C272 262 244 300 200 302 C156 300 128 262 128 214 C128 168 148 128 200 128Z"/>
+					<path class="ink" d="M130 222 C130 268 158 306 200 306 C242 306 270 268 270 222 C262 250 246 262 232 266 C222 282 212 290 200 290 C188 290 178 282 168 266 C154 262 138 250 130 222Z"/>
+
+					<g data-layer="face">
+						<g class="eye">
+							<circle class="ink pupil" cx="172" cy="209" r="5" data-layer="pupil"/>
+							<path class="line squint" d="M164 212 Q172 202 180 212"/>
+						</g>
+						<g class="eye">
+							<circle class="ink pupil" cx="228" cy="209" r="5" data-layer="pupil"/>
+							<path class="line squint" d="M220 212 Q228 202 236 212"/>
+						</g>
+
+						<g class="brows">
+							<path class="line line--bold" d="M158 191 Q172 184 186 189"/>
+							<path class="line line--bold" d="M214 189 Q228 184 242 191"/>
+						</g>
+
+						<g class="glasses">
+							<rect class="line" x="148" y="195" width="46" height="30" rx="10"/>
+							<rect class="line" x="206" y="195" width="46" height="30" rx="10"/>
+							<path class="line" d="M194 205 Q200 201 206 205"/>
+						</g>
+
+						<path class="line" d="M201 220 C200 230 195 236 196 240 C199 242 203 242 206 240"/>
+						<path class="ink" d="M178 255 C186 247 195 248 200 252 C205 248 214 247 222 255 C212 258 188 258 178 255Z"/>
+						<path class="mouth mouth--rest line" d="M186 264 Q200 272 214 264"/>
+						<path class="mouth mouth--happy ink" d="M183 261 Q200 286 217 261Z"/>
+					</g>
+
+					<path class="ink" data-layer="fringe" d="M126 200 C118 160 132 118 168 102 C182 84 228 76 262 96 C290 116 298 156 280 190 C276 170 266 156 252 150 C232 140 214 146 196 140 C176 134 160 144 150 158 C140 172 136 186 126 200Z"/>
+				</g>
+			</g>
+		</svg>
+	</button>
+</div>
+
+<style>
+	.portrait {
+		position: relative;
+		width: 100%;
+		max-width: 520px;
+		margin-inline: auto;
+	}
+
+	.stage {
+		display: block;
+		width: 100%;
+		padding: 0;
+		background: none;
+		border: 0;
+		border-radius: 50%;
+		cursor: pointer;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	.stage:focus-visible {
+		outline-offset: 6px;
+	}
+
+	svg {
+		width: 100%;
+		height: auto;
+		overflow: visible;
+	}
+
+	.disc { fill: var(--marigold); stroke: var(--illo-line); stroke-width: 3; }
+	.disc-shadow { fill: var(--shadow-ink); }
+	.card { fill: var(--illo-paper); stroke: var(--illo-line); stroke-width: 3; }
+	.code { font: 600 15px var(--font-mono); fill: var(--illo-line); }
+	.jacket { fill: var(--marigold); stroke: var(--illo-line); stroke-width: 3; stroke-linejoin: round; }
+	.sweater { fill: var(--illo-paper); stroke: var(--illo-line); stroke-width: 3; stroke-linejoin: round; }
+	.skin { fill: var(--skin); stroke: var(--illo-line); stroke-width: 3; }
+	.ink { fill: var(--illo-line); }
+	.line { fill: none; stroke: var(--illo-line); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+	.line--bold { stroke-width: 6; }
+
+	/* Animated parts: CSS transforms on elements without a transform attribute */
+	.eye,
+	.brows,
+	.glasses,
+	.mouth,
+	.pupil,
+	.squint {
+		transform-box: fill-box;
+		transform-origin: center;
+		transition: transform 90ms ease-out, opacity 120ms ease-out;
+	}
+
+	.mouth--happy {
+		opacity: 0;
+		transform: scaleY(.4);
+	}
+
+	.portrait.is-blinking .eye {
+		transform: scaleY(.1);
+	}
+
+	.squint {
+		opacity: 0;
+	}
+
+	/* Happy: eyes squeeze into ^^, glasses get pushed up and bounce back */
+	.portrait.is-happy .pupil {
+		opacity: 0;
+	}
+
+	.portrait.is-happy .squint {
+		opacity: 1;
+	}
+
+	.portrait.is-happy .brows {
+		transform: translateY(-5px);
+		transition-duration: 160ms;
+	}
+
+	.portrait.is-happy .glasses {
+		animation: push-up 700ms var(--ease-spring);
+	}
+
+	@keyframes push-up {
+		30% {
+			transform: translateY(-7px);
+		}
+
+		55% {
+			transform: translateY(1px);
+		}
+
+		75% {
+			transform: translateY(-2px);
+		}
+	}
+
+	.portrait.is-happy .mouth--rest {
+		opacity: 0;
+	}
+
+	.portrait.is-happy .mouth--happy {
+		opacity: 1;
+		transform: none;
+		transition: transform 240ms var(--ease-spring), opacity 80ms ease-out;
+	}
+
+	.bubble {
+		position: absolute;
+		z-index: 1;
+		top: 2%;
+		left: 0;
+		max-width: min(240px, 60%);
+		padding: var(--space-3) var(--space-4);
+		font: 600 15px/1.35 var(--font-body);
+		color: var(--ink);
+		background: var(--paper-raised);
+		border: var(--border-sticker) solid var(--ink);
+		border-radius: var(--radius-md) var(--radius-md) var(--radius-md) 0;
+		box-shadow: var(--sticker-sm);
+		transform-origin: bottom left;
+		animation: pop 320ms var(--ease-spring);
+	}
+
+	@keyframes pop {
+		from {
+			transform: scale(.6) rotate(-6deg);
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.eye,
+		.brows,
+		.glasses,
+		.mouth {
+			transition: none;
+		}
+
+		.bubble {
+			animation: none;
+		}
+	}
+</style>
+
+<script>
+	const LINES = [
+		"Hi! Thanks for dropping by.",
+		"I build things for the web.",
+		"I work on the backend too.",
+		"And for mobile as well.",
+		"Okay, that tickles.",
+		"Psst. The email button works."
+	];
+
+	const clamp = ( value: number, min = -1, max = 1 ) => Math.min( max, Math.max( min, value ) );
+	const lerp = ( from: number, to: number, amount: number ) => from + ( to - from ) * amount;
+
+	document.querySelectorAll<HTMLElement>( "[data-portrait]" ).forEach( root => {
+		const stage = root.querySelector<HTMLButtonElement>( "[data-stage]" )!;
+		const bubble = root.querySelector<HTMLElement>( "[data-bubble]" )!;
+		const svg = stage.querySelector( "svg" )!;
+		const layer = ( name: string ) => Array.from( svg.querySelectorAll<SVGGraphicsElement>( `[data-layer="${ name }"]` ) );
+
+		const layers = {
+			float: layer( "float" ),
+			body: layer( "body" ),
+			head: layer( "head" ),
+			back: layer( "back" ),
+			face: layer( "face" ),
+			fringe: layer( "fringe" ),
+			pupils: layer( "pupil" )
+		};
+
+		const reducedMotion = window.matchMedia( "(prefers-reduced-motion: reduce)" );
+
+		// Where he is looking: target from input, current eased toward it
+		const target = { x: 0, y: 0 };
+		const current = { x: 0, y: 0 };
+		let lastPointer = 0;
+		let frame = 0;
+		let visible = true;
+
+		const place = ( elements: SVGGraphicsElement[], transform: string ) => {
+			elements.forEach( element => element.setAttribute( "transform", transform ) );
+		};
+
+		const render = () => {
+			const { x, y } = current;
+			place( layers.float, `translate(${ -x * 14 } ${ -y * 10 })` );
+			place( layers.body, `translate(${ x * 2 } 0)` );
+			place( layers.head, `translate(${ x * 6 } ${ y * 4 }) rotate(${ x * 4 } 200 290)` );
+			place( layers.back, `translate(${ -x * 3 } ${ -y * 2 })` );
+			place( layers.face, `translate(${ x * 9 } ${ y * 6 })` );
+			place( layers.fringe, `translate(${ x * 6 } ${ y * 3 })` );
+			place( layers.pupils, `translate(${ x * 4 } ${ y * 2.5 })` );
+		};
+
+		const tick = ( time: number ) => {
+			frame = 0;
+
+			// Scrolling down the page makes him look down at the content
+			const scrolled = clamp( window.scrollY / ( window.innerHeight * .8 ), 0, 1 );
+
+			let goalX = target.x;
+			let goalY = target.y;
+			if ( time - lastPointer > 3500 ) {
+				// Idle: let the gaze wander
+				goalX = Math.sin( time / 1300 ) * .45;
+				goalY = Math.sin( time / 1700 ) * .2;
+			}
+			goalY = clamp( goalY + scrolled * .9 );
+
+			current.x = lerp( current.x, goalX, .1 );
+			current.y = lerp( current.y, goalY, .1 );
+			render();
+
+			if ( visible && !reducedMotion.matches ) {
+				frame = requestAnimationFrame( tick );
+			}
+		};
+
+		const start = () => {
+			if ( !frame && visible && !reducedMotion.matches ) {
+				frame = requestAnimationFrame( tick );
+			}
+		};
+
+		const stop = () => {
+			cancelAnimationFrame( frame );
+			frame = 0;
+		};
+
+		window.addEventListener( "pointermove", event => {
+			const box = svg.getBoundingClientRect();
+			const centerX = box.left + box.width / 2;
+			const centerY = box.top + box.height * .45;
+			target.x = clamp( ( event.clientX - centerX ) / ( window.innerWidth / 2 ) );
+			target.y = clamp( ( event.clientY - centerY ) / ( window.innerHeight / 2 ) );
+			lastPointer = performance.now();
+		}, { passive: true } );
+
+		// Blink every few seconds, sometimes twice
+		let blinkTimer = 0;
+		const blink = () => {
+			root.classList.add( "is-blinking" );
+			setTimeout( () => root.classList.remove( "is-blinking" ), 130 );
+		};
+		const scheduleBlink = () => {
+			blinkTimer = window.setTimeout( () => {
+				if ( !reducedMotion.matches ) {
+					blink();
+					if ( Math.random() < .2 ) {
+						setTimeout( blink, 260 );
+					}
+				}
+				scheduleBlink();
+			}, 2500 + Math.random() * 3500 );
+		};
+
+		// Click or tap: a happy squint, a glasses push and the next line in the speech bubble
+		let line = 0;
+		let happyTimer = 0;
+		let bubbleTimer = 0;
+		stage.addEventListener( "click", () => {
+			bubble.hidden = true;
+			bubble.textContent = LINES[ line ];
+			line = ( line + 1 ) % LINES.length;
+			// Re-show on the next frame so the pop animation restarts
+			requestAnimationFrame( () => bubble.hidden = false );
+
+			clearTimeout( bubbleTimer );
+			bubbleTimer = window.setTimeout( () => bubble.hidden = true, 3200 );
+
+			if ( !reducedMotion.matches ) {
+				root.classList.add( "is-happy" );
+				clearTimeout( happyTimer );
+				happyTimer = window.setTimeout( () => root.classList.remove( "is-happy" ), 900 );
+			}
+		} );
+
+		new IntersectionObserver( ( [ entry ] ) => {
+			visible = entry.isIntersecting && !document.hidden;
+			visible ? start() : stop();
+		} ).observe( svg );
+
+		document.addEventListener( "visibilitychange", () => {
+			visible = !document.hidden;
+			visible ? start() : stop();
+		} );
+
+		reducedMotion.addEventListener( "change", () => {
+			if ( reducedMotion.matches ) {
+				stop();
+				current.x = current.y = 0;
+				render();
+			} else {
+				start();
+			}
+		} );
+
+		scheduleBlink();
+		start();
+		window.addEventListener( "pagehide", () => clearTimeout( blinkTimer ) );
+	} );
+</script>

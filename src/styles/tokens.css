@@ -27,6 +27,11 @@
 	--shadow-ink: #1b1a3a;
 	--focus-ring: #1b1a3a;
 
+	/* Illustration: the hero portrait's own colours, fixed in both themes */
+	--illo-line: #1b1a3a;
+	--illo-paper: #fbfaf6;
+	--skin: #e2ae86;
+
 	/* Spacing (4px base) */
 	--space-1: 4px;
 	--space-2: 8px;
