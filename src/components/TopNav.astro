@@ -1,0 +1,107 @@
+---
+/** v1's TopNav.tsx: fixed bar with the logo, a primary-coloured rule and the sun/moon theme toggle. */
+import Svg from "./Svg.astro";
+---
+
+<div class="top-nav">
+	<Svg name="logo" class="top-nav__logo"/>
+	<div class="mid-line">
+		<div></div>
+	</div>
+	<!-- v1's toggle was the bare icon; the button around it only adds keyboard access -->
+	<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme">
+		<span class="light-only"><Svg name="moon" class="theme-icon"/></span>
+		<span class="dark-only"><Svg name="sun" class="theme-icon"/></span>
+	</button>
+</div>
+
+<style>
+	.top-nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 40px;
+		padding: 20px;
+		display: flex;
+		align-items: center;
+		z-index: 2;
+		background-color: var(--bg);
+		-webkit-transition: color cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+		transition: color cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+		-webkit-transition: background cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+		transition: background cubic-bezier(0.86, 0, 0.07, 1) 500ms;
+	}
+
+	@media only screen and (min-width: 900px) {
+		.top-nav {
+			padding: 30px;
+		}
+	}
+
+	.top-nav :global(.top-nav__logo) {
+		fill: var(--fg);
+		margin-left: 5px;
+	}
+
+	.mid-line {
+		flex: 1;
+		height: 100%;
+	}
+
+	.mid-line > div {
+		background-color: var(--primary);
+		height: 2px;
+		margin: 19px 25px;
+	}
+
+	.theme-toggle {
+		display: flex;
+		padding: 0;
+		background: none;
+		border: 0;
+		color: inherit;
+	}
+
+	.theme-toggle span {
+		display: flex;
+	}
+
+	.top-nav :global(.theme-icon) {
+		cursor: pointer;
+		margin-right: 5px;
+		height: 30px;
+		width: 30px;
+		fill: var(--fg);
+	}
+
+	.top-nav :global(.theme-icon:hover) {
+		fill: var(--primary) !important;
+	}
+</style>
+
+<script>
+	// v1 behaviour: toggling saves the choice, which then wins over the system setting on later visits
+	const root = document.documentElement;
+	const button = document.querySelector<HTMLButtonElement>( "[data-theme-toggle]" );
+
+	const label = () => {
+		const dark = root.dataset.theme === "dark";
+		button?.setAttribute( "aria-label", `Switch to ${ dark ? "light" : "dark" } theme` );
+	};
+
+	button?.addEventListener( "click", () => {
+		const dark = root.dataset.theme === "dark";
+		try {
+			localStorage.setItem( "theme", dark ? "light" : "dark" );
+		} catch {}
+		if ( dark ) {
+			delete root.dataset.theme;
+		} else {
+			root.dataset.theme = "dark";
+		}
+		label();
+	} );
+
+	label();
+</script>

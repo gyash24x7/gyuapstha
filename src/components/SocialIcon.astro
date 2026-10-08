@@ -1,0 +1,38 @@
+---
+/** One social link with its icon, as v1's getHandleDetails() rendered it (src/utils/index.ts). */
+import { site } from "../data/site";
+import Svg from "./Svg.astro";
+
+interface Props {
+	handle: keyof typeof site.social;
+}
+
+const { handle } = Astro.props;
+---
+
+<a href={ site.social[ handle ] } target="_blank" rel="noopener noreferrer nofollow">
+	<Svg name={ handle } class="social-icon"/>
+</a>
+
+<style>
+	a :global(.social-icon) {
+		fill: var(--fg);
+		margin: 11px;
+	}
+
+	a :global(.social-icon:hover) {
+		fill: #fca311 !important;
+	}
+
+	@media only screen and (max-width: 400px) {
+		a :global(.social-icon) {
+			margin: 7px;
+		}
+	}
+
+	@media only screen and (min-width: 900px) {
+		a :global(.social-icon) {
+			margin: 15px;
+		}
+	}
+</style>

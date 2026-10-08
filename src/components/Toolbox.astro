@@ -1,0 +1,103 @@
+---
+/**
+ * v1's Toolbox.tsx. Logos show in grayscale and turn to colour on hover; they fade in one after
+ * another, outward from the middle, once 85% of the section is on screen, and fade out when it leaves.
+ *
+ * v1 swapped between a grayscale and a colour copy generated at build time; a CSS grayscale filter
+ * gives the same result from one image.
+ */
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import { tools } from "../data/tools";
+
+const files = import.meta.glob<{ default: ImageMetadata }>( "../assets/images/*.png", { eager: true } );
+
+// As on v1, a logo's delay comes from its position among the logos shown in its theme
+const counters = { light: 0, dark: 0 };
+const items = await Promise.all( tools.map( async tool => {
+	const source = files[ `../assets/images/${ tool.file }.png` ]?.default;
+	if ( !source ) {
+		throw new Error( `Toolbox: missing image ${ tool.file }.png` );
+	}
+	const shownIn = tool.theme ? [ tool.theme ] : [ "light", "dark" ] as const;
+	const index = counters[ shownIn[ 0 ] ];
+	shownIn.forEach( theme => counters[ theme ]++ );
+	// gatsby-image's fluid images were at most 800px wide
+	const image = await getImage( { src: source, width: Math.min( 800, source.width ) } );
+	return { ...tool, src: image.src, delay: Math.abs( index - 8 ) * 100 };
+} ) );
+---
+
+<div class="container" id="toolbox" data-toolbox>
+	<div>
+		<div>
+			<div class="heading">My Toolbox</div>
+			<div class="sub-heading">Technologies I am familiar with and use frequently</div>
+		</div>
+		<div class="tool-box">
+			{ items.map( tool => (
+				<a
+					class:list={ { "light-only": tool.theme === "light", "dark-only": tool.theme === "dark" } }
+					href={ tool.href }
+					rel="noopener noreferrer nofollow"
+					target="_blank"
+				>
+					<img src={ tool.src } alt={ tool.title } title={ tool.title } style={ `transition-delay: ${ tool.delay }ms` }/>
+				</a>
+			) ) }
+		</div>
+	</div>
+</div>
+
+<style>
+	.tool-box {
+		width: 100%;
+		max-width: 900px;
+		height: 350px;
+		margin-top: 25px;
+		margin-left: -10px;
+		margin-right: -10px;
+	}
+
+	.tool-box img {
+		height: 5vh;
+		min-height: 35px;
+		max-height: 70px;
+		margin: 10px;
+		opacity: 0;
+		filter: grayscale(1);
+		transition: opacity ease-in-out 300ms;
+		-webkit-transition: opacity ease-in-out 300ms;
+	}
+
+	.tool-box img:hover {
+		filter: none;
+	}
+
+	.is-visible .tool-box img {
+		opacity: 1;
+	}
+
+	@media only screen and (min-width: 900px) {
+		.tool-box {
+			margin-top: 40px;
+			margin-left: -15px;
+			margin-right: -15px;
+			height: 50vh;
+		}
+
+		.tool-box img {
+			margin: 15px;
+			height: 7vh;
+		}
+	}
+</style>
+
+<script>
+	const toolbox = document.querySelector<HTMLElement>( "[data-toolbox]" );
+	if ( toolbox ) {
+		new IntersectionObserver( entries => {
+			entries.forEach( entry => toolbox.classList.toggle( "is-visible", entry.intersectionRatio >= .85 ) );
+		}, { root: null, rootMargin: "0px", threshold: .85 } ).observe( toolbox );
+	}
+</script>

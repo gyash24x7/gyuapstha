@@ -1,0 +1,30 @@
+---
+/** v1's Intro.tsx: greeting, name, the typed.js line and the "Get In Touch" button. */
+import { site } from "../data/site";
+---
+
+<div class="container">
+	<div>
+		<div class="body-text">Hi, my name is</div>
+		<div class="name">{ site.me }.</div>
+		<div>
+			<span id="typed" data-strings={ JSON.stringify( site.typed ) }></span>
+		</div>
+		<div class="body-text intro">{ site.intro }</div>
+		<a class="app-button" href={ `mailto:${ site.emailAlt }` } target="_blank">Get In Touch</a>
+	</div>
+</div>
+
+<script>
+	import Typed from "typed.js";
+
+	const target = document.querySelector<HTMLElement>( "#typed" );
+	if ( target ) {
+		new Typed( target, {
+			loop: true,
+			strings: JSON.parse( target.dataset.strings ?? "[]" ) as string[],
+			typeSpeed: 50,
+			backSpeed: 60
+		} );
+	}
+</script>

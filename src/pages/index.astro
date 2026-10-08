@@ -1,0 +1,33 @@
+---
+/** The single page, laid out as v1's pages/index.tsx: fixed navs, then five full-height sections. */
+import Experience from "../components/Experience.astro";
+import GetInTouch from "../components/GetInTouch.astro";
+import Intro from "../components/Intro.astro";
+import Projects from "../components/Projects.astro";
+import SideNavs from "../components/SideNavs.astro";
+import Toolbox from "../components/Toolbox.astro";
+import TopNav from "../components/TopNav.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+	<div class="full-page-wrapper">
+		<TopNav/>
+		<SideNavs/>
+		<section class="full-page">
+			<Intro/>
+		</section>
+		<section class="full-page">
+			<Toolbox/>
+		</section>
+		<section class="full-page">
+			<Projects/>
+		</section>
+		<section class="full-page">
+			<Experience/>
+		</section>
+		<section class="full-page">
+			<GetInTouch/>
+		</section>
+	</div>
+</Layout>

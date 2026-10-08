@@ -1,0 +1,235 @@
+---
+/**
+ * v1's Experience.tsx: a row of company tabs; picking one shows its position, dates, intro and points.
+ * All panels are rendered up front and the script switches which one is shown.
+ *
+ * The data comes from the master branch, where a company can have several roles (Honeywell has three).
+ * Each role gets v1's position block, italic line and points, stacked within the company's panel.
+ */
+import { experience } from "../data/experience";
+import Svg from "./Svg.astro";
+
+// master writes "Dec 2024"; v1 wrote dates out in full ("December 2024 - Present")
+const months: Record<string, string> = {
+	Jan: "January", Feb: "February", Mar: "March", Apr: "April", May: "May", Jun: "June",
+	Jul: "July", Aug: "August", Sep: "September", Oct: "October", Nov: "November", Dec: "December"
+};
+const fullDate = ( date: string ) => date.replace( /^([A-Z][a-z]{2})\b/, month => months[ month ] ?? month );
+const duration = ( start: string, end?: string ) => `${ fullDate( start ) } - ${ end ? fullDate( end ) : "Present" }`;
+---
+
+<div class="container">
+	<div>
+		<div>
+			<div class="heading">Where I've Worked</div>
+		</div>
+		<div class="experience-grid" data-experience>
+			<div class="company-list" role="tablist" aria-label="Companies">
+				{ experience.map( ( company, i ) => (
+					<div
+						class:list={ [ "company-list-item", { active: i === 0 } ] }
+						id={ company.name }
+						role="tab"
+						tabindex={ i === 0 ? 0 : -1 }
+						aria-selected={ i === 0 ? "true" : "false" }
+						aria-controls={ `company-${ i }` }
+						data-tab={ i }
+					>
+						{ company.name }
+					</div>
+				) ) }
+			</div>
+			{ experience.map( ( company, i ) => (
+				<div class="company-description" id={ `company-${ i }` } role="tabpanel" aria-labelledby={ company.name } hidden={ i !== 0 }>
+					{ company.roles.map( role => (
+						<div class="role">
+							<div class="position-block">
+								<div class="position">
+									{ role.title }&nbsp;&nbsp;<a href={ company.url } target="_blank" rel="noopener noreferrer nofollow">@{ company.name }</a>
+								</div>
+								<div class="duration">({ duration( role.start, role.end ) })</div>
+							</div>
+							<div class="company-intro">{ role.team ?? company.about }</div>
+							{ role.points.map( point => (
+								<div class="point">
+									<span class="bullet"><Svg name="caret-forward"/></span>
+									<span>{ point }</span>
+								</div>
+							) ) }
+						</div>
+					) ) }
+				</div>
+			) ) }
+		</div>
+	</div>
+</div>
+
+<style>
+	.experience-grid {
+		width: 100%;
+		max-width: 900px;
+		margin-top: 50px;
+	}
+
+	@media only screen and (max-width: 600px) {
+		.experience-grid {
+			margin-top: unset;
+		}
+	}
+
+	.company-list {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding-bottom: 20px;
+	}
+
+	@media only screen and (max-width: 400px) {
+		.company-list {
+			padding-bottom: 10px;
+		}
+	}
+
+	.company-list-item {
+		flex: 1;
+		text-align: center;
+		padding: 15px 0px;
+		font-family: "Fjalla One", sans-serif;
+		border-bottom: 2px solid #666666;
+		cursor: pointer;
+		transition: 500ms ease-in-out;
+	}
+
+	.company-list-item:hover,
+	.company-list-item.active {
+		color: var(--primary);
+		border-color: var(--primary);
+	}
+
+	.position-block {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		flex-wrap: wrap;
+	}
+
+	.position {
+		font-size: 24px;
+		font-family: "Fjalla One", sans-serif;
+		margin: 10px 0px;
+	}
+
+	.position a {
+		color: var(--primary);
+		text-decoration: none;
+	}
+
+	@media only screen and (min-width: 900px) {
+		.position {
+			font-size: 30px;
+		}
+	}
+
+	@media only screen and (max-width: 400px) {
+		.position {
+			font-size: 18px;
+			margin: 5px 0px;
+		}
+	}
+
+	.duration {
+		margin: 10px 0px;
+		font-size: 16px;
+	}
+
+	@media only screen and (max-width: 400px) {
+		.duration {
+			font-size: 12px;
+			margin: 5px 0px;
+		}
+	}
+
+	.company-intro {
+		font-style: italic;
+		margin-bottom: 20px;
+		margin-top: 10px;
+	}
+
+	@media only screen and (max-width: 400px) {
+		.company-intro {
+			font-size: 14px;
+			margin-top: 5px;
+			margin-bottom: 10px;
+		}
+	}
+
+	.point {
+		margin-top: 25px;
+		display: flex;
+	}
+
+	@media only screen and (max-width: 400px) {
+		.point {
+			margin-top: 10px;
+			font-size: 14px;
+		}
+	}
+
+	.bullet {
+		margin-right: 5px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		.bullet {
+			margin-right: 15px;
+		}
+	}
+
+	/* v1 fixed this at 415px; a minimum keeps that for one role and lets several stack */
+	.company-description {
+		min-height: 415px;
+	}
+
+	.role + .role {
+		margin-top: 40px;
+	}
+
+	.company-description[hidden] {
+		display: none;
+	}
+</style>
+
+<script>
+	const grid = document.querySelector<HTMLElement>( "[data-experience]" );
+	if ( grid ) {
+		const tabs = Array.from( grid.querySelectorAll<HTMLElement>( "[data-tab]" ) );
+		const panels = Array.from( grid.querySelectorAll<HTMLElement>( "[role='tabpanel']" ) );
+
+		const select = ( index: number, focus = false ) => {
+			tabs.forEach( ( tab, i ) => {
+				const selected = i === index;
+				tab.classList.toggle( "active", selected );
+				tab.setAttribute( "aria-selected", String( selected ) );
+				tab.tabIndex = selected ? 0 : -1;
+			} );
+			panels.forEach( ( panel, i ) => panel.hidden = i !== index );
+			if ( focus ) {
+				tabs[ index ].focus();
+			}
+		};
+
+		tabs.forEach( ( tab, i ) => {
+			tab.addEventListener( "click", () => select( i ) );
+			// Keyboard access v1 didn't have: Enter/Space pick a tab, arrows move between them
+			tab.addEventListener( "keydown", event => {
+				if ( event.key === "Enter" || event.key === " " ) {
+					event.preventDefault();
+					select( i );
+				} else if ( event.key === "ArrowRight" || event.key === "ArrowLeft" ) {
+					event.preventDefault();
+					select( ( i + ( event.key === "ArrowRight" ? 1 : -1 ) + tabs.length ) % tabs.length, true );
+				}
+			} );
+		} );
+	}
+</script>

@@ -1,0 +1,137 @@
+---
+/**
+ * v1's Projects.tsx: a card per project with its logo (grayscale, colour on hover), description,
+ * tech tags and links to the code, the Android build and the web app.
+ */
+import { getImage } from "astro:assets";
+import hacknotes from "../assets/projects/hacknotes.png";
+import literature from "../assets/projects/literature.png";
+import { site } from "../data/site";
+import Svg from "./Svg.astro";
+
+// v1's logos were 300px-wide copies (gatsby-image fluid, maxWidth 300)
+const logos = {
+	hacknotes: ( await getImage( { src: hacknotes, width: 300 } ) ).src,
+	literature: ( await getImage( { src: literature, width: 300 } ) ).src
+};
+---
+
+<div class="container">
+	<div>
+		<div class="heading">Projects</div>
+		<div class="sub-heading">Few of my notable works</div>
+		<div class="project-container">
+			{ site.projects.map( project => (
+				<div class="project">
+					<div class="project-header">
+						<img src={ logos[ project.logo ] } alt={ `${ project.logo }-logo` }/>
+						<div class="project-title">{ project.title }</div>
+						<div class="project-description">{ project.description }</div>
+						<div class="tech-tag-wrapper">
+							{ project.tech.map( tech => <span class="tech-tag">{ tech }</span> ) }
+						</div>
+					</div>
+
+					<div class="project-footer">
+						<a class="small-link-button" href={ project.github } target="_blank" rel="noopener noreferrer nofollow">
+							<Svg name="github" class="project-github"/>
+						</a>
+						<a class="small-link-button" href={ project.apkLink } target="_blank" rel="noopener noreferrer nofollow">
+							<Svg name="download"/>
+						</a>
+						<a class="small-link-button" href={ project.webLink } target="_blank" rel="noopener noreferrer nofollow">
+							<Svg name="open"/>
+						</a>
+					</div>
+				</div>
+			) ) }
+		</div>
+	</div>
+</div>
+
+<style>
+	.project-container {
+		width: calc(100% + 40px);
+		display: flex;
+		flex-wrap: wrap;
+		margin: 0px -20px;
+	}
+
+	.project {
+		border: 1px solid var(--primary);
+		border-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		flex: 1;
+		min-width: 400px;
+		margin: 20px;
+	}
+
+	@media only screen and (max-width: 500px) {
+		.project {
+			min-width: unset;
+		}
+	}
+
+	.project-header {
+		display: flex;
+		flex: 1;
+		padding: 30px;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		width: calc(100% - 60px);
+	}
+
+	.project-header img {
+		height: 150px;
+		width: 150px;
+		margin-bottom: 20px;
+		filter: grayscale(1);
+	}
+
+	.project-header img:hover {
+		filter: none;
+	}
+
+	.project-title {
+		font-family: "Fjalla One", sans-serif;
+		font-size: 24px;
+		color: var(--primary);
+	}
+
+	.project-description {
+		font-family: "Montserrat", sans-serif;
+		margin-top: 10px;
+		line-height: 24px;
+	}
+
+	.project-footer {
+		display: flex;
+		justify-content: flex-end;
+		padding: 15px 30px;
+	}
+
+	.tech-tag-wrapper {
+		margin-top: 40px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.tech-tag {
+		background-color: #fca31180;
+		padding: 5px 20px;
+		margin: 5px;
+		border: 1px solid var(--primary);
+		border-radius: 10px;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 12px;
+	}
+
+	.project-footer :global(.project-github) {
+		fill: var(--primary);
+	}
+</style>

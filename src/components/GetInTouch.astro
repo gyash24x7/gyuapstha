@@ -1,0 +1,86 @@
+---
+/**
+ * v1's Footer.tsx: the parting note and "Say Hello!" button. Below 900px wide, where the side rails
+ * are hidden, it also shows the email address and the social icons between primary-coloured rules.
+ * v1 measured the window in JavaScript for that; a media query at the same width does it here.
+ */
+import { site } from "../data/site";
+import SocialIcon from "./SocialIcon.astro";
+
+// The order of v1's Footer GraphQL query
+const handles = [ "facebook", "github", "linkedin", "twitter", "instagram" ] as const;
+---
+
+<div class="container">
+	<div>
+		<div class="heading">Get in Touch</div>
+		<div class="sub-heading" style="max-width: 900px">{ site.partingNote }</div>
+		<div class="sub-heading">If you think I'll be a good fit. Drop me a message.</div>
+		<a class="app-button" href={ `mailto:${ site.emailAlt }` } target="_blank" rel="noopener noreferrer nofollow">Say Hello!</a>
+	</div>
+	<div class="small-screen">
+		<div class="social-wrapper">
+			<div class="side-line">
+				<div></div>
+			</div>
+			<div class="social-links">
+				<a class="email" href={ `mailto:${ site.email }` } rel="noopener noreferrer nofollow">{ site.email }</a>
+			</div>
+			<div class="side-line">
+				<div></div>
+			</div>
+		</div>
+		<div class="social-wrapper">
+			<div class="side-line">
+				<div></div>
+			</div>
+			<div class="social-links">
+				{ handles.map( handle => <SocialIcon handle={ handle }/> ) }
+			</div>
+			<div class="side-line">
+				<div></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	@media only screen and (min-width: 900px) {
+		.small-screen {
+			display: none !important;
+		}
+	}
+
+	.side-line {
+		flex: 1;
+		margin: 23px 20px;
+	}
+
+	.side-line > div {
+		height: 2px;
+		width: 100%;
+		border-radius: 2px;
+	}
+
+	.social-wrapper {
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+		margin: 0px -30px;
+	}
+
+	.social-links {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.social-links a {
+		text-decoration: none;
+		margin-bottom: 5px;
+	}
+
+	.email {
+		color: var(--fg);
+	}
+</style>

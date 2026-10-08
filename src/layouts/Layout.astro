@@ -1,0 +1,111 @@
+---
+/**
+ * Page shell: v1's head tags (components/Head.tsx), fonts and theme.
+ *
+ * Theme, as on v1: a saved choice in localStorage ("theme") wins; with none saved, dark if the system
+ * prefers dark, else light. v1 applied this after the page loaded; here it runs before the first paint.
+ */
+import "@fontsource/montserrat";
+import "@fontsource/fjalla-one";
+import { getImage } from "astro:assets";
+import siteImage from "../assets/siteImage.png";
+import { site } from "../data/site";
+import "../styles/global.css";
+
+const siteUrl = new URL( "/", Astro.site ).href;
+// v1 used a 400px-wide copy of the site screenshot as its preview image
+const preview = await getImage( { src: siteImage, width: 400, format: "png" } );
+const image = new URL( preview.src, Astro.site ).href;
+const buildDate = new Date().toISOString().slice( 0, 10 );
+
+const schemaOrgWebPage = {
+	"@context": "http://schema.org",
+	"@type": "WebPage",
+	url: siteUrl,
+	headline: site.headline,
+	inLanguage: site.siteLanguage,
+	mainEntityOfPage: siteUrl,
+	description: site.description,
+	name: site.title,
+	author: { "@type": "Person", name: site.me },
+	copyrightHolder: { "@type": "Person", name: site.me },
+	copyrightYear: "2019",
+	creator: { "@type": "Person", name: site.me },
+	publisher: { "@type": "Person", name: site.me },
+	datePublished: "2020-07-15T10:30:00+01:00",
+	dateModified: buildDate,
+	image: { "@type": "ImageObject", url: image }
+};
+
+const breadcrumb = {
+	"@context": "http://schema.org",
+	"@type": "BreadcrumbList",
+	description: "Breadcrumbs list",
+	name: "Breadcrumbs",
+	itemListElement: [
+		{ "@type": "ListItem", item: { "@id": siteUrl, name: "Homepage" }, position: 1 }
+	]
+};
+---
+
+<html lang={ site.siteLanguage }>
+<head>
+	<meta charset="utf-8"/>
+	<title>{ site.title }</title>
+	<link rel="canonical" href={ siteUrl }/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+	<meta name="image" content={ image }/>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=10"/>
+	<meta name="description" content={ site.description }/>
+	<meta name="keywords" content={ site.keywords }/>
+
+	<script type="application/ld+json" set:html={ JSON.stringify( schemaOrgWebPage ) }/>
+	<script type="application/ld+json" set:html={ JSON.stringify( breadcrumb ) }/>
+
+	<meta property="og:site_name" content={ site.fbUsername }/>
+	<meta property="og:locale" content={ site.ogLanguage }/>
+	<meta property="og:url" content={ siteUrl }/>
+	<meta property="og:type" content="website"/>
+	<meta property="og:title" content={ site.title }/>
+	<meta property="og:description" content={ site.description }/>
+	<meta property="og:image" content={ image }/>
+	<meta property="og:image:alt" content={ site.description }/>
+
+	<meta name="twitter:creator" content={ site.twitterUsername }/>
+	<meta name="twitter:card" content="summary_large_image"/>
+	<meta name="twitter:title" content={ site.title }/>
+	<meta name="twitter:description" content={ site.description }/>
+	<meta name="twitter:image" content={ image }/>
+	<meta name="twitter:image:alt" content={ site.description }/>
+
+	<meta name="theme-color" content="#00a9a5"/>
+	<meta name="mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-title" content={ site.title }/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+	<meta name="msapplication-navbutton-color" content="#00a9a5"/>
+	<meta name="msapplication-TileColor" content="#00a9a5"/>
+	<meta name="application-name" content={ site.me }/>
+	<meta name="msapplication-tooltip" content={ site.me }/>
+	<meta name="msapplication-starturl" content="/"/>
+
+	<!-- Web app manifest and icons, as gatsby-plugin-manifest generated them (see pages/manifest.webmanifest.ts) -->
+	<link rel="icon" href="/favicon-32x32.png" type="image/png"/>
+	<link rel="manifest" href="/manifest.webmanifest" crossorigin="anonymous"/>
+	<link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png"/>
+
+	<script is:inline>
+		try {
+			const saved = localStorage.getItem( "theme" );
+			const dark = saved ? saved === "dark" : matchMedia( "(prefers-color-scheme:dark)" ).matches;
+			if ( dark ) {
+				document.documentElement.dataset.theme = "dark";
+			}
+		} catch {}
+	</script>
+</head>
+<body>
+<slot/>
+</body>
+</html>

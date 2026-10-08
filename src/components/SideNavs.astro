@@ -1,0 +1,104 @@
+---
+/**
+ * v1's LeftNav.tsx and RightNav.tsx: fixed rails on wide screens, social icons on the left and the
+ * email address (written vertically) on the right, each between primary-coloured rules.
+ */
+import { site } from "../data/site";
+import SocialIcon from "./SocialIcon.astro";
+
+// The order of v1's LeftNav GraphQL query
+const handles = [ "facebook", "twitter", "linkedin", "github", "instagram" ] as const;
+---
+
+<div class="side-nav side-nav--left">
+	<div class="side-line top-line">
+		<div></div>
+	</div>
+	{ handles.map( handle => <SocialIcon handle={ handle }/> ) }
+	<div class="side-line bottom-line">
+		<div></div>
+	</div>
+</div>
+
+<div class="side-nav side-nav--right">
+	<div class="side-line top-line">
+		<div></div>
+	</div>
+	<a class="email" href={ `mailto:${ site.email }` }>{ site.email }</a>
+	<div class="side-line bottom-line">
+		<div></div>
+	</div>
+</div>
+
+<style>
+	.side-nav {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		width: 40px;
+		display: none;
+	}
+
+	.side-nav--left {
+		left: 0;
+		padding-left: 20px;
+	}
+
+	.side-nav--left a {
+		text-decoration: none;
+	}
+
+	.side-nav--right {
+		right: 0;
+		padding-right: 20px;
+	}
+
+	@media only screen and (min-width: 900px) {
+		.side-nav {
+			display: flex;
+		}
+
+		.side-nav--left {
+			padding-left: 30px;
+		}
+
+		.side-nav--right {
+			padding-right: 30px;
+		}
+	}
+
+	.top-line {
+		flex: 1;
+		margin: 0px 19px;
+		margin-top: 90px;
+		margin-bottom: 15px;
+	}
+
+	.bottom-line {
+		margin: 0px 19px;
+		margin-top: 15px;
+		flex: unset;
+		height: 135px;
+	}
+
+	.top-line > div,
+	.bottom-line > div {
+		width: 2px;
+		height: 100%;
+	}
+
+	.email {
+		writing-mode: vertical-lr;
+		text-decoration: none;
+		margin: 15px 5px;
+		margin-right: 0px;
+		color: var(--fg);
+	}
+
+	.email:hover {
+		color: var(--primary) !important;
+	}
+</style>

@@ -1,0 +1,21 @@
+---
+/**
+ * Inlines one of v1's SVG icons (src/assets/icons) unchanged, adding a class, so CSS can colour it
+ * the way v1's gatsby-plugin-react-svg components were styled.
+ */
+const icons = import.meta.glob<string>( "../assets/icons/*.svg", { query: "?raw", import: "default", eager: true } );
+
+interface Props {
+	name: "caret-forward" | "download" | "facebook" | "github" | "instagram" | "linkedin" | "logo" | "moon" | "open" | "sun" | "twitter";
+	class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const source = icons[ `../assets/icons/${ name }.svg` ];
+if ( !source ) {
+	throw new Error( `Svg: no icon named "${ name }"` );
+}
+const svg = className ? source.replace( "<svg", `<svg class="${ className }"` ) : source;
+---
+
+<Fragment set:html={ svg }/>
