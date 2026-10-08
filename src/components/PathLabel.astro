@@ -1,0 +1,30 @@
+---
+interface Props {
+	/** The current segment, e.g. "projects" renders as ~/projects */
+	path: string;
+	/** Parent path shown before the segment */
+	base?: string;
+}
+
+const { path, base = "~/" } = Astro.props;
+---
+
+<p class="path">{ base }<b>{ path }</b></p>
+
+<style>
+	.path {
+		font: 500 13px/1.4 var(--font-mono);
+		letter-spacing: .06em;
+		color: var(--ink-muted);
+	}
+
+	.path::before {
+		content: "\276F  ";
+		color: var(--accent-ink);
+	}
+
+	b {
+		font-weight: 500;
+		color: var(--ink);
+	}
+</style>

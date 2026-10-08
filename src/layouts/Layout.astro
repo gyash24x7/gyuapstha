@@ -1,0 +1,42 @@
+---
+import { Font } from "astro:assets";
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Yash Gupta | Developer",
+	description = "Yash Gupta is a full-stack developer from Kanpur, India, building websites, apps and everything in between."
+} = Astro.props;
+---
+
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content={ description }/>
+	<meta name="generator" content={ Astro.generator }/>
+	<meta name="theme-color" content="#fca311"/>
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+	<link rel="icon" href="/favicon.ico"/>
+	<title>{ title }</title>
+	<Font cssVariable="--font-display" preload/>
+	<Font cssVariable="--font-body" preload/>
+	<Font cssVariable="--font-mono"/>
+	<script is:inline>
+		// Apply the saved theme before first paint to avoid a flash of the wrong theme
+		try {
+			const theme = localStorage.getItem( "theme" );
+			if ( theme === "light" || theme === "dark" ) {
+				document.documentElement.dataset.theme = theme;
+			}
+		} catch {}
+	</script>
+</head>
+<body>
+<slot/>
+</body>
+</html>

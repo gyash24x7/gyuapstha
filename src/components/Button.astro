@@ -1,0 +1,81 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = {
+	variant?: "primary" | "secondary" | "ghost";
+	href?: string;
+} & HTMLAttributes<"a"> & HTMLAttributes<"button">;
+
+const { variant = "primary", href, class: className, ...rest } = Astro.props;
+const Tag = href ? "a" : "button";
+---
+
+<Tag
+	class:list={ [ "btn", `btn--${ variant }`, className ] }
+	href={ href }
+	type={ href ? undefined : ( rest.type ?? "button" ) }
+	{ ...rest }
+>
+	<slot/>
+</Tag>
+
+<style>
+	.btn {
+		--lift: var(--sticker-sm);
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-2);
+		padding: var(--space-3) var(--space-6);
+		font: 600 16px/1 var(--font-body);
+		color: var(--on-marigold);
+		background: var(--marigold);
+		border: var(--border-sticker) solid var(--ink);
+		border-radius: var(--radius-sm);
+		box-shadow: var(--lift);
+		text-decoration: none;
+		cursor: pointer;
+		transition: transform var(--duration-quick) var(--ease-spring), box-shadow var(--duration-quick) var(--ease-spring);
+	}
+
+	.btn:hover {
+		--lift: var(--sticker-md);
+		transform: translate(-2px, -2px);
+	}
+
+	.btn:active {
+		--lift: none;
+		transform: translate(3px, 3px);
+	}
+
+	.btn--secondary {
+		color: var(--ink);
+		background: var(--paper-raised);
+	}
+
+	.btn--ghost,
+	.btn--ghost:hover,
+	.btn--ghost:active {
+		--lift: none;
+		padding-inline: var(--space-2);
+		color: var(--ink);
+		background: transparent;
+		border-color: transparent;
+		transform: none;
+	}
+
+	.btn--ghost:hover {
+		text-decoration: underline wavy var(--accent-ink) 2px;
+		text-underline-offset: 5px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.btn {
+			transition: none;
+		}
+
+		.btn:hover,
+		.btn:active {
+			transform: none;
+		}
+	}
+</style>
