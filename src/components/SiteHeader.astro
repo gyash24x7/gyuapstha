@@ -1,0 +1,77 @@
+---
+/**
+	* The site header: logo and theme toggle in a bar pinned to the top of the screen on every section.
+	* Sticky in normal scrolling; fixed above the pages in paged mode (pages leave room for it via
+	* --header-height). Gains a hairline once content scrolls underneath it.
+	*/
+import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+---
+
+<header class="site-header" role="banner" data-site-header>
+	<div class="container bar">
+		<a class="logo" href="/" aria-label="Yash Gupta, home">
+			<Logo size={ 30 }/>
+		</a>
+		<ThemeToggle/>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		z-index: 20;
+		top: env(safe-area-inset-top, 0px);
+		background: color-mix(in srgb, var(--paper) 82%, transparent);
+		border-bottom: var(--border-hair) solid transparent;
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+		transition: border-color var(--duration-base) ease-out;
+	}
+
+	.site-header.is-scrolled {
+		border-bottom-color: var(--line-soft);
+	}
+
+	/* In paged mode the window doesn't scroll, so pin it over the stacked pages instead */
+	:global(html.paged) .site-header {
+		position: fixed;
+		inset: env(safe-area-inset-top, 0px) 0 auto;
+	}
+
+	.bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: var(--header-height);
+	}
+
+	/* The YG monogram in ink, turning marigold on hover like on v1 */
+	.logo {
+		display: inline-flex;
+		color: var(--ink);
+		transition: color var(--duration-quick) ease-out;
+	}
+
+	.logo:hover {
+		color: var(--accent-ink);
+	}
+</style>
+
+<script>
+	const header = document.querySelector<HTMLElement>( "[data-site-header]" );
+
+	if ( header ) {
+		// Show the hairline when anything (the window, or the current page in paged mode) is scrolled
+		const update = () => {
+			const current = document.querySelector<HTMLElement>(
+				"html.paged [data-page][data-state='current']" );
+			const scrolled = current ? current.scrollTop > 4 : window.scrollY > 4;
+			header.classList.toggle( "is-scrolled", scrolled );
+		};
+
+		document.addEventListener( "scroll", update, { capture: true, passive: true } );
+		document.addEventListener( "pagechange", update );
+		update();
+	}
+</script>

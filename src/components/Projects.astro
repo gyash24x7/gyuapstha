@@ -1,0 +1,38 @@
+---
+import { projects } from "../data/projects";
+import PathLabel from "./PathLabel.astro";
+import ProjectCard from "./ProjectCard.astro";
+
+const tilts = [ -1.5, 1.2, -0.8, 1.6 ];
+---
+
+<section id="projects" class="container section" aria-labelledby="projects-title">
+	<PathLabel path="projects"/>
+	<h2 id="projects-title" class="heading-1">Things I've built</h2>
+
+	<ul class="cards">
+			{ projects.map( ( project, i ) => (
+		  <li>
+			  <ProjectCard { ...project } tilt={ tilts[ i % tilts.length ] }/>
+		  </li>
+			) ) }
+	</ul>
+</section>
+
+<style>
+	.section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		padding-block: var(--section-gap);
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+		gap: var(--space-12) var(--space-8);
+		margin-top: var(--space-8);
+		padding: 0;
+		list-style: none;
+	}
+</style>

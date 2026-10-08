@@ -1,0 +1,42 @@
+---
+interface Props {
+	variant?: "default" | "hot" | "live";
+}
+
+const { variant = "default" } = Astro.props;
+---
+
+<span class:list={ [ "chip", `chip--${ variant }` ] }><slot/></span>
+
+<style>
+	.chip {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-1);
+		padding: var(--space-1) var(--space-3);
+		font: 500 12px/1.4 var(--font-mono);
+		letter-spacing: .02em;
+		color: var(--ink);
+		background: var(--paper-raised);
+		border: var(--border-sticker) solid var(--ink);
+		border-radius: var(--radius-pill);
+		box-shadow: var(--sticker-sm);
+	}
+
+	.chip--hot {
+		color: var(--on-chilli);
+		background: var(--chilli);
+	}
+
+	.chip--live {
+		color: var(--peacock);
+	}
+
+	.chip--live::before {
+		content: "";
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--peacock);
+	}
+</style>

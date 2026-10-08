@@ -1,0 +1,138 @@
+---
+import Button from "../components/Button.astro";
+import Contact from "../components/Contact.astro";
+import Experience from "../components/Experience.astro";
+import Footer from "../components/Footer.astro";
+import PageNav from "../components/PageNav.astro";
+import PagedBoot from "../components/PagedBoot.astro";
+import PathLabel from "../components/PathLabel.astro";
+import Portrait from "../components/Portrait.astro";
+import Projects from "../components/Projects.astro";
+import ScrollCue from "../components/ScrollCue.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Toolbox from "../components/Toolbox.astro";
+import { email, socials } from "../data/contact";
+import Layout from "../layouts/Layout.astro";
+
+const github = socials.find( social => social.label === "GitHub" )!;
+
+const pages = [
+	{ target: "top", label: "home" },
+	{ target: "experience", label: "experience" },
+	{ target: "projects", label: "projects" },
+	{ target: "toolbox", label: "toolbox" },
+	{ target: "contact", label: "contact" }
+];
+---
+
+<Layout>
+	<PagedBoot/>
+	<SiteHeader/>
+
+	<main>
+		<div data-page="home" tabindex="-1">
+			<section id="top" class="container hero" aria-labelledby="hero-title">
+				<div class="intro">
+					<PathLabel path="home"/>
+					<h1 id="hero-title" class="display-xl">
+						Hi, I'm <span class="highlight">Yash</span>.
+					</h1>
+					<p class="body-l lede">
+						I'm a full-stack developer from Kanpur, India, and an IIT Madras graduate. I
+						build websites, apps and everything in between.
+					</p>
+					<div class="actions">
+						<Button href={ `mailto:${ email }` }>Email me</Button>
+						<Button variant="ghost" href={ github.href }>GitHub →</Button>
+					</div>
+				</div>
+				<div class="art">
+					<Portrait/>
+					<p class="label muted hint" aria-hidden="true">psst, click me</p>
+				</div>
+			</section>
+		</div>
+
+		<div data-page="experience" tabindex="-1">
+			<Experience/>
+		</div>
+
+		<div data-page="projects" tabindex="-1">
+			<Projects/>
+		</div>
+
+		<div data-page="toolbox" tabindex="-1">
+			<Toolbox/>
+		</div>
+
+		<div data-page="contact" tabindex="-1">
+			<Contact/>
+			<Footer/>
+		</div>
+	</main>
+
+	<!-- Fixed on screen; after the content so keyboard focus reaches the header and page first -->
+	<PageNav pages={ pages }/>
+	<ScrollCue/>
+</Layout>
+
+<style>
+	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		align-items: center;
+		gap: var(--space-8);
+		min-height: calc(100svh - var(--header-height));
+		padding-block: var(--space-8) var(--space-16);
+	}
+
+	.intro {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		order: 2;
+	}
+
+	.lede {
+		max-width: 34ch;
+		color: var(--ink-muted);
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-4);
+		margin-top: var(--space-4);
+	}
+
+	.art {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-3);
+		order: 1;
+		width: min(100%, 340px);
+		margin-inline: auto;
+	}
+
+	.hint {
+		transform: rotate(-3deg);
+	}
+
+	@media (min-width: 900px) {
+		.hero {
+			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+			gap: var(--space-12);
+		}
+
+		.intro,
+		.art {
+			order: 0;
+		}
+
+		.art {
+			width: 100%;
+		}
+	}
+</style>

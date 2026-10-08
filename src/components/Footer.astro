@@ -1,0 +1,56 @@
+---
+import Logo from "./Logo.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" role="contentinfo">
+	<div class="container inner">
+		<a class="wordmark" href="#top" aria-label="Back to top">
+			<Logo size={ 24 }/>
+		</a>
+		<p class="small muted">
+			Drawn in SVG, wired up with Astro and TypeScript. © { year } Yash Gupta.
+		</p>
+		<a class="label top" href="#top">back to top <span aria-hidden="true">↑</span></a>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		border-top: var(--border-hair) solid var(--line-soft);
+	}
+
+	.inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-4);
+		padding-block: var(--space-8);
+	}
+
+	/* The YG monogram in ink, turning marigold on hover like on v1 */
+	.wordmark {
+		display: inline-flex;
+		color: var(--ink);
+		transition: color var(--duration-quick) ease-out;
+	}
+
+	.wordmark:hover {
+		color: var(--accent-ink);
+	}
+
+	.top {
+		color: var(--ink-muted);
+		text-decoration: none;
+	}
+
+	.top:hover {
+		color: var(--ink);
+	}
+
+	.top span {
+		color: var(--accent-ink);
+	}
+</style>

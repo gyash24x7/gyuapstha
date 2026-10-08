@@ -1,99 +1,86 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# yashgupta.me
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+The personal site of Yash Gupta, a full-stack developer from Kanpur, India. It's a single page built with
+[Astro](https://astro.build): an interactive SVG portrait, work experience, projects, a 3D graph of the tools I use,
+and a way to get in touch.
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+- **Live:** [yashgupta.me](https://yashgupta.me)
+- **Previous version:** the Gatsby site lives on the [`v1`](https://github.com/gyash24x7/gyuapstha/tree/v1) branch,
+  headed for v1.yashgupta.me
 
-## 🚀 Quick start
+## What's in it
 
-1.  **Create a Gatsby site.**
+- **Interactive portrait.** A flat SVG drawing that follows the cursor, blinks, looks down as you scroll and reacts
+  when clicked or tapped.
+- **Page-by-page scrolling on desktop.** Each section is a full-screen page; one scroll, key press or nav dot fades
+  and scales to the next. Long pages scroll inside first. Phones, touch-only devices and anyone with reduced motion
+  turned on get normal scrolling.
+- **Toolbox graph.** A three.js network of logo stickers linked by category and by how the tools are used together.
+  Drag to spin, hover or tap to highlight. three.js loads only when you scroll near it.
+- **Particle background.** One lightweight 2D canvas shared by every section.
+- **Light and dark themes,** following the system setting with a toggle that remembers your choice.
+- **Generated link previews.** The Open Graph image is rendered at build time from the live portrait, the site's
+  fonts and its colour tokens.
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+Lighthouse scores 99–100 for performance and 100 for accessibility, best practices and SEO, on mobile and desktop.
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+## Stack
 
-1.  **Start developing.**
+|                 |                                                                                                                                          |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Framework       | Astro 7, static output, TypeScript (strict)                                                                                              |
+| Package manager | Bun 1.4                                                                                                                                  |
+| 3D              | three.js (toolbox graph only)                                                                                                            |
+| Fonts           | Bricolage Grotesque, Instrument Sans and JetBrains Mono, self-hosted through Astro's fonts API                                           |
+| Icons           | [Simple Icons](https://simpleicons.org) for the toolbox logos, [Bootstrap Icons](https://icons.getbootstrap.com) for UI and social marks |
+| Preview image   | satori and sharp, at build time                                                                                                          |
+| Hosting         | Cloudflare Workers static assets                                                                                                         |
 
-    Navigate into your new site’s directory and start it up.
+## Getting started
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+Requires Bun 1.4+ and Node 22.12+.
 
-1.  **Open the source code and start editing!**
+```sh
+bun install
+bun dev                      # dev server at http://localhost:4321
+bun run check                # type-check (astro check)
+bun run build                # type-check, then build to ./dist
+bun preview                  # serve the production build
+bun run preview:cloudflare   # build, then serve with Cloudflare's local runtime on :8787
+```
 
-    Your site is now running at `http://localhost:8000`!
+## Project structure
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+```text
+src/
+├── components/   Sections (Experience, Projects, Toolbox, Contact), the portrait, header, nav and UI pieces
+├── data/         Site content: experience, projects, toolbox and contact details
+├── layouts/      The shared page shell: meta tags, fonts, theme and particle background
+├── pages/        The landing page, 404, and generated og-image.png, robots.txt and sitemap.xml
+├── scripts/      Client-side behaviour: page-by-page scrolling, particles, the toolbox graph
+└── styles/       Design tokens (tokens.css) and global styles
+public/           Static files: favicons, résumé, Cloudflare _headers
+```
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+To update the content, edit the files in `src/data/`. Colours, spacing, type and shadows are CSS custom properties in
+`src/styles/tokens.css`; components use only those tokens, so both themes keep working.
 
-## 🧐 What's inside?
+## Deployment
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+The site deploys to Cloudflare Workers as static assets, configured in `wrangler.jsonc`. There's no Worker code:
+`dist/` is served as-is, unknown paths get the custom 404 page with a 404 status, and `public/_headers` adds security
+headers and long-term caching for Astro's hashed files.
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+- **From the Cloudflare dashboard:** connect the repository with the build command `bun run build` and the deploy
+  command `npx wrangler deploy`. Set the build variable `BUN_VERSION=1.4.0`, because `bun.lock` uses Bun 1.4's
+  lockfile format, which Cloudflare's default Bun can't read.
+- **From your machine:** run `bunx wrangler login` once, then `bun run deploy`.
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+## Credits
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
-
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
-
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
-
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
-
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
-
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
-
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
-
-9.  **`LICENSE`**: This Gatsby starter is licensed under the 0BSD license. This means that you can see this file as a placeholder and replace it with your own license.
-
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
-
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
-
-12. **`README.md`**: A text file containing useful reference information about your project.
-
-## 🎓 Learning Gatsby
-
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
-
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
-
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
-
-## 💫 Deploy
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
-
-<!-- AUTO-GENERATED-CONTENT:END -->
+- Logo: the YG monogram carried over from v1
+- Fonts: [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque),
+  [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans) and
+  [JetBrains Mono](https://www.jetbrains.com/lp/mono/), all under the SIL Open Font License
+- Toolbox logos: [Simple Icons](https://simpleicons.org) (CC0). Brand names and logos belong to their owners
+- UI and social icons: [Bootstrap Icons](https://icons.getbootstrap.com) (MIT)

@@ -1,0 +1,169 @@
+---
+import { experience } from "../data/experience";
+import Chip from "./Chip.astro";
+import InlineLink from "./InlineLink.astro";
+import PathLabel from "./PathLabel.astro";
+
+const span = ( start: string, end?: string ) => `${ start } – ${ end ?? "present" }`;
+---
+
+<section id="experience" class="container section" aria-labelledby="experience-title">
+	<PathLabel path="experience"/>
+	<h2 id="experience-title" class="heading-1">Where I've worked</h2>
+
+	<ol class="companies">
+			{ experience.map( company => {
+				const first = company.roles[ company.roles.length - 1 ];
+				const last = company.roles[ 0 ];
+				return (
+			<li class="company">
+				<div class="company-head">
+					<h3 class="heading-2">
+						<InlineLink href={ company.url }>{ company.name }</InlineLink>
+					</h3>
+									{ company.about && <p class="small muted">{ company.about }</p> }
+					<p class="label muted">
+											{ span( first.start, last.end ) }
+											{ company.kind === "internship" && " · internship" }
+					</p>
+				</div>
+
+				<ol class="roles">
+									{ company.roles.map( role => (
+					  <li class="role">
+						  <div class="role-head">
+							  <h4 class="heading-3">{ role.title }</h4>
+							  <p class="small muted">
+																{ role.team &&
+									<>{ role.team } ·</> }
+								  <time>{ span( role.start, role.end ) }</time>
+							  </p>
+						  </div>
+												{ ( !role.end || role.awards ) && (
+							<div class="chips">
+															{ !role.end &&
+								  <Chip variant="hot">currently</Chip> }
+															{ role.awards?.map( award =>
+								  <Chip>{ award }</Chip> ) }
+							</div>
+												) }
+						  <ul class="points">
+														{ role.points.map( point =>
+								<li>{ point }</li> ) }
+						  </ul>
+					  </li>
+									) ) }
+				</ol>
+			</li>
+				);
+			} ) }
+	</ol>
+</section>
+
+<style>
+	.section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		padding-block: var(--section-gap);
+	}
+
+	.companies {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-12);
+		margin-top: var(--space-8);
+		padding: 0;
+		list-style: none;
+	}
+
+	.company {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		gap: var(--space-6);
+	}
+
+	.company-head {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+
+	.company-head .label {
+		margin-top: var(--space-1);
+	}
+
+	.roles {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-8);
+		padding: 0 0 0 var(--space-8);
+		list-style: none;
+		border-left: var(--border-sticker) solid var(--line-soft);
+	}
+
+	.role {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+		max-width: var(--text-max);
+	}
+
+	/* A playing-card pip on the timeline for each role */
+	.role::before {
+		content: "";
+		position: absolute;
+		top: 6px;
+		left: calc(-1 * var(--space-8) - 8px);
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: var(--marigold);
+		border: var(--border-sticker) solid var(--ink);
+	}
+
+	.role-head {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+	}
+
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2);
+	}
+
+	.points {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		padding-left: var(--space-4);
+		color: var(--ink-muted);
+	}
+
+	.points li::marker {
+		color: var(--accent-ink);
+	}
+
+	@media (min-width: 900px) {
+		.company {
+			grid-template-columns: 260px minmax(0, 1fr);
+			gap: var(--space-12);
+		}
+
+		/* Stick below the sticky site header */
+		.company-head {
+			position: sticky;
+			top: calc(var(--header-height) + var(--space-6));
+			align-self: start;
+		}
+
+		/* In paged mode the page's own top padding already clears the header */
+		:global(html.paged) .company-head {
+			top: var(--space-6);
+		}
+	}
+</style>

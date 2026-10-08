@@ -1,0 +1,116 @@
+/*
+ * Design tokens. Source of truth: the "Yash Gupta" design system
+ * (https://claude.ai/artifact/2UXv9sNyQGMhZ9ebBkw45i). Keep names in sync with it.
+ *
+ * Theme: light by default, dark from the OS setting unless the user picked one.
+ * The user's choice is stored as `data-theme` on <html> (see ThemeToggle).
+ * Font families (--font-display, --font-body, --font-mono) come from the
+ * Astro fonts config in astro.config.mjs.
+ */
+
+:root {
+	color-scheme: light;
+
+	/* Colour */
+	--paper: #f2f3f7;
+	--paper-raised: #ffffff;
+	--ink: #1b1a3a;
+	--ink-muted: #55546f;
+	--line-soft: #c9cad9;
+	--marigold: #fca311;
+	--marigold-soft: #ffe3b0;
+	--on-marigold: #1b1a3a;
+	--accent-ink: #8f5400;
+	--chilli: #bf2f3b;
+	--on-chilli: #ffffff;
+	--peacock: #13756f;
+	--shadow-ink: #1b1a3a;
+	--focus-ring: #1b1a3a;
+
+	/* Illustration: the hero portrait's own colours, fixed in both themes */
+	--illo-line: #1b1a3a;
+	--illo-paper: #fbfaf6;
+	--skin: #e2ae86;
+	--illo-jacket: #bf2f3b;
+
+	/* Spacing (4px base) */
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-6: 24px;
+	--space-8: 32px;
+	--space-12: 48px;
+	--space-16: 64px;
+	--space-24: 96px;
+
+	/* Radius */
+	--radius-sm: 6px;
+	--radius-md: 14px;
+	--radius-lg: 28px;
+	--radius-pill: 999px;
+
+	/* Border */
+	--border-sticker: 2px;
+	--border-hair: 1px;
+
+	/* Hard sticker shadows, never blurred */
+	--sticker-sm: 3px 3px 0 var(--shadow-ink);
+	--sticker-md: 5px 5px 0 var(--shadow-ink);
+	--sticker-lg: 8px 8px 0 var(--shadow-ink);
+
+	/* Motion */
+	--ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+	--ease-smooth: cubic-bezier(.65, 0, .35, 1);
+	--duration-quick: 180ms;
+	--duration-base: 240ms;
+	--duration-slow: 400ms;
+
+	/* Layout */
+	--content-max: 1120px;
+	--text-max: 65ch;
+	--gutter: var(--space-4);
+	--section-gap: var(--space-16);
+	--header-height: 72px;
+}
+
+@media (min-width: 900px) {
+	:root {
+		--gutter: var(--space-12);
+		--section-gap: var(--space-24);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme="light"]) {
+		color-scheme: dark;
+		--paper: #15142c;
+		--paper-raised: #211f3f;
+		--ink: #eeeef6;
+		--ink-muted: #a8a7c4;
+		--line-soft: #3b395e;
+		--marigold-soft: #3a2f22;
+		--accent-ink: #fca311;
+		--chilli: #ff7b84;
+		--on-chilli: #1b1a3a;
+		--peacock: #4cc7bb;
+		--shadow-ink: #fca311;
+		--focus-ring: #fca311;
+	}
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+	--paper: #15142c;
+	--paper-raised: #211f3f;
+	--ink: #eeeef6;
+	--ink-muted: #a8a7c4;
+	--line-soft: #3b395e;
+	--marigold-soft: #3a2f22;
+	--accent-ink: #fca311;
+	--chilli: #ff7b84;
+	--on-chilli: #1b1a3a;
+	--peacock: #4cc7bb;
+	--shadow-ink: #fca311;
+	--focus-ring: #fca311;
+}
