@@ -174,7 +174,7 @@ export const initPages = () => {
 		if ( !enabled || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey ) {
 			return;
 		}
-		const target = event.target as HTMLElement;
+		const target = event.target instanceof Element ? event.target : document.body;
 		if ( target.closest( "input, textarea, select, [contenteditable]" ) ) {
 			return;
 		}
@@ -225,7 +225,7 @@ export const initPages = () => {
 		if ( !enabled || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey ) {
 			return;
 		}
-		const link = ( event.target as HTMLElement ).closest<HTMLAnchorElement>( "a[href^='#']" );
+		const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>( "a[href^='#']" ) : null;
 		const id = link?.getAttribute( "href" )?.slice( 1 );
 		const target = id ? document.getElementById( id ) : null;
 		const index = pageIndexOf( target );
@@ -244,9 +244,12 @@ export const initPages = () => {
 		if ( enabled ) {
 			return;
 		}
-		// Start on the page in the URL, or the one that's on screen now
+		// Start on the page in the URL. Otherwise, when switching over from normal scrolling (a resize),
+		// keep the section that's on screen; on load PagedBoot has already stacked the pages, so that
+		// can't be measured and we start at the top
 		const fromHash = location.hash ? pageIndexOf( document.getElementById( location.hash.slice( 1 ) ) ) : -1;
-		const onScreen = pages.reduce( ( found, page, i ) => page.getBoundingClientRect().top <= innerHeight / 2 ? i : found, 0 );
+		const stacked = root.classList.contains( "paged" );
+		const onScreen = stacked ? 0 : pages.reduce( ( found, page, i ) => page.getBoundingClientRect().top <= innerHeight / 2 ? i : found, 0 );
 		current = fromHash >= 0 ? fromHash : onScreen;
 
 		enabled = true;

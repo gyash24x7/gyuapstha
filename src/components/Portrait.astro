@@ -9,9 +9,10 @@
 
 <div class="portrait" data-portrait>
 	<p class="bubble" data-bubble aria-live="polite" hidden></p>
-	<button class="stage" type="button" data-stage aria-label="Say hi to Yash">
-		<svg viewBox="0 0 400 420" role="img" aria-labelledby="portrait-title">
-			<title id="portrait-title">Illustration of Yash: swept dark hair, glasses, a short beard and a red jacket over a white turtleneck</title>
+	<!-- The button's name is the action; what the drawing shows is its description -->
+	<span id="portrait-description" class="visually-hidden">Illustration of Yash: swept dark hair, glasses, a short beard and a red jacket over a white turtleneck</span>
+	<button class="stage" type="button" data-stage aria-label="Say hi to Yash" aria-describedby="portrait-description">
+		<svg viewBox="0 0 400 420" aria-hidden="true" focusable="false">
 			<defs>
 				<clipPath id="portrait-bust">
 					<circle cx="200" cy="210" r="180"/>

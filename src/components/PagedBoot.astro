@@ -1,0 +1,14 @@
+---
+/**
+ * Switches on paged mode before the first paint, so the page doesn't render as one long
+ * scroll and then rearrange into pages (a layout shift). Must be the first thing in <body>.
+ * scripts/pages.ts takes over from here and sets each page's state.
+ */
+import { PAGED_QUERY } from "../scripts/pages";
+---
+
+<script is:inline define:vars={ { query: PAGED_QUERY } }>
+	if ( window.matchMedia( query ).matches ) {
+		document.documentElement.classList.add( "paged" );
+	}
+</script>

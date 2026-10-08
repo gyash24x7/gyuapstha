@@ -74,6 +74,8 @@ const { pages } = Astro.props;
 		transform: scale(1.2);
 	}
 
+	/* Before scripts/pages.ts has set any states (see PagedBoot), show the first page */
+	html.paged [data-page]:first-child:not([data-state]),
 	html.paged [data-page][data-state="current"] {
 		z-index: 1;
 		opacity: 1;

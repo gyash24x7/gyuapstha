@@ -5,6 +5,10 @@ import { defineConfig, fontProviders } from "astro/config";
 export default defineConfig( {
 	// Used for canonical URLs and absolute link-preview image URLs
 	site: "https://yashgupta.me",
+	// Inline the (small) stylesheets into the HTML so the first paint doesn't wait on CSS requests
+	build: {
+		inlineStylesheets: "always"
+	},
 	fonts: [
 		{
 			provider: fontProviders.google(),
