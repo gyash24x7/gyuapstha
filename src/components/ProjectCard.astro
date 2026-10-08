@@ -3,20 +3,26 @@ import Chip from "./Chip.astro";
 import InlineLink from "./InlineLink.astro";
 
 interface Props {
-	/** Two-letter corner index, e.g. "HN" */
 	index: string;
 	title: string;
 	description: string;
-	/** Short highlights shown as a list under the description */
 	points?: string[];
 	tech?: string[];
 	links?: { label: string; href: string }[];
 	pip?: "marigold" | "chilli" | "peacock";
-	/** Resting tilt in degrees, -2 to 2 */
 	tilt?: number;
 }
 
-const { index, title, description, points = [], tech = [], links = [], pip = "marigold", tilt = 0 } = Astro.props;
+const {
+	index,
+	title,
+	description,
+	points = [],
+	tech = [],
+	links = [],
+	pip = "marigold",
+	tilt = 0
+} = Astro.props;
 ---
 
 <article class="card" style={ `--pip: var(--${ pip }); --tilt: ${ tilt }deg` }>
@@ -24,19 +30,22 @@ const { index, title, description, points = [], tech = [], links = [], pip = "ma
 	<h3>{ title }</h3>
 	<p>{ description }</p>
 	{ points.length > 0 && (
-		<ul class="points">
-			{ points.map( point => <li>{ point }</li> ) }
-		</ul>
+	  <ul class="points">
+				{ points.map( point =>
+			<li>{ point }</li> ) }
+	  </ul>
 	) }
 	{ tech.length > 0 && (
-		<div class="chips">
-			{ tech.map( item => <Chip>{ item }</Chip> ) }
-		</div>
+	  <div class="chips">
+				{ tech.map( item =>
+			<Chip>{ item }</Chip> ) }
+	  </div>
 	) }
 	{ links.length > 0 && (
-		<div class="links">
-			{ links.map( ( { label, href } ) => <InlineLink href={ href }>{ label }</InlineLink> ) }
-		</div>
+	  <div class="links">
+				{ links.map( ( { label, href } ) =>
+			<InlineLink href={ href }>{ label }</InlineLink> ) }
+	  </div>
 	) }
 	<span class="index index--flipped" aria-hidden="true"><i></i>{ index }</span>
 </article>

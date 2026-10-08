@@ -15,13 +15,22 @@ const WIDTH = 1200;
 const HEIGHT = 630;
 const root = process.cwd();
 const read = ( path: string ) => readFile( join( root, path ), "utf8" );
-const font = ( pkg: string, file: string ) => readFile( join( root, "node_modules/@fontsource", pkg, "files", file ) );
+const font = ( pkg: string, file: string ) => readFile( join(
+	root,
+	"node_modules/@fontsource",
+	pkg,
+	"files",
+	file
+) );
 
 /** Light-theme token values from the first :root block of tokens.css */
 const readTokens = async () => {
 	const css = await read( "src/styles/tokens.css" );
 	const block = css.slice( css.indexOf( ":root {" ), css.indexOf( "}", css.indexOf( ":root {" ) ) );
-	const entries = Array.from( block.matchAll( /--([\w-]+):\s*([^;]+);/g ), ( match ): [ string, string ] => [ match[ 1 ], match[ 2 ].trim() ] );
+	const entries = Array.from(
+		block.matchAll( /--([\w-]+):\s*([^;]+);/g ),
+		( match ): [ string, string ] => [ match[ 1 ], match[ 2 ].trim() ]
+	);
 	return Object.fromEntries( entries ) as Record<string, string>;
 };
 
@@ -47,8 +56,8 @@ const renderPortrait = async ( tokens: Record<string, string> ) => {
 const renderLogo = async ( ink: string ) => {
 	const source = await read( "src/components/Logo.astro" );
 	const shapes = source.match( /<path[\s\S]*<\/svg>/ )?.[ 0 ]
-		.replace( /clip-path=\{ `url\(#\$\{ id \}-a\)` \}/, 'clip-path="url(#a)"' )
-		.replace( /clip-path=\{ `url\(#\$\{ id \}-b\)` \}/, 'clip-path="url(#b)"' );
+		.replace( /clip-path=\{ `url\(#\$\{ id \}-a\)` \}/, "clip-path=\"url(#a)\"" )
+		.replace( /clip-path=\{ `url\(#\$\{ id \}-b\)` \}/, "clip-path=\"url(#b)\"" );
 	if ( !shapes || shapes.includes( "{" ) ) {
 		throw new Error( "og-image: couldn't read the logo shapes from Logo.astro" );
 	}
@@ -62,7 +71,13 @@ const dataUri = ( png: Buffer ) => `data:image/png;base64,${ png.toString( "base
 type Node = string | { type: string; props: Record<string, unknown> };
 const h = ( type: string, props: Record<string, unknown>, ...children: Node[] ): Node => ( {
 	type,
-	props: { ...props, ...( children.length ? { children: children.length === 1 ? children[ 0 ] : children } : {} ) }
+	props: {
+		...props, ...( children.length ? {
+			children: children.length === 1
+				? children[ 0 ]
+				: children
+		} : {} )
+	}
 } );
 
 /** A light scatter of particles, like the site background */
@@ -91,9 +106,13 @@ const particles = ( tokens: Record<string, string> ) => {
 
 export const GET: APIRoute = async () => {
 	const tokens = await readTokens();
-	const [ portrait, logo ] = await Promise.all( [ renderPortrait( tokens ), renderLogo( tokens[ "ink" ] ) ] );
+	const [ portrait, logo ] = await Promise.all( [
+		renderPortrait( tokens ),
+		renderLogo( tokens[ "ink" ] )
+	] );
 
-	const tree = h( "div", {
+	const tree = h(
+		"div", {
 			style: {
 				position: "relative",
 				display: "flex",
@@ -107,10 +126,35 @@ export const GET: APIRoute = async () => {
 			}
 		},
 		...particles( tokens ),
-		h( "div", { style: { display: "flex", flexDirection: "column", flex: 1, gap: 22 } },
+		h(
+			"div", { style: { display: "flex", flexDirection: "column", flex: 1, gap: 22 } },
 			h( "img", { src: dataUri( logo ), width: 58, height: 48 } ),
-			h( "div", { style: { display: "flex", fontFamily: "JetBrains Mono", fontSize: 24, color: tokens[ "ink-muted" ], letterSpacing: 1 } }, "> ~/home" ),
-			h( "div", { style: { display: "flex", fontFamily: "Bricolage Grotesque", fontWeight: 800, fontSize: 108, lineHeight: 1, letterSpacing: -3, whiteSpace: "pre" } },
+			h(
+				"div",
+				{
+					style: {
+						display: "flex",
+						fontFamily: "JetBrains Mono",
+						fontSize: 24,
+						color: tokens[ "ink-muted" ],
+						letterSpacing: 1
+					}
+				},
+				"> ~/home"
+			),
+			h(
+				"div",
+				{
+					style: {
+						display: "flex",
+						fontFamily: "Bricolage Grotesque",
+						fontWeight: 800,
+						fontSize: 108,
+						lineHeight: 1,
+						letterSpacing: -3,
+						whiteSpace: "pre"
+					}
+				},
 				"Hi, I'm ",
 				h( "span", {
 					style: {
@@ -119,10 +163,32 @@ export const GET: APIRoute = async () => {
 				}, "Yash" ),
 				"."
 			),
-			h( "div", { style: { display: "flex", fontSize: 32, lineHeight: 1.4, color: tokens[ "ink-muted" ], maxWidth: 560 } },
+			h(
+				"div",
+				{
+					style: {
+						display: "flex",
+						fontSize: 32,
+						lineHeight: 1.4,
+						color: tokens[ "ink-muted" ],
+						maxWidth: 560
+					}
+				},
 				"Full-stack developer from Kanpur, India. I build websites, apps and everything in between."
 			),
-			h( "div", { style: { display: "flex", fontFamily: "JetBrains Mono", fontSize: 26, color: tokens[ "accent-ink" ], marginTop: 6 } }, "yashgupta.me" )
+			h(
+				"div",
+				{
+					style: {
+						display: "flex",
+						fontFamily: "JetBrains Mono",
+						fontSize: 26,
+						color: tokens[ "accent-ink" ],
+						marginTop: 6
+					}
+				},
+				"yashgupta.me"
+			)
 		),
 		h( "img", { src: dataUri( portrait ), width: 440, height: 462 } )
 	);
@@ -131,9 +197,24 @@ export const GET: APIRoute = async () => {
 		width: WIDTH,
 		height: HEIGHT,
 		fonts: [
-			{ name: "Bricolage Grotesque", data: await font( "bricolage-grotesque", "bricolage-grotesque-latin-800-normal.woff" ), weight: 800, style: "normal" },
-			{ name: "Instrument Sans", data: await font( "instrument-sans", "instrument-sans-latin-400-normal.woff" ), weight: 400, style: "normal" },
-			{ name: "JetBrains Mono", data: await font( "jetbrains-mono", "jetbrains-mono-latin-500-normal.woff" ), weight: 500, style: "normal" }
+			{
+				name: "Bricolage Grotesque",
+				data: await font( "bricolage-grotesque", "bricolage-grotesque-latin-800-normal.woff" ),
+				weight: 800,
+				style: "normal"
+			},
+			{
+				name: "Instrument Sans",
+				data: await font( "instrument-sans", "instrument-sans-latin-400-normal.woff" ),
+				weight: 400,
+				style: "normal"
+			},
+			{
+				name: "JetBrains Mono",
+				data: await font( "jetbrains-mono", "jetbrains-mono-latin-500-normal.woff" ),
+				weight: 500,
+				style: "normal"
+			}
 		]
 	} );
 

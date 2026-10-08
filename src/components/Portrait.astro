@@ -1,17 +1,23 @@
 ---
 /**
- * Interactive SVG portrait for the landing hero.
- * The head and face turn toward the pointer (layered parallax), the eyes blink,
- * scrolling makes him look down at the page, and clicking or tapping makes him grin and push up his glasses.
- * Under prefers-reduced-motion it renders still and only the speech bubble responds.
- */
+	* Interactive SVG portrait for the landing hero.
+	* The head and face turn toward the pointer (layered parallax), the eyes blink,
+	* scrolling makes him look down at the page, and clicking or tapping makes him grin and push up his glasses.
+	* Under prefers-reduced-motion it renders still and only the speech bubble responds.
+	*/
 ---
 
 <div class="portrait" data-portrait>
 	<p class="bubble" data-bubble aria-live="polite" hidden></p>
-	<!-- The button's name is the action; what the drawing shows is its description -->
-	<span id="portrait-description" class="visually-hidden">Illustration of Yash: swept dark hair, glasses, a short beard and a red jacket over a white turtleneck</span>
-	<button class="stage" type="button" data-stage aria-label="Say hi to Yash" aria-describedby="portrait-description">
+	<span id="portrait-description" class="visually-hidden">
+			Illustration of Yash: swept dark hair, glasses, a short beard and a red jacket over a white turtleneck
+	</span>
+	<button
+		class="stage"
+		type="button"
+		data-stage aria-label="Say hi to Yash"
+		aria-describedby="portrait-description"
+	>
 		<svg viewBox="0 0 400 420" aria-hidden="true" focusable="false">
 			<defs>
 				<clipPath id="portrait-bust">
@@ -26,8 +32,23 @@
 
 			<!-- Floating bits, drift against the pointer -->
 			<g data-layer="float">
-				<rect class="card" x="40" y="72" width="46" height="64" rx="7" transform="rotate(-14 62 104)"/>
-				<rect class="card" x="322" y="230" width="44" height="62" rx="7" transform="rotate(12 344 262)"/>
+				<rect
+					class="card"
+					x="40"
+					y="72"
+					width="46"
+					height="64"
+					rx="7"
+					transform="rotate(-14 62 104)"
+				/>
+				<rect
+					class="card"
+					x="322" y="230"
+					width="44"
+					height="62"
+					rx="7"
+					transform="rotate(12 344 262)"
+				/>
 				<g transform="rotate(8 324 76)">
 					<rect class="card" x="296" y="60" width="58" height="30" rx="15"/>
 					<text class="code" x="325" y="80" text-anchor="middle">&lt;/&gt;</text>
@@ -37,24 +58,45 @@
 			<g clip-path="url(#portrait-bust)">
 				<!-- Body -->
 				<g data-layer="body">
-					<path class="jacket" d="M40 420 L48 372 C56 338 92 320 140 308 L170 300 L230 300 L260 308 C308 320 344 338 352 372 L360 420Z"/>
+					<path
+						class="jacket"
+						d="M40 420 L48 372 C56 338 92 320 140 308 L170 300 L230 300 L260 308 C308 320 344 338 352 372 L360 420Z"
+					/>
 					<path class="skin" d="M178 250 L178 292 C190 298 210 298 222 292 L222 250Z"/>
-					<path class="sweater" d="M170 300 C170 290 182 284 200 284 C218 284 230 290 230 300 L244 420 L156 420Z"/>
+					<path
+						class="sweater"
+						d="M170 300 C170 290 182 284 200 284 C218 284 230 290 230 300 L244 420 L156 420Z"
+					/>
 					<path class="line" d="M174 314 C190 320 210 320 226 314"/>
-					<path class="jacket" d="M148 306 C152 290 164 279 176 279 L181 318 C166 320 154 316 148 306Z"/>
-					<path class="jacket" d="M252 306 C248 290 236 279 224 279 L219 318 C234 320 246 316 252 306Z"/>
+					<path
+						class="jacket"
+						d="M148 306 C152 290 164 279 176 279 L181 318 C166 320 154 316 148 306Z"
+					/>
+					<path
+						class="jacket"
+						d="M252 306 C248 290 236 279 224 279 L219 318 C234 320 246 316 252 306Z"
+					/>
 				</g>
 
 				<!-- Head -->
 				<g data-layer="head">
 					<g data-layer="back">
-						<path class="ink" d="M118 205 C108 140 145 92 205 90 C265 90 296 135 284 205Z"/>
+						<path
+							class="ink"
+							d="M118 205 C108 140 145 92 205 90 C265 90 296 135 284 205Z"
+						/>
 						<ellipse class="skin" cx="130" cy="215" rx="13" ry="19"/>
 						<ellipse class="skin" cx="270" cy="215" rx="13" ry="19"/>
 					</g>
 
-					<path class="skin" d="M200 128 C252 128 272 168 272 214 C272 262 244 300 200 302 C156 300 128 262 128 214 C128 168 148 128 200 128Z"/>
-					<path class="ink" d="M130 222 C130 268 158 306 200 306 C242 306 270 268 270 222 C262 250 246 262 232 266 C222 282 212 290 200 290 C188 290 178 282 168 266 C154 262 138 250 130 222Z"/>
+					<path
+						class="skin"
+						d="M200 128 C252 128 272 168 272 214 C272 262 244 300 200 302 C156 300 128 262 128 214 C128 168 148 128 200 128Z"
+					/>
+					<path
+						class="ink"
+						d="M130 222 C130 268 158 306 200 306 C242 306 270 268 270 222 C262 250 246 262 232 266 C222 282 212 290 200 290 C188 290 178 282 168 266 C154 262 138 250 130 222Z"
+					/>
 
 					<g data-layer="face">
 						<g class="eye">
@@ -77,13 +119,23 @@
 							<path class="line" d="M194 205 Q200 201 206 205"/>
 						</g>
 
-						<path class="line" d="M201 220 C200 230 195 236 196 240 C199 242 203 242 206 240"/>
-						<path class="ink" d="M178 255 C186 247 195 248 200 252 C205 248 214 247 222 255 C212 258 188 258 178 255Z"/>
+						<path
+							class="line"
+							d="M201 220 C200 230 195 236 196 240 C199 242 203 242 206 240"
+						/>
+						<path
+							class="ink"
+							d="M178 255 C186 247 195 248 200 252 C205 248 214 247 222 255 C212 258 188 258 178 255Z"
+						/>
 						<path class="mouth mouth--rest line" d="M186 264 Q200 272 214 264"/>
 						<path class="mouth mouth--happy ink" d="M183 261 Q200 286 217 261Z"/>
 					</g>
 
-					<path class="ink" data-layer="fringe" d="M126 200 C118 160 132 118 168 102 C182 84 228 76 262 96 C290 116 298 156 280 190 C276 170 266 156 252 150 C232 140 214 146 196 140 C176 134 160 144 150 158 C140 172 136 186 126 200Z"/>
+					<path
+						class="ink"
+						data-layer="fringe"
+						d="M126 200 C118 160 132 118 168 102 C182 84 228 76 262 96 C290 116 298 156 280 190 C276 170 266 156 252 150 C232 140 214 146 196 140 C176 134 160 144 150 158 C140 172 136 186 126 200Z"
+					/>
 				</g>
 			</g>
 		</svg>
@@ -119,16 +171,62 @@
 		overflow: visible;
 	}
 
-	.disc { fill: var(--marigold); stroke: var(--illo-line); stroke-width: 3; }
-	.disc-shadow { fill: var(--shadow-ink); }
-	.card { fill: var(--illo-paper); stroke: var(--illo-line); stroke-width: 3; }
-	.code { font: 600 15px var(--font-mono); fill: var(--illo-line); }
-	.jacket { fill: var(--illo-jacket); stroke: var(--illo-line); stroke-width: 3; stroke-linejoin: round; }
-	.sweater { fill: var(--illo-paper); stroke: var(--illo-line); stroke-width: 3; stroke-linejoin: round; }
-	.skin { fill: var(--skin); stroke: var(--illo-line); stroke-width: 3; }
-	.ink { fill: var(--illo-line); }
-	.line { fill: none; stroke: var(--illo-line); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-	.line--bold { stroke-width: 6; }
+	.disc {
+		fill: var(--marigold);
+		stroke: var(--illo-line);
+		stroke-width: 3;
+	}
+
+	.disc-shadow {
+		fill: var(--shadow-ink);
+	}
+
+	.card {
+		fill: var(--illo-paper);
+		stroke: var(--illo-line);
+		stroke-width: 3;
+	}
+
+	.code {
+		font: 600 15px var(--font-mono);
+		fill: var(--illo-line);
+	}
+
+	.jacket {
+		fill: var(--illo-jacket);
+		stroke: var(--illo-line);
+		stroke-width: 3;
+		stroke-linejoin: round;
+	}
+
+	.sweater {
+		fill: var(--illo-paper);
+		stroke: var(--illo-line);
+		stroke-width: 3;
+		stroke-linejoin: round;
+	}
+
+	.skin {
+		fill: var(--skin);
+		stroke: var(--illo-line);
+		stroke-width: 3;
+	}
+
+	.ink {
+		fill: var(--illo-line);
+	}
+
+	.line {
+		fill: none;
+		stroke: var(--illo-line);
+		stroke-width: 3;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.line--bold {
+		stroke-width: 6;
+	}
 
 	/* Animated parts: CSS transforms on elements without a transform attribute */
 	.eye,

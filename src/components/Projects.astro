@@ -3,7 +3,6 @@ import { projects } from "../data/projects";
 import PathLabel from "./PathLabel.astro";
 import ProjectCard from "./ProjectCard.astro";
 
-// Cards rest at small alternating tilts, like a hand laid on the table
 const tilts = [ -1.5, 1.2, -0.8, 1.6 ];
 ---
 
@@ -12,11 +11,11 @@ const tilts = [ -1.5, 1.2, -0.8, 1.6 ];
 	<h2 id="projects-title" class="heading-1">Things I've built</h2>
 
 	<ul class="cards">
-		{ projects.map( ( project, i ) => (
-			<li>
-				<ProjectCard { ...project } tilt={ tilts[ i % tilts.length ] }/>
-			</li>
-		) ) }
+			{ projects.map( ( project, i ) => (
+		  <li>
+			  <ProjectCard { ...project } tilt={ tilts[ i % tilts.length ] }/>
+		  </li>
+			) ) }
 	</ul>
 </section>
 

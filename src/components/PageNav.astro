@@ -1,10 +1,9 @@
 ---
 /**
- * Side navigation for page-by-page scrolling, plus the CSS that turns [data-page] wrappers into
- * stacked full-screen pages while <html> has the `paged` class (set by scripts/pages.ts).
- */
+	* Side navigation for page-by-page scrolling, plus the CSS that turns [data-page] wrappers into
+	* stacked full-screen pages while <html> has the `paged` class (set by scripts/pages.ts).
+	*/
 interface Props {
-	/** One entry per page: the id of an element at the top of that page, and its path label */
 	pages: { target: string; label: string }[];
 }
 
@@ -13,14 +12,14 @@ const { pages } = Astro.props;
 
 <nav class="page-nav" aria-label="Sections">
 	<ol>
-		{ pages.map( page => (
-			<li>
-				<a href={ `#${ page.target }` } data-page-link aria-label={ `Go to ${ page.label }` }>
-					<span class="label tip">~/{ page.label }</span>
-					<span class="dot" aria-hidden="true"></span>
-				</a>
-			</li>
-		) ) }
+			{ pages.map( page => (
+		  <li>
+			  <a href={ `#${ page.target }` } data-page-link aria-label={ `Go to ${ page.label }` }>
+				  <span class="label tip">~/{ page.label }</span>
+				  <span class="dot" aria-hidden="true"/>
+			  </a>
+		  </li>
+			) ) }
 	</ol>
 </nav>
 

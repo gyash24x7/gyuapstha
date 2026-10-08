@@ -72,7 +72,10 @@ export const initPages = () => {
 
 	// Pages off screen are moved far away once hidden, so features that watch visibility
 	// (the portrait's animation loop, the toolbox graph) pause or wait until their page is shown
-	const park = () => pages.forEach( ( page, i ) => page.toggleAttribute( "data-parked", i !== current ) );
+	const park = () => pages.forEach( ( page, i ) => page.toggleAttribute(
+		"data-parked",
+		i !== current
+	) );
 
 	const updateUrl = () => {
 		const id = pages[ current ].dataset.page;
@@ -92,7 +95,10 @@ export const initPages = () => {
 
 		// Bring the target back into place in its waiting state before animating it in
 		target.removeAttribute( "data-parked" );
-		if ( options.scrollTo && options.scrollTo !== target && !options.scrollTo.matches( "[data-page] > :first-child" ) ) {
+		if ( options.scrollTo &&
+			options.scrollTo !==
+			target &&
+			!options.scrollTo.matches( "[data-page] > :first-child" ) ) {
 			target.scrollTop = ( options.scrollTo as HTMLElement ).offsetTop - 24;
 		} else {
 			// Arriving from below lands at the end of a long page, as if you'd scrolled up into it
@@ -222,10 +228,17 @@ export const initPages = () => {
 
 	// In-page links (nav dots, "scroll", "back to top") flip to the page holding their target
 	const onClick = ( event: MouseEvent ) => {
-		if ( !enabled || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey ) {
+		if ( !enabled ||
+			event.defaultPrevented ||
+			event.button !==
+			0 ||
+			event.metaKey ||
+			event.ctrlKey ||
+			event.shiftKey ) {
 			return;
 		}
-		const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>( "a[href^='#']" ) : null;
+		const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>(
+			"a[href^='#']" ) : null;
 		const id = link?.getAttribute( "href" )?.slice( 1 );
 		const target = id ? document.getElementById( id ) : null;
 		const index = pageIndexOf( target );
@@ -247,9 +260,15 @@ export const initPages = () => {
 		// Start on the page in the URL. Otherwise, when switching over from normal scrolling (a resize),
 		// keep the section that's on screen; on load PagedBoot has already stacked the pages, so that
 		// can't be measured and we start at the top
-		const fromHash = location.hash ? pageIndexOf( document.getElementById( location.hash.slice( 1 ) ) ) : -1;
+		const fromHash = location.hash
+			? pageIndexOf( document.getElementById( location.hash.slice( 1 ) ) )
+			: -1;
 		const stacked = root.classList.contains( "paged" );
-		const onScreen = stacked ? 0 : pages.reduce( ( found, page, i ) => page.getBoundingClientRect().top <= innerHeight / 2 ? i : found, 0 );
+		const onScreen = stacked ? 0 : pages.reduce(
+			( found, page, i ) => page.getBoundingClientRect().top <= innerHeight / 2 ? i : found,
+			0
+		);
+		
 		current = fromHash >= 0 ? fromHash : onScreen;
 
 		enabled = true;
@@ -259,7 +278,9 @@ export const initPages = () => {
 		park();
 		void pages[ current ].offsetWidth;
 		root.classList.remove( "paged-instant" );
-		document.dispatchEvent( new CustomEvent( "pagechange", { detail: { index: current, direction: 0 } } ) );
+		document.dispatchEvent(
+			new CustomEvent( "pagechange", { detail: { index: current, direction: 0 } } )
+		);
 	};
 
 	const disable = () => {
@@ -276,7 +297,9 @@ export const initPages = () => {
 			page.inert = false;
 		} );
 		pages[ current ].scrollIntoView();
-		document.dispatchEvent( new CustomEvent( "pagechange", { detail: { index: current, direction: 0 } } ) );
+		document.dispatchEvent(
+			new CustomEvent( "pagechange", { detail: { index: current, direction: 0 } } )
+		);
 	};
 
 	window.addEventListener( "wheel", onWheel, { passive: false } );

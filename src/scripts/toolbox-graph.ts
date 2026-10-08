@@ -17,7 +17,6 @@ interface GraphNode {
 	icon?: string;
 	monogram?: string;
 	position: THREE.Vector3;
-	/** Layout position inside a unit sphere; scaled to the stage's shape on resize */
 	unit: THREE.Vector3;
 	force: THREE.Vector3;
 	sprite?: THREE.Sprite;
@@ -41,7 +40,9 @@ const HUB_HEIGHT = 21;
 
 const readPalette = (): Palette => {
 	const style = getComputedStyle( document.documentElement );
-	const token = ( name: string, fallback: string ) => style.getPropertyValue( name ).trim() || fallback;
+	const token = ( name: string, fallback: string ) =>
+		style.getPropertyValue( name ).trim() || fallback;
+	
 	return {
 		ink: token( "--ink", "#1b1a3a" ),
 		inkMuted: token( "--ink-muted", "#55546f" ),
@@ -72,7 +73,8 @@ const buildGraph = () => {
 		const u = random() * 2 - 1;
 		const theta = random() * Math.PI * 2;
 		const r = Math.sqrt( 1 - u * u );
-		return new THREE.Vector3( r * Math.cos( theta ), r * Math.sin( theta ), u ).multiplyScalar( radius );
+		return new THREE.Vector3( r * Math.cos( theta ), r * Math.sin( theta ), u ).multiplyScalar(
+			radius );
 	};
 
 	groups.forEach( group => {
@@ -164,7 +166,11 @@ const buildGraph = () => {
 	// vertically and horizontally; a sphere's nodes rarely sit near its poles
 	const maxY = Math.max( ...list.map( node => Math.abs( node.unit.y ) ) ) || 1;
 	const maxXZ = Math.max( ...list.map( node => Math.hypot( node.unit.x, node.unit.z ) ) ) || 1;
-	list.forEach( node => node.unit.set( node.unit.x / maxXZ, node.unit.y / maxY, node.unit.z / maxXZ ) );
+	list.forEach( node => node.unit.set(
+		node.unit.x / maxXZ,
+		node.unit.y / maxY,
+		node.unit.z / maxXZ
+	) );
 
 	return { nodes, edges };
 };
@@ -284,25 +290,40 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 	const edgePositions = new Float32Array( edges.length * 6 );
 	const edgeGeometry = new THREE.BufferGeometry();
 	edgeGeometry.setAttribute( "position", new THREE.BufferAttribute( edgePositions, 3 ) );
-	const edgeMaterial = new THREE.LineBasicMaterial( { transparent: true, opacity: .2, depthWrite: false } );
+	const edgeMaterial = new THREE.LineBasicMaterial( {
+		transparent: true,
+		opacity: .2,
+		depthWrite: false
+	} );
 	graph.add( new THREE.LineSegments( edgeGeometry, edgeMaterial ) );
 
 	const highlightGeometry = new THREE.BufferGeometry();
-	const highlightMaterial = new THREE.LineBasicMaterial( { transparent: true, opacity: 1, depthWrite: false } );
+	const highlightMaterial = new THREE.LineBasicMaterial( {
+		transparent: true,
+		opacity: 1,
+		depthWrite: false
+	} );
 	graph.add( new THREE.LineSegments( highlightGeometry, highlightMaterial ) );
 
 	// Nodes
 	const sprites: THREE.Sprite[] = [];
 	const paintNodes = () => {
 		nodes.forEach( node => {
-			const { texture, aspect } = node.kind === "hub" ? drawHub( node, palette ) : drawTool( node, palette );
+			const { texture, aspect } = node.kind === "hub" ? drawHub( node, palette ) : drawTool(
+				node,
+				palette
+			);
 			const height = node.kind === "hub" ? HUB_HEIGHT : TOOL_HEIGHT;
 			if ( node.sprite ) {
 				node.sprite.material.map?.dispose();
 				node.sprite.material.map = texture;
 				node.sprite.material.needsUpdate = true;
 			} else {
-				const material = new THREE.SpriteMaterial( { map: texture, transparent: true, alphaTest: .02 } );
+				const material = new THREE.SpriteMaterial( {
+					map: texture,
+					transparent: true,
+					alphaTest: .02
+				} );
 				const sprite = new THREE.Sprite( material );
 				sprite.userData.id = node.id;
 				sprite.renderOrder = node.kind === "hub" ? 2 : 1;
@@ -371,7 +392,10 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 	const pointer = new THREE.Vector2();
 	const pick = ( event: PointerEvent ) => {
 		const box = renderer.domElement.getBoundingClientRect();
-		pointer.set( ( event.clientX - box.left ) / box.width * 2 - 1, -( ( event.clientY - box.top ) / box.height ) * 2 + 1 );
+		pointer.set(
+			( event.clientX - box.left ) / box.width * 2 - 1,
+			-( ( event.clientY - box.top ) / box.height ) * 2 + 1
+		);
 		raycaster.setFromCamera( pointer, camera );
 		const hit = raycaster.intersectObjects( sprites, false )[ 0 ];
 		return hit ? nodes.get( hit.object.userData.id as string ) : undefined;
@@ -447,8 +471,16 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 
 		// Match the graph's proportions to the stage so it fills both directions:
 		// wide and shallow on desktop, tall and narrow on phones
-		const radiusXZ = camera.aspect >= 1 ? THREE.MathUtils.clamp( 240 * camera.aspect * 1.15, 260, 900 ) : 260;
-		const radiusY = camera.aspect >= 1 ? 240 : THREE.MathUtils.clamp( radiusXZ / camera.aspect * .9, 240, 520 );
+		const radiusXZ = camera.aspect >= 1 ? THREE.MathUtils.clamp(
+			240 * camera.aspect * 1.15,
+			260,
+			900
+		) : 260;
+		const radiusY = camera.aspect >= 1 ? 240 : THREE.MathUtils.clamp(
+			radiusXZ / camera.aspect * .9,
+			240,
+			520
+		);
 		layout( radiusXZ, radiusY );
 
 		nodeScale = camera.aspect < 1 ? 1.3 : 1;
@@ -483,7 +515,8 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 				spinY *= .94;
 				spinX *= .94;
 				graph.rotation.y += spinY * dt;
-				graph.rotation.x = THREE.MathUtils.clamp( graph.rotation.x + spinX * dt, -MAX_TILT, MAX_TILT );
+				graph.rotation.x =
+					THREE.MathUtils.clamp( graph.rotation.x + spinX * dt, -MAX_TILT, MAX_TILT );
 				if ( !active && now - lastInteraction > 1800 ) {
 					graph.rotation.y += .0016 * dt;
 					graph.rotation.x += ( .05 - graph.rotation.x ) * .01 * dt;
@@ -522,11 +555,17 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 		visible ? start() : stop();
 	} );
 	visibility.observe( container );
-	document.addEventListener( "visibilitychange", () => document.hidden ? stop() : visible && start() );
+	document.addEventListener(
+		"visibilitychange",
+		() => document.hidden ? stop() : visible && start()
+	);
 
 	// Repaint when the theme changes
 	const themeObserver = new MutationObserver( paint );
-	themeObserver.observe( document.documentElement, { attributes: true, attributeFilter: [ "data-theme" ] } );
+	themeObserver.observe(
+		document.documentElement,
+		{ attributes: true, attributeFilter: [ "data-theme" ] }
+	);
 	window.matchMedia( "(prefers-color-scheme: dark)" ).addEventListener( "change", paint );
 
 	return renderer;

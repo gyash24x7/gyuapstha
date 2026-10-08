@@ -12,45 +12,51 @@ const span = ( start: string, end?: string ) => `${ start } – ${ end ?? "prese
 	<h2 id="experience-title" class="heading-1">Where I've worked</h2>
 
 	<ol class="companies">
-		{ experience.map( company => {
-			const first = company.roles[ company.roles.length - 1 ];
-			const last = company.roles[ 0 ];
-			return (
-				<li class="company">
-					<div class="company-head">
-						<h3 class="heading-2"><InlineLink href={ company.url }>{ company.name }</InlineLink></h3>
-						{ company.about && <p class="small muted">{ company.about }</p> }
-						<p class="label muted">
-							{ span( first.start, last.end ) }
-							{ company.kind === "internship" && " · internship" }
-						</p>
-					</div>
+			{ experience.map( company => {
+				const first = company.roles[ company.roles.length - 1 ];
+				const last = company.roles[ 0 ];
+				return (
+			<li class="company">
+				<div class="company-head">
+					<h3 class="heading-2">
+						<InlineLink href={ company.url }>{ company.name }</InlineLink>
+					</h3>
+									{ company.about && <p class="small muted">{ company.about }</p> }
+					<p class="label muted">
+											{ span( first.start, last.end ) }
+											{ company.kind === "internship" && " · internship" }
+					</p>
+				</div>
 
-					<ol class="roles">
-						{ company.roles.map( role => (
-							<li class="role">
-								<div class="role-head">
-									<h4 class="heading-3">{ role.title }</h4>
-									<p class="small muted">
-										{ role.team && <>{ role.team } · </> }
-										<time>{ span( role.start, role.end ) }</time>
-									</p>
-								</div>
-								{ ( !role.end || role.awards ) && (
-									<div class="chips">
-										{ !role.end && <Chip variant="hot">currently</Chip> }
-										{ role.awards?.map( award => <Chip>{ award }</Chip> ) }
-									</div>
-								) }
-								<ul class="points">
-									{ role.points.map( point => <li>{ point }</li> ) }
-								</ul>
-							</li>
-						) ) }
-					</ol>
-				</li>
-			);
-		} ) }
+				<ol class="roles">
+									{ company.roles.map( role => (
+					  <li class="role">
+						  <div class="role-head">
+							  <h4 class="heading-3">{ role.title }</h4>
+							  <p class="small muted">
+																{ role.team &&
+									<>{ role.team } ·</> }
+								  <time>{ span( role.start, role.end ) }</time>
+							  </p>
+						  </div>
+												{ ( !role.end || role.awards ) && (
+							<div class="chips">
+															{ !role.end &&
+								  <Chip variant="hot">currently</Chip> }
+															{ role.awards?.map( award =>
+								  <Chip>{ award }</Chip> ) }
+							</div>
+												) }
+						  <ul class="points">
+														{ role.points.map( point =>
+								<li>{ point }</li> ) }
+						  </ul>
+					  </li>
+									) ) }
+				</ol>
+			</li>
+				);
+			} ) }
 	</ol>
 </section>
 

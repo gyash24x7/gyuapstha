@@ -20,14 +20,18 @@ import PathLabel from "./PathLabel.astro";
 
 	<!-- The same tools as a plain list: for screen readers, and shown instead of the graph without WebGL -->
 	<div class="list">
-		{ groups.map( group => (
-			<div class="group">
-				<p class="label muted">~/{ group.label }</p>
-				<ul class="chips">
-					{ tools.filter( tool => tool.group === group.id ).map( tool => <li><Chip>{ tool.name }</Chip></li> ) }
-				</ul>
-			</div>
-		) ) }
+			{ groups.map( group => (
+		  <div class="group">
+			  <p class="label muted">~/{ group.label }</p>
+			  <ul class="chips">
+								{ tools.filter( tool => tool.group === group.id )
+									.map( tool =>
+					  <li>
+						  <Chip>{ tool.name }</Chip>
+					  </li> ) }
+			  </ul>
+		  </div>
+			) ) }
 	</div>
 </section>
 

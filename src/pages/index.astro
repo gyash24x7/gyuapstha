@@ -16,7 +16,6 @@ import Layout from "../layouts/Layout.astro";
 
 const github = socials.find( social => social.label === "GitHub" )!;
 
-// On desktop each of these is a full-screen page (see PageNav and scripts/pages.ts)
 const pages = [
 	{ target: "top", label: "home" },
 	{ target: "experience", label: "experience" },
@@ -35,10 +34,12 @@ const pages = [
 			<section id="top" class="container hero" aria-labelledby="hero-title">
 				<div class="intro">
 					<PathLabel path="home"/>
-					<h1 id="hero-title" class="display-xl">Hi, I'm <span class="highlight">Yash</span>.</h1>
+					<h1 id="hero-title" class="display-xl">
+						Hi, I'm <span class="highlight">Yash</span>.
+					</h1>
 					<p class="body-l lede">
-						I'm a full-stack developer from Kanpur, India, and an IIT Madras graduate. I build websites, apps
-						and everything in between.
+						I'm a full-stack developer from Kanpur, India, and an IIT Madras graduate. I
+						build websites, apps and everything in between.
 					</p>
 					<div class="actions">
 						<Button href={ `mailto:${ email }` }>Email me</Button>

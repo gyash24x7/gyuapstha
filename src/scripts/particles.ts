@@ -191,7 +191,10 @@ export const mountParticles = ( canvas: HTMLCanvasElement ) => {
 		readColors();
 		draw();
 	};
-	new MutationObserver( repaint ).observe( document.documentElement, { attributes: true, attributeFilter: [ "data-theme" ] } );
+	new MutationObserver( repaint ).observe(
+		document.documentElement,
+		{ attributes: true, attributeFilter: [ "data-theme" ] }
+	);
 	window.matchMedia( "(prefers-color-scheme: dark)" ).addEventListener( "change", repaint );
 
 	readColors();

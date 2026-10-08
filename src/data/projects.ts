@@ -46,7 +46,10 @@ export const projects: Project[] = [
 		tech: [ "React Native", "React", "NestJS" ],
 		links: [
 			{ label: "Code", href: "https://github.com/gyash24x7/hacknotes" },
-			{ label: "Android app", href: "https://github.com/gyash24x7/hacknotes/releases/download/v1.0/hacknotes.apk" }
+			{
+				label: "Android app",
+				href: "https://github.com/gyash24x7/hacknotes/releases/download/v1.0/hacknotes.apk"
+			}
 		],
 		pip: "marigold"
 	}
