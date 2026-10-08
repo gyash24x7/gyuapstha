@@ -1,0 +1,28 @@
+---
+/**
+ * Single-ink icons from Bootstrap Icons (MIT), inlined so they take `currentColor`.
+ * Brand marks are used as published, never redrawn.
+ */
+import download from "bootstrap-icons/icons/file-earmark-arrow-down.svg?raw";
+import github from "bootstrap-icons/icons/github.svg?raw";
+import linkedin from "bootstrap-icons/icons/linkedin.svg?raw";
+
+const icons = { download, github, linkedin };
+
+export type IconName = keyof typeof icons;
+
+interface Props {
+	name: IconName;
+	/** Size in px */
+	size?: number;
+}
+
+const { name, size = 20 } = Astro.props;
+
+// Decorative: the link or button around the icon carries the accessible name
+const svg = icons[ name ]
+	.replace( / width="16" height="16"/, "" )
+	.replace( "<svg", `<svg width="${ size }" height="${ size }" aria-hidden="true" focusable="false"` );
+---
+
+<Fragment set:html={ svg }/>

@@ -27,6 +27,8 @@ const {
 	<Font cssVariable="--font-body" preload/>
 	<Font cssVariable="--font-mono"/>
 	<script is:inline>
+		// Lets CSS reserve space for script-driven features (like the toolbox graph) before they load
+		document.documentElement.classList.add( "js" );
 		// Apply the saved theme before first paint to avoid a flash of the wrong theme
 		try {
 			const theme = localStorage.getItem( "theme" );

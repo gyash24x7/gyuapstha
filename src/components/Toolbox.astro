@@ -108,13 +108,14 @@ import PathLabel from "./PathLabel.astro";
 		list-style: none;
 	}
 
-	/* Once the graph is running, it replaces the list visually */
-	.section.has-graph .hint,
-	.section.has-graph .stage {
+	/* With JavaScript the graph replaces the list visually, and its space is reserved from the
+	   first paint so nothing below jumps when it loads. no-graph means it couldn't run. */
+	:global(.js) .section:not(.no-graph) .hint,
+	:global(.js) .section:not(.no-graph) .stage {
 		display: block;
 	}
 
-	.section.has-graph .list {
+	:global(.js) .section:not(.no-graph) .list {
 		position: absolute;
 		width: 1px;
 		height: 1px;
@@ -136,7 +137,9 @@ import PathLabel from "./PathLabel.astro";
 		}
 	};
 
-	if ( section && stage && supportsWebGL() ) {
+	if ( section && stage && !supportsWebGL() ) {
+		section.classList.add( "no-graph" );
+	} else if ( section && stage ) {
 		// Load three.js only when the section is about to scroll into view
 		const loader = new IntersectionObserver( async ( [ entry ] ) => {
 			if ( !entry.isIntersecting ) {
@@ -146,10 +149,9 @@ import PathLabel from "./PathLabel.astro";
 			try {
 				await document.fonts.ready;
 				const { mountToolboxGraph } = await import( "../scripts/toolbox-graph" );
-				section.classList.add( "has-graph" );
 				mountToolboxGraph( stage );
 			} catch ( error ) {
-				section.classList.remove( "has-graph" );
+				section.classList.add( "no-graph" );
 				stage.replaceChildren();
 				console.error( "Toolbox graph failed to load", error );
 			}

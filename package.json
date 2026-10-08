@@ -14,6 +14,7 @@
 	},
 	"dependencies": {
 		"astro": "7.3.7",
+		"bootstrap-icons": "1.13.1",
 		"simple-icons": "16.34.0",
 		"three": "0.186.1"
 	},
