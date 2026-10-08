@@ -115,6 +115,19 @@ import PathLabel from "./PathLabel.astro";
 		display: block;
 	}
 
+	/* Paged mode: the section exactly fills the page under the header and the graph takes
+	   whatever height is left, so the page never scrolls inside */
+	:global(html.paged) .section:not(.no-graph) {
+		height: calc(100vh - var(--header-height));
+		padding-block: var(--space-8) var(--space-12);
+	}
+
+	:global(html.paged) .section:not(.no-graph) .stage {
+		flex: 1 1 0;
+		height: auto;
+		min-height: 0;
+	}
+
 	:global(.js) .section:not(.no-graph) .list {
 		position: absolute;
 		width: 1px;

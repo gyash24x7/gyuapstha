@@ -70,6 +70,7 @@
 	--text-max: 65ch;
 	--gutter: var(--space-4);
 	--section-gap: var(--space-16);
+	--header-height: 72px;
 }
 
 @media (min-width: 900px) {

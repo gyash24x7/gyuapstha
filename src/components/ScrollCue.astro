@@ -1,0 +1,106 @@
+---
+/**
+ * A floating "scroll ↓" cue at the bottom of the screen, shown on every section until the footer.
+ * Paged mode: hidden on the last page, and clicking it flips to the next page (via pages.ts's
+ * in-page link handling). Normal scrolling: hidden once the footer is in view, and clicking it
+ * scrolls to the next section.
+ */
+---
+
+<a class="scroll-cue label" href="#experience" data-scroll-cue>
+	scroll <span aria-hidden="true">↓</span>
+</a>
+
+<style>
+	.scroll-cue {
+		position: fixed;
+		z-index: 10;
+		left: 50%;
+		bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+		display: inline-flex;
+		gap: var(--space-2);
+		padding: var(--space-1) var(--space-3);
+		color: var(--ink-muted);
+		text-decoration: none;
+		letter-spacing: .3em;
+		transform: translateX(-50%);
+		transition: opacity var(--duration-base) ease-out, visibility var(--duration-base);
+	}
+
+	/* Over scrolling text, sit on a small sticker so it stays readable */
+	:global(html:not(.paged)) .scroll-cue {
+		background: var(--paper-raised);
+		border: var(--border-sticker) solid var(--ink);
+		border-radius: var(--radius-pill);
+		box-shadow: var(--sticker-sm);
+	}
+
+	.scroll-cue:hover {
+		color: var(--ink);
+	}
+
+	.scroll-cue.is-hidden {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	span {
+		display: inline-block;
+		color: var(--accent-ink);
+		animation: nudge 1.6s var(--ease-smooth) infinite;
+	}
+
+	@keyframes nudge {
+		50% {
+			transform: translateY(4px);
+		}
+	}
+</style>
+
+<script>
+	const cue = document.querySelector<HTMLAnchorElement>( "[data-scroll-cue]" );
+	const pages = Array.from( document.querySelectorAll<HTMLElement>( "[data-page]" ) );
+	const footer = document.querySelector( "footer" );
+	const reducedMotion = window.matchMedia( "(prefers-reduced-motion: reduce)" );
+	const paged = () => document.documentElement.classList.contains( "paged" );
+
+	if ( cue && pages.length ) {
+		let footerVisible = false;
+		let pageIndex = 0;
+
+		const update = () => {
+			if ( paged() ) {
+				pageIndex = Math.max( 0, pages.findIndex( page => page.dataset.state === "current" ) );
+			}
+			const last = paged() ? pageIndex >= pages.length - 1 : footerVisible;
+			cue.classList.toggle( "is-hidden", last );
+			// Point at the next page, so pages.ts flips to it when clicked in paged mode
+			const next = pages[ Math.min( pageIndex + 1, pages.length - 1 ) ];
+			cue.href = `#${ next.dataset.page }`;
+		};
+
+		document.addEventListener( "pagechange", update );
+
+		if ( footer ) {
+			new IntersectionObserver( ( [ entry ] ) => {
+				footerVisible = entry.isIntersecting;
+				update();
+			} ).observe( footer );
+		}
+
+		// Normal scrolling: go to the first section that starts below the top of the screen
+		cue.addEventListener( "click", event => {
+			if ( paged() ) {
+				return;
+			}
+			const next = pages.find( page => page.getBoundingClientRect().top > 4 );
+			if ( next ) {
+				event.preventDefault();
+				next.scrollIntoView( { behavior: reducedMotion.matches ? "auto" : "smooth" } );
+			}
+		} );
+
+		update();
+	}
+</script>

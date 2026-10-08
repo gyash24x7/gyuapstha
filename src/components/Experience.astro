@@ -148,10 +148,16 @@ const span = ( start: string, end?: string ) => `${ start } – ${ end ?? "prese
 			gap: var(--space-12);
 		}
 
+		/* Stick below the sticky site header */
 		.company-head {
 			position: sticky;
-			top: var(--space-6);
+			top: calc(var(--header-height) + var(--space-6));
 			align-self: start;
+		}
+
+		/* In paged mode the page's own top padding already clears the header */
+		:global(html.paged) .company-head {
+			top: var(--space-6);
 		}
 	}
 </style>

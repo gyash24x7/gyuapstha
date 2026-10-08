@@ -7,7 +7,8 @@ import PageNav from "../components/PageNav.astro";
 import PathLabel from "../components/PathLabel.astro";
 import Portrait from "../components/Portrait.astro";
 import Projects from "../components/Projects.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
+import ScrollCue from "../components/ScrollCue.astro";
+import SiteHeader from "../components/SiteHeader.astro";
 import Toolbox from "../components/Toolbox.astro";
 import { email, socials } from "../data/contact";
 import Layout from "../layouts/Layout.astro";
@@ -26,15 +27,13 @@ const pages = [
 
 <Layout>
 	<PageNav pages={ pages }/>
+	<ScrollCue/>
+
+	<SiteHeader/>
 
 	<main>
 		<div data-page="home" tabindex="-1">
-			<header id="top" class="container header" role="banner">
-				<a class="wordmark" href="/" aria-label="Yash Gupta, home">yg<span>.</span></a>
-				<ThemeToggle/>
-			</header>
-
-			<section class="container hero" aria-labelledby="hero-title">
+			<section id="top" class="container hero" aria-labelledby="hero-title">
 				<div class="intro">
 					<PathLabel path="home"/>
 					<h1 id="hero-title" class="display-xl">Hi, I'm <span class="highlight">Yash</span>.</h1>
@@ -51,7 +50,6 @@ const pages = [
 					<Portrait/>
 					<p class="label muted hint" aria-hidden="true">psst, click me</p>
 				</div>
-				<a class="scroll-cue label" href="#experience">scroll <span aria-hidden="true">↓</span></a>
 			</section>
 		</div>
 
@@ -75,30 +73,12 @@ const pages = [
 </Layout>
 
 <style>
-	.header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding-block: var(--space-6);
-	}
-
-	.wordmark {
-		font: 800 28px/1 var(--font-display);
-		letter-spacing: -.03em;
-		text-decoration: none;
-	}
-
-	.wordmark span {
-		color: var(--accent-ink);
-	}
-
 	.hero {
-		position: relative;
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		align-items: center;
 		gap: var(--space-8);
-		min-height: calc(100svh - 80px);
+		min-height: calc(100svh - var(--header-height));
 		padding-block: var(--space-8) var(--space-16);
 	}
 
@@ -136,32 +116,6 @@ const pages = [
 		transform: rotate(-3deg);
 	}
 
-	.scroll-cue {
-		position: absolute;
-		left: 50%;
-		bottom: var(--space-4);
-		display: none;
-		gap: var(--space-2);
-		color: var(--ink-muted);
-		text-decoration: none;
-		letter-spacing: .3em;
-		transform: translateX(-50%);
-	}
-
-	.scroll-cue span {
-		display: inline-block;
-		color: var(--accent-ink);
-		animation: nudge 1.6s var(--ease-smooth) infinite;
-	}
-
-	@keyframes nudge {
-		50% {
-			transform: translateY(4px);
-		}
-	}
-
-
-
 	@media (min-width: 900px) {
 		.hero {
 			grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
@@ -175,10 +129,6 @@ const pages = [
 
 		.art {
 			width: 100%;
-		}
-
-		.scroll-cue {
-			display: inline-flex;
 		}
 	}
 </style>

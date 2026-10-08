@@ -1,10 +1,12 @@
 ---
+import Logo from "./Logo.astro";
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer" role="contentinfo">
 	<div class="container inner">
-		<a class="wordmark" href="#top" aria-label="Back to top">yg<span>.</span></a>
+		<a class="wordmark" href="#top" aria-label="Back to top"><Logo size={ 24 }/></a>
 		<p class="small muted">Drawn in SVG, wired up with Astro and TypeScript. © { year } Yash Gupta.</p>
 		<a class="label top" href="#top">back to top <span aria-hidden="true">↑</span></a>
 	</div>
@@ -24,13 +26,14 @@ const year = new Date().getFullYear();
 		padding-block: var(--space-8);
 	}
 
+	/* The YG monogram in ink, turning marigold on hover like on v1 */
 	.wordmark {
-		font: 800 24px/1 var(--font-display);
-		letter-spacing: -.03em;
-		text-decoration: none;
+		display: inline-flex;
+		color: var(--ink);
+		transition: color var(--duration-quick) ease-out;
 	}
 
-	.wordmark span {
+	.wordmark:hover {
 		color: var(--accent-ink);
 	}
 

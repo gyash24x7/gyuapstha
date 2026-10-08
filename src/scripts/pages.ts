@@ -8,6 +8,8 @@
  *
  * Only on wide screens with a fine pointer and without prefers-reduced-motion; everyone else gets
  * the normal scrolling page. The `paged` class on <html> switches the CSS (see PageNav.astro).
+ * A "pagechange" event ({ index, direction }) fires on every flip, and with direction 0 when paging
+ * starts or stops.
  */
 
 const DURATION = 700;
@@ -254,6 +256,7 @@ export const initPages = () => {
 		park();
 		void pages[ current ].offsetWidth;
 		root.classList.remove( "paged-instant" );
+		document.dispatchEvent( new CustomEvent( "pagechange", { detail: { index: current, direction: 0 } } ) );
 	};
 
 	const disable = () => {
@@ -270,6 +273,7 @@ export const initPages = () => {
 			page.inert = false;
 		} );
 		pages[ current ].scrollIntoView();
+		document.dispatchEvent( new CustomEvent( "pagechange", { detail: { index: current, direction: 0 } } ) );
 	};
 
 	window.addEventListener( "wheel", onWheel, { passive: false } );
