@@ -12,6 +12,8 @@ html {
 
 body {
 	margin: 0;
+	/* Full-bleed sections use 100vw, which includes the scrollbar; don't let that scroll sideways */
+	overflow-x: clip;
 	min-height: 100vh;
 	font: 400 16px/1.65 var(--font-body);
 	color: var(--ink);

@@ -1,0 +1,159 @@
+---
+import { groups, tools } from "../data/toolbox";
+import Chip from "./Chip.astro";
+import PathLabel from "./PathLabel.astro";
+---
+
+<section id="toolbox" class="container section" aria-labelledby="toolbox-title" data-toolbox>
+	<div class="head">
+		<div>
+			<PathLabel path="toolbox"/>
+			<h2 id="toolbox-title" class="heading-1">Things I reach for</h2>
+		</div>
+		<p class="label muted hint" aria-hidden="true">
+			<span class="hint--mouse">drag to spin · hover a logo</span>
+			<span class="hint--touch">swipe to spin · tap a logo</span>
+		</p>
+	</div>
+
+	<div class="stage" data-toolbox-stage aria-hidden="true"></div>
+
+	<!-- The same tools as a plain list: for screen readers, and shown instead of the graph without WebGL -->
+	<div class="list">
+		{ groups.map( group => (
+			<div class="group">
+				<p class="label muted">~/{ group.label }</p>
+				<ul class="chips">
+					{ tools.filter( tool => tool.group === group.id ).map( tool => <li><Chip>{ tool.name }</Chip></li> ) }
+				</ul>
+			</div>
+		) ) }
+	</div>
+</section>
+
+<style>
+	.section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		padding-block: var(--section-gap);
+	}
+
+	.head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: var(--space-4);
+	}
+
+	.head > div {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.hint {
+		display: none;
+	}
+
+	.hint--touch {
+		display: none;
+	}
+
+	@media (hover: none) {
+		.hint--mouse {
+			display: none;
+		}
+
+		.hint--touch {
+			display: inline;
+		}
+	}
+
+	.stage {
+		display: none;
+		position: relative;
+		height: clamp(420px, 72vh, 680px);
+		/* Full bleed: the graph spans the whole window, not just the content column */
+		margin-inline: calc(50% - 50vw);
+		touch-action: pan-y;
+	}
+
+	.stage :global(canvas) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+		margin-top: var(--space-4);
+	}
+
+	.group {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+	}
+
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-3);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Once the graph is running, it replaces the list visually */
+	.section.has-graph .hint,
+	.section.has-graph .stage {
+		display: block;
+	}
+
+	.section.has-graph .list {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+</style>
+
+<script>
+	const section = document.querySelector<HTMLElement>( "[data-toolbox]" );
+	const stage = section?.querySelector<HTMLElement>( "[data-toolbox-stage]" );
+
+	const supportsWebGL = () => {
+		try {
+			return !!document.createElement( "canvas" ).getContext( "webgl2" );
+		} catch {
+			return false;
+		}
+	};
+
+	if ( section && stage && supportsWebGL() ) {
+		// Load three.js only when the section is about to scroll into view
+		const loader = new IntersectionObserver( async ( [ entry ] ) => {
+			if ( !entry.isIntersecting ) {
+				return;
+			}
+			loader.disconnect();
+			try {
+				await document.fonts.ready;
+				const { mountToolboxGraph } = await import( "../scripts/toolbox-graph" );
+				section.classList.add( "has-graph" );
+				mountToolboxGraph( stage );
+			} catch ( error ) {
+				section.classList.remove( "has-graph" );
+				stage.replaceChildren();
+				console.error( "Toolbox graph failed to load", error );
+			}
+		}, { rootMargin: "600px 0px" } );
+		loader.observe( section );
+	}
+</script>

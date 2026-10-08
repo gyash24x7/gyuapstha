@@ -1,17 +1,12 @@
 ---
 import Button from "../components/Button.astro";
-import Chip from "../components/Chip.astro";
 import Experience from "../components/Experience.astro";
 import PathLabel from "../components/PathLabel.astro";
 import Portrait from "../components/Portrait.astro";
 import Projects from "../components/Projects.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import Toolbox from "../components/Toolbox.astro";
 import Layout from "../layouts/Layout.astro";
-
-const toolbox = [
-	"React", "Node.js", "NestJS", "Next.js", "GraphQL", "Apollo", "React Native", "Expo", "Ionic",
-	"TypeScript", "Java", "Spring Boot", "Kafka", "RabbitMQ", "Kubernetes", "Docker", "PostgreSQL", "MongoDB"
-];
 ---
 
 <Layout>
@@ -45,13 +40,7 @@ const toolbox = [
 
 		<Projects/>
 
-		<section id="toolbox" class="container section" aria-labelledby="toolbox-title">
-			<PathLabel path="toolbox"/>
-			<h2 id="toolbox-title" class="heading-1">Things I reach for</h2>
-			<ul class="chips">
-				{ toolbox.map( tool => <li><Chip>{ tool }</Chip></li> ) }
-			</ul>
-		</section>
+		<Toolbox/>
 	</main>
 </Layout>
 
@@ -141,22 +130,7 @@ const toolbox = [
 		}
 	}
 
-	.section {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-4);
-		padding-block: var(--section-gap);
-	}
 
-	.chips {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--space-3);
-		max-width: 760px;
-		margin-top: var(--space-4);
-		padding: 0;
-		list-style: none;
-	}
 
 	@media (min-width: 900px) {
 		.hero {
