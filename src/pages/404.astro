@@ -1,0 +1,86 @@
+---
+import Button from "../components/Button.astro";
+import PathLabel from "../components/PathLabel.astro";
+import Portrait from "../components/Portrait.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+	title="Page not found | Yash Gupta"
+	description="This page doesn't exist. Head back to Yash Gupta's portfolio."
+	noindex
+>
+	<SiteHeader/>
+
+	<main class="container lost" aria-labelledby="lost-title">
+		<div class="intro">
+			<PathLabel path="404"/>
+			<h1 id="lost-title" class="display-l">This page <span class="highlight">wandered off</span>.</h1>
+			<p class="body-l lede">
+				I looked everywhere, even behind the toolbox. The link may be old or mistyped. Everything I've built is
+				one click away.
+			</p>
+			<div class="actions">
+				<Button href="/">Back to home</Button>
+				<Button variant="ghost" href="/#projects">See my projects →</Button>
+			</div>
+		</div>
+		<div class="art">
+			<Portrait/>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.lost {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		align-items: center;
+		gap: var(--space-8);
+		min-height: calc(100svh - var(--header-height));
+		padding-block: var(--space-8) var(--space-16);
+	}
+
+	.intro {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		order: 2;
+	}
+
+	.lede {
+		max-width: 40ch;
+		color: var(--ink-muted);
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-4);
+		margin-top: var(--space-4);
+	}
+
+	.art {
+		order: 1;
+		width: min(100%, 280px);
+		margin-inline: auto;
+	}
+
+	@media (min-width: 900px) {
+		.lost {
+			grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+			gap: var(--space-12);
+		}
+
+		.intro,
+		.art {
+			order: 0;
+		}
+
+		.art {
+			width: min(100%, 420px);
+		}
+	}
+</style>

@@ -3,6 +3,8 @@ import { defineConfig, fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig( {
+	// Used for canonical URLs and absolute link-preview image URLs
+	site: "https://yashgupta.me",
 	fonts: [
 		{
 			provider: fontProviders.google(),
