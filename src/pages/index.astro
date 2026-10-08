@@ -1,6 +1,7 @@
 ---
 import Button from "../components/Button.astro";
 import Chip from "../components/Chip.astro";
+import Experience from "../components/Experience.astro";
 import PathLabel from "../components/PathLabel.astro";
 import Portrait from "../components/Portrait.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
@@ -28,7 +29,7 @@ const toolbox = [
 					and everything in between.
 				</p>
 				<div class="actions">
-					<Button href="mailto:contact@yashgupta.dev">Email me</Button>
+					<Button href="mailto:yash.gupta.0519@gmail.com">Email me</Button>
 					<Button variant="ghost" href="https://github.com/gyash24x7">GitHub →</Button>
 				</div>
 			</div>
@@ -36,8 +37,10 @@ const toolbox = [
 				<Portrait/>
 				<p class="label muted hint" aria-hidden="true">psst, click me</p>
 			</div>
-			<a class="scroll-cue label" href="#toolbox">scroll <span aria-hidden="true">↓</span></a>
+			<a class="scroll-cue label" href="#experience">scroll <span aria-hidden="true">↓</span></a>
 		</section>
+
+		<Experience/>
 
 		<section id="toolbox" class="container section" aria-labelledby="toolbox-title">
 			<PathLabel path="toolbox"/>
