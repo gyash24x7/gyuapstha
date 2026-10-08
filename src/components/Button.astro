@@ -3,15 +3,17 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = {
 	variant?: "primary" | "secondary" | "ghost";
+	/** Icon-only: a square button the same height as a text one. Give it an aria-label. */
+	square?: boolean;
 	href?: string;
 } & HTMLAttributes<"a"> & HTMLAttributes<"button">;
 
-const { variant = "primary", href, class: className, ...rest } = Astro.props;
+const { variant = "primary", square = false, href, class: className, ...rest } = Astro.props;
 const Tag = href ? "a" : "button";
 ---
 
 <Tag
-	class:list={ [ "btn", `btn--${ variant }`, className ] }
+	class:list={ [ "btn", `btn--${ variant }`, { "btn--square": square }, className ] }
 	href={ href }
 	type={ href ? undefined : ( rest.type ?? "button" ) }
 	{ ...rest }
@@ -45,6 +47,14 @@ const Tag = href ? "a" : "button";
 	.btn:active {
 		--lift: none;
 		transform: translate(3px, 3px);
+	}
+
+	/* Icon-only: takes the height of the row it sits in (so it matches a text button beside it) and stays square */
+	.btn--square {
+		align-self: stretch;
+		justify-content: center;
+		aspect-ratio: 1;
+		padding: 0 var(--space-3);
 	}
 
 	.btn--secondary {
