@@ -1,0 +1,165 @@
+---
+/**
+ * Side navigation for page-by-page scrolling, plus the CSS that turns [data-page] wrappers into
+ * stacked full-screen pages while <html> has the `paged` class (set by scripts/pages.ts).
+ */
+interface Props {
+	/** One entry per page: the id of an element at the top of that page, and its path label */
+	pages: { target: string; label: string }[];
+}
+
+const { pages } = Astro.props;
+---
+
+<nav class="page-nav" aria-label="Sections">
+	<ol>
+		{ pages.map( page => (
+			<li>
+				<a href={ `#${ page.target }` } data-page-link aria-label={ `Go to ${ page.label }` }>
+					<span class="label tip">~/{ page.label }</span>
+					<span class="dot" aria-hidden="true"></span>
+				</a>
+			</li>
+		) ) }
+	</ol>
+</nav>
+
+<style is:global>
+	html.paged body {
+		overflow: hidden;
+	}
+
+	html.paged [data-page] {
+		position: fixed;
+		inset: 0;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden auto;
+		overscroll-behavior: contain;
+		opacity: 0;
+		transform: scale(.8);
+		transition: opacity 700ms ease, transform 700ms ease;
+	}
+
+	/* Centre short pages vertically; long ones start at the top and scroll */
+	html.paged [data-page] > :first-child {
+		margin-top: auto;
+	}
+
+	html.paged [data-page] > :last-child {
+		margin-bottom: auto;
+	}
+
+	/* Keep the header pinned to the top of the first page, and the footer to the bottom of the last */
+	html.paged [data-page] > header:first-child {
+		margin-top: 0;
+	}
+
+	html.paged [data-page] > footer:last-child {
+		margin-top: auto;
+		margin-bottom: 0;
+	}
+
+	html.paged [data-page]:focus {
+		outline: none;
+	}
+
+	/* Pages already passed leave by growing toward you; pages ahead wait slightly shrunk */
+	html.paged [data-page][data-state="before"] {
+		transform: scale(1.2);
+	}
+
+	html.paged [data-page][data-state="current"] {
+		z-index: 1;
+		opacity: 1;
+		transform: none;
+	}
+
+	/* Hidden pages are moved far off screen so visibility-based features pause */
+	html.paged [data-page][data-parked] {
+		translate: 0 300vh;
+	}
+
+	html.paged-instant [data-page] {
+		transition: none !important;
+	}
+</style>
+
+<style>
+	.page-nav {
+		display: none;
+	}
+
+	:global(html.paged) .page-nav {
+		position: fixed;
+		z-index: 10;
+		top: 50%;
+		right: var(--space-6);
+		display: block;
+		transform: translateY(-50%);
+	}
+
+	ol {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	a {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: var(--space-3);
+		padding: var(--space-2);
+		text-decoration: none;
+	}
+
+	.dot {
+		width: 14px;
+		height: 14px;
+		background: var(--paper-raised);
+		border: var(--border-sticker) solid var(--ink);
+		border-radius: 50%;
+		box-shadow: 2px 2px 0 var(--shadow-ink);
+		transition: transform var(--duration-quick) var(--ease-spring), background-color var(--duration-quick) ease-out;
+	}
+
+	a[aria-current] .dot {
+		background: var(--marigold);
+		transform: scale(1.25);
+	}
+
+	/* Path label slides out on hover or focus */
+	.tip {
+		padding: var(--space-1) var(--space-3);
+		color: var(--ink);
+		background: var(--paper-raised);
+		border: var(--border-sticker) solid var(--ink);
+		border-radius: var(--radius-pill);
+		box-shadow: var(--sticker-sm);
+		opacity: 0;
+		transform: translateX(8px);
+		pointer-events: none;
+		transition: opacity var(--duration-quick) ease-out, transform var(--duration-quick) var(--ease-spring);
+		white-space: nowrap;
+	}
+
+	a:hover .tip,
+	a:focus-visible .tip {
+		opacity: 1;
+		transform: none;
+	}
+
+	a:hover .dot {
+		transform: scale(1.25);
+	}
+</style>
+
+<script>
+	import { initPages } from "../scripts/pages";
+
+	initPages();
+</script>

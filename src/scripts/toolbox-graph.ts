@@ -1,6 +1,7 @@
 /**
  * Toolbox graph: a 3D network of the tools Yash uses, drawn as sticker discs with
- * their logos, linked to category hubs and to each other, over drifting particles.
+ * their logos, linked to category hubs and to each other. The particles behind it are the
+ * site-wide background (scripts/particles.ts).
  *
  * Drag (or swipe sideways) to spin it; hover or tap a logo to highlight what it
  * connects to. Colours come from the design tokens and follow the theme.
@@ -264,15 +265,6 @@ const drawHub = ( node: GraphNode, palette: Palette ) => {
 	return { texture: toTexture( canvas ), aspect: canvas.width / canvas.height };
 };
 
-const drawDot = () => {
-	const { canvas, ctx } = makeCanvas( 64, 64 );
-	ctx.fillStyle = "#ffffff";
-	ctx.beginPath();
-	ctx.arc( 32, 32, 28, 0, Math.PI * 2 );
-	ctx.fill();
-	return toTexture( canvas );
-};
-
 export const mountToolboxGraph = ( container: HTMLElement ) => {
 	const reducedMotion = window.matchMedia( "(prefers-reduced-motion: reduce)" );
 	const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
@@ -323,50 +315,11 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 		} );
 	};
 
-	// Background particles
-	const particleCount = window.innerWidth < 700 ? 320 : 700;
-	const particlePositions = new Float32Array( particleCount * 3 );
-	const particleColors = new Float32Array( particleCount * 3 );
-	const random = seededRandom( 7 );
-	for ( let i = 0; i < particleCount; i++ ) {
-		const radius = 500 + random() * 1400;
-		const u = random() * 2 - 1;
-		const theta = random() * Math.PI * 2;
-		const r = Math.sqrt( 1 - u * u );
-		particlePositions.set( [ r * Math.cos( theta ) * radius, u * radius * .7, r * Math.sin( theta ) * radius ], i * 3 );
-	}
-	const particleGeometry = new THREE.BufferGeometry();
-	particleGeometry.setAttribute( "position", new THREE.BufferAttribute( particlePositions, 3 ) );
-	particleGeometry.setAttribute( "color", new THREE.BufferAttribute( particleColors, 3 ) );
-	const dotTexture = drawDot();
-	const particleMaterial = new THREE.PointsMaterial( {
-		size: 14,
-		map: dotTexture,
-		vertexColors: true,
-		transparent: true,
-		opacity: .65,
-		depthWrite: false,
-		sizeAttenuation: true
-	} );
-	const particles = new THREE.Points( particleGeometry, particleMaterial );
-	scene.add( particles );
-
-	const paintParticles = () => {
-		const marigold = new THREE.Color( palette.marigold );
-		const muted = new THREE.Color( palette.inkMuted );
-		const pick = seededRandom( 11 );
-		for ( let i = 0; i < particleCount; i++ ) {
-			( pick() < .65 ? marigold : muted ).toArray( particleColors, i * 3 );
-		}
-		particleGeometry.attributes.color.needsUpdate = true;
-	};
-
 	const paint = () => {
 		palette = readPalette();
 		edgeMaterial.color.set( palette.ink );
 		highlightMaterial.color.set( palette.marigold );
 		paintNodes();
-		paintParticles();
 	};
 	paint();
 
@@ -434,7 +387,6 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 	let lastInteraction = 0;
 	/** Stickers are drawn bigger on narrow stages so logos and labels stay legible */
 	let nodeScale = 1;
-	const parallax = new THREE.Vector2();
 	const canvas = renderer.domElement;
 	canvas.style.cursor = "grab";
 
@@ -448,9 +400,6 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 	} );
 
 	canvas.addEventListener( "pointermove", event => {
-		const box = canvas.getBoundingClientRect();
-		parallax.set( ( event.clientX - box.left ) / box.width - .5, ( event.clientY - box.top ) / box.height - .5 );
-
 		if ( dragging ) {
 			const dx = event.clientX - lastX;
 			const dy = event.clientY - lastY;
@@ -540,12 +489,6 @@ export const mountToolboxGraph = ( container: HTMLElement ) => {
 					graph.rotation.x += ( .05 - graph.rotation.x ) * .01 * dt;
 				}
 			}
-		}
-
-		if ( !still ) {
-			particles.rotation.y += .0004 * dt;
-			particles.position.x += ( parallax.x * 40 - particles.position.x ) * .04 * dt;
-			particles.position.y += ( -parallax.y * 30 - particles.position.y ) * .04 * dt;
 		}
 
 		// Grow the active logo a little

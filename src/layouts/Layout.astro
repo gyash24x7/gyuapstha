@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import Particles from "../components/Particles.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -39,6 +40,7 @@ const {
 	</script>
 </head>
 <body>
+<Particles/>
 <slot/>
 </body>
 </html>

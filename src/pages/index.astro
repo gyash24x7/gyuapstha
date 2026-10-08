@@ -3,6 +3,7 @@ import Button from "../components/Button.astro";
 import Contact from "../components/Contact.astro";
 import Experience from "../components/Experience.astro";
 import Footer from "../components/Footer.astro";
+import PageNav from "../components/PageNav.astro";
 import PathLabel from "../components/PathLabel.astro";
 import Portrait from "../components/Portrait.astro";
 import Projects from "../components/Projects.astro";
@@ -12,45 +13,65 @@ import { email, socials } from "../data/contact";
 import Layout from "../layouts/Layout.astro";
 
 const github = socials.find( social => social.label === "GitHub" )!;
+
+// On desktop each of these is a full-screen page (see PageNav and scripts/pages.ts)
+const pages = [
+	{ target: "top", label: "home" },
+	{ target: "experience", label: "experience" },
+	{ target: "projects", label: "projects" },
+	{ target: "toolbox", label: "toolbox" },
+	{ target: "contact", label: "contact" }
+];
 ---
 
 <Layout>
-	<header id="top" class="container header">
-		<a class="wordmark" href="/" aria-label="Yash Gupta, home">yg<span>.</span></a>
-		<ThemeToggle/>
-	</header>
+	<PageNav pages={ pages }/>
 
 	<main>
-		<section class="container hero" aria-labelledby="hero-title">
-			<div class="intro">
-				<PathLabel path="home"/>
-				<h1 id="hero-title" class="display-xl">Hi, I'm <span class="highlight">Yash</span>.</h1>
-				<p class="body-l lede">
-					I'm a full-stack developer from Kanpur, India, and an IIT Madras graduate. I build websites, apps
-					and everything in between.
-				</p>
-				<div class="actions">
-					<Button href={ `mailto:${ email }` }>Email me</Button>
-					<Button variant="ghost" href={ github.href }>GitHub →</Button>
+		<div data-page="home" tabindex="-1">
+			<header id="top" class="container header" role="banner">
+				<a class="wordmark" href="/" aria-label="Yash Gupta, home">yg<span>.</span></a>
+				<ThemeToggle/>
+			</header>
+
+			<section class="container hero" aria-labelledby="hero-title">
+				<div class="intro">
+					<PathLabel path="home"/>
+					<h1 id="hero-title" class="display-xl">Hi, I'm <span class="highlight">Yash</span>.</h1>
+					<p class="body-l lede">
+						I'm a full-stack developer from Kanpur, India, and an IIT Madras graduate. I build websites, apps
+						and everything in between.
+					</p>
+					<div class="actions">
+						<Button href={ `mailto:${ email }` }>Email me</Button>
+						<Button variant="ghost" href={ github.href }>GitHub →</Button>
+					</div>
 				</div>
-			</div>
-			<div class="art">
-				<Portrait/>
-				<p class="label muted hint" aria-hidden="true">psst, click me</p>
-			</div>
-			<a class="scroll-cue label" href="#experience">scroll <span aria-hidden="true">↓</span></a>
-		</section>
+				<div class="art">
+					<Portrait/>
+					<p class="label muted hint" aria-hidden="true">psst, click me</p>
+				</div>
+				<a class="scroll-cue label" href="#experience">scroll <span aria-hidden="true">↓</span></a>
+			</section>
+		</div>
 
-		<Experience/>
+		<div data-page="experience" tabindex="-1">
+			<Experience/>
+		</div>
 
-		<Projects/>
+		<div data-page="projects" tabindex="-1">
+			<Projects/>
+		</div>
 
-		<Toolbox/>
+		<div data-page="toolbox" tabindex="-1">
+			<Toolbox/>
+		</div>
 
-		<Contact/>
+		<div data-page="contact" tabindex="-1">
+			<Contact/>
+			<Footer/>
+		</div>
 	</main>
-
-	<Footer/>
 </Layout>
 
 <style>
